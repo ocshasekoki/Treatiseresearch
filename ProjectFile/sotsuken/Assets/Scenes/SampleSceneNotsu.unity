@@ -1988,7 +1988,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u306A\u3093\u304B\u5149\u3089\u305B\u308B"
+  m_Text: "\u306A\u3093\u304B\u5149\u3089\u305B\u308B\u3002"
 --- !u!222 &1440723636
 CanvasRenderer:
   m_ObjectHideFlags: 0
