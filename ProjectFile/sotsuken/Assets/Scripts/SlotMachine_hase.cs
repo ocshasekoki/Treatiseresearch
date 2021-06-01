@@ -11,13 +11,20 @@ public class SlotMachine_hase : MonoBehaviour
     [SerializeField]
     Text text;          //テキスト
 
-    
-    public static Dictionary<(int,int,int), string> dic = new Dictionary<(int, int, int), string>()
+    int symbolLeft;
+    int symbolCenter;
+    int symbolRight;
+
+    public static Dictionary<Role, (int l, int c, int r)> dic = new Dictionary<Role, (int l, int c, int r)>()
     {
-        {(1,1,1),"強チェリー"},
-        {(1,1,2|3|4|5|6|7) ,"中チェリー" },
-        {(1, 2|3|4|5|6|7, 2|3|4|5|6|7) ,"弱チェリー" },
+        {Role.NONE,(0,0,0) },
+        {Role.STRONGCHERRY,(1,1,1)},
+        {Role.CHERRY,(1,1,0)  },
+        {Role.WEAKCHERRY,(1, 0,0) },
+        {Role.REGBONUS,(2, 2, 2) },
+        {Role.WATERMELON,(3, 3, 3) },
     };
+
 
     void Start()
     {
@@ -25,57 +32,23 @@ public class SlotMachine_hase : MonoBehaviour
     }
     void PushSlot()
     {
-        List<Symbol> list = CreateSymbol();
-        foreach(Symbol s in list)
-        {
-            Debug.Log(s.ToString());
-            Debug.Log((int)s);
-        }
-    }
-
-    List<Symbol> CreateSymbol()
-    {
-        List<Symbol> list = new List<Symbol>();
-        Symbol sm = Symbol.CHERRY;
-        for(int i = 0; i < 3; i++)
-        {
-            int ramd = Random.Range(1, 7);
-            switch (ramd)
-            {
-                case 1:
-                    sm = Symbol.CHERRY;
-                    break;
-                case 2:
-                    sm = Symbol.BAR;
-                    break;
-                case 3:
-                    sm = Symbol.BELL;
-                    break;
-                case 4:
-                    sm = Symbol.QUESTION;
-                    break;
-                case 5:
-                    sm = Symbol.REPLAY;
-                    break;
-                case 6:
-                    sm = Symbol.SEVEN;
-                    break;
-                case 7:
-                    sm = Symbol.WATERMELON;
-                    break;
-                default:
-                    Debug.LogError("定義していない数字");
-                    break;
-            }
-            list.Add(sm);
-        }
+        //役生成
+        int rand = Random.Range(0, 5);
         
-        return list;
+        Debug.Log("小役:" + ((Role)rand).ToString() + " ID:" + rand);
+        Debug.Log(dic[(Role)rand]);
+
+        symbolLeft = dic[(Role)rand].l;
+        symbolCenter = dic[(Role)rand].c;
+        symbolRight = dic[(Role)rand].r;
+        
+        Debug.Log("左：" + symbolLeft + "　中：" + symbolCenter + "　右：" + symbolRight);
     }
 }
 
 public enum Symbol
 {
+    NONE = 0,
     CHERRY = 1,
     BAR = 2,
     WATERMELON = 3,
@@ -83,4 +56,13 @@ public enum Symbol
     BELL = 5,
     REPLAY = 6,
     QUESTION = 7
+}
+public enum Role
+{
+    NONE = 0,
+    WEAKCHERRY = 1,
+    CHERRY = 2,
+    STRONGCHERRY = 3,
+    REGBONUS = 4,
+    WATERMELON = 5,
 }
