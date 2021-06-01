@@ -29,7 +29,7 @@ public class cnotsu : MonoBehaviour
     {
         List<Symbol> list = new List<Symbol>();
         Symbol sm = Symbol.CHERRY;
-        for(int = 0; int < 3; int++)
+        for (int = 0; int < 3; int++);
         {
             int ramd = Random.Range(1, 7);
             switch(ramd)
@@ -79,3 +79,25 @@ public enum Symbol
     REPLAY = 6,
     QUESTION = 7
 }
+//Dictonary<Key,value>
+//キーで検索できる
+Dictonary<int, string> test = new Dictonary<int, string>()
+{
+    {10,"ほげ" },
+    {20,"もげ" },
+};
+//string str = test[10]
+//出力結果:"ほげ
+//stirng str = test[爆弾]
+//出力結果:"もげ"
+//testがDictonaryの名前でDictonary内で設定された値を検索し出力する。
+Dictonary<Animal, string> test = new Dictonary<Animal, string>()
+enum Animal
+{
+    TIGER = 100,
+    RABBIT,
+    CAT,
+    DOG
+}
+{ Animal.CAT,"猫" },
+{ Animal.TIGER,"トラ" },
