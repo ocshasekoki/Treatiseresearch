@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.LotteryCreator
-
 public class Slot_Mizui : MonoBehaviour
 {
     // 抽選関連の処理をまとめたクラス
@@ -23,7 +21,7 @@ public class Slot_Mizui : MonoBehaviour
             int koyaku = GetKoyaku(lottery);
 
             // 小役からwin枚数判別処理
-            GameObject.Find("Canvas").GetComponent<CanvasController>().GetMedal(koyaku);
+            //GameObject.Find("Canvas").GetComponent<CanvasController>().GetMedal(koyaku);
 
             // 抽選結果をもとに小役判定、位置をretrun
             return KoyakuPoint(koyaku);
