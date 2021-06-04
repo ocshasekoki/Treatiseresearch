@@ -4,24 +4,7 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    //
-    // オブジェクトが生成、読み込まれたとき動く
-    //
-    void Start()
-    {
-        //Moge();
-        StartCoroutine(Hoge());
-    }
 
-
-
-    /*
-     *フレーム毎呼ばれる 
-     */
-    void Update()
-    {
-        
-    }
 
     /* 非同期に動かすメソッド */
     IEnumerator Hoge()
