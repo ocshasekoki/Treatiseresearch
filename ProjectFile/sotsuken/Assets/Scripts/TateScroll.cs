@@ -6,16 +6,14 @@ public class TateScroll : MonoBehaviour
 {
     //スクロールスピード
     [SerializeField] float speed = 1;
-    void Update()
+    void FixedUpdate()
     {
-        //下方向にスクロール
-        transform.localPosition += Vector3.up*speed;
-        Debug.Log(transform.localPosition);
-        Debug.Log(transform.position);
-        //Yが-11まで来れば、21.33まで移動する
-        if (transform.localPosition.y >= 250f)
+        //下方向にスクロール  Vector3.up = new Vector3(0f,1f,0f); Vector3.front = new Vector3(0f,0f,1f);
+        transform.localPosition -= Vector3.up * speed;
+
+        if (transform.localPosition.y <= -450f)
         {
-            transform.localPosition = new Vector2(0, -450f);
+            transform.localPosition = new Vector2(0, 150f);
         }
     }
 }
