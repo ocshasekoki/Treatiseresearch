@@ -4,9 +4,24 @@ using UnityEngine;
 
 public class Slot_Mizui : MonoBehaviour
 {
+    public static void Main()
+    {
+        // Your code here!
+
+        var test = new Slot_Mizui();
+        var dataList = new List<int>(){
+            -1,1000, 0, 770, 895, 945, 985, 993, 997, 999, 894, 944, 984, 992, 996, 998
+        };
+        foreach (var data in dataList)
+        {
+            System.Console.WriteLine(data);
+            System.Console.WriteLine(test.GetKoyaku(data));
+        }
+    }
     // 抽選関連の処理をまとめたクラス
     public class LotteryCreator
     {
+
 
         // 共通変数
         private int MaxLottery;     // spinボタン用フラグ
@@ -40,7 +55,6 @@ public class Slot_Mizui : MonoBehaviour
         }
 
         // 抽選結果から小役振り分け（ここ次第で勝ち負けが大きく変わる）
-        // 【memo】
         // それぞれの小役に対応する番号と対応する抽選結果の範囲は以下の通り。
         // 0：ＢＲ　0～769　（約1.3分の1）
         // 1：リプ　770～894（8分の1）
@@ -50,32 +64,41 @@ public class Slot_Mizui : MonoBehaviour
         // 5：バー　993～996（250分の1）
         // 6：赤７　997～998（500分の1）
         // 7：青７　999     （1000分の1）
-        private int GetKoyaku(int lottery)
+        public int GetKoyaku(int lottery)
         {
-            if (lottery >= 0 && lottery <= 769) return 0;
-            else if (lottery >= 770 && lottery <= 894) return 1;
-            else if (lottery >= 895 && lottery <= 944) return 2;
-            else if (lottery >= 945 && lottery <= 984) return 3;
-            else if (lottery >= 985 && lottery <= 992) return 4;
-            else if (lottery >= 993 && lottery <= 996) return 5;
-            else if (lottery >= 997 && lottery <= 998) return 6;
-            else if (lottery <= 999) return 7;
-            else return 0;
-        }
+            if (lottery <= 769 || lottery > 999) return 0;
 
-        // 抽選結果をもとに小役判別して小役位置を返すメソッド
-        //
-        // 【memo】
-        // それぞれの小役に対応する番号と位置は以下の通り。
-        // 0：ＢＲ　-9.50f（本来は-10.20f、リール周期の都合上、-9.50f）
-        // 1：リプ　2.57
-        // 2：チェ　7.71
-        // 3：ベル　0.00
-        // 4：ｽｲｶ 　-2.57
-        // 5：バー　5.14
-        // 6：赤７　-7.71
-        // 7：青７　-5.14
-        private float KoyakuPoint(int koyaku)
+            var result = 1;
+            var conditionLists = new List<List<int>>(6){
+                new List<int>(2){770, 894},
+                new List<int>(2){895,944},
+                new List<int>(2){945,984},
+                new List<int>(2){985,992},
+                new List<int>(2){993,996},
+                new List<int>(2){997,998},
+            };
+
+            foreach (var conditionList in conditionLists)
+            {
+                if (lottery >= conditionList[0] && lottery <= conditionList[1]) return result;
+                result += 1;
+            }
+            return result;
+
+        }
+    
+
+    // 抽選結果をもとに小役判別して小役位置を返すメソッド
+    // それぞれの小役に対応する番号と位置は以下の通り。
+    // 0：ＢＲ　-9.50f（本来は-10.20f、リール周期の都合上、-9.50f）
+    // 1：リプ　2.57
+    // 2：チェ　7.71
+    // 3：ベル　0.00
+    // 4：ｽｲｶ 　-2.57
+    // 5：バー　5.14
+    // 6：赤７　-7.71
+    // 7：青７　-5.14
+    private float KoyakuPoint(int koyaku)
         {
 
             // リール位置返却
