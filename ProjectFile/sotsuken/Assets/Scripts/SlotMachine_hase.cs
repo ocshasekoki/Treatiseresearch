@@ -6,11 +6,17 @@ using UnityEngine.UI;
 
 public class SlotMachine_hase : MonoBehaviour
 {
-    int symbolLeft;
-    int symbolCenter;
-    int symbolRight;
+    private int symbolLeft = 0;
+    private int symbolCenter = 0;
+    private int symbolRight = 0;
 
-
+    /// <summary>
+    /// 役に対応する柄のディクショナリ
+    /// <para>Role :役のこと。列挙型</para>
+    /// <para>l :leftの略。左の柄のIDを示す。</para>
+    /// <para>c :centerの略。中央の柄のIDを示す。</para>
+    /// <para>r :rightの略。右の柄のIDを示す。</para>
+    /// </summary>
     public static Dictionary<Role, (int l, int c, int r)> dic = new Dictionary<Role, (int l, int c, int r)>()
     {
         {Role.NONE,(0,0,0) },
@@ -26,15 +32,17 @@ public class SlotMachine_hase : MonoBehaviour
         {Role.FREEZE,(7, 7, 7) },
     };
 
-    void Start()
+    private void Start()
     {
-        PushSlot();
+        //RandomRole();
+        TestCase();
     }
-    void PushSlot()
+
+    /// <summary>
+    /// ランダムに役を決定するメソッド
+    /// </summary>
+    private void DecideSymbol(int rand)
     {
-        //役生成
-        int rand = UnityEngine.Random.Range(0, 8);
-        
         Debug.Log("小役:" + ((Role)rand).ToString() + " ID:" + rand);
         Debug.Log(dic[(Role)rand]);
 
@@ -44,8 +52,55 @@ public class SlotMachine_hase : MonoBehaviour
         
         Debug.Log("左：" + symbolLeft + "　中：" + symbolCenter + "　右：" + symbolRight);
     }
-}
+    private void RandomRole()
+    {
+        int rand = UnityEngine.Random.Range(0, 8192);
+        Debug.Log(DecideRole(rand));
+    }
 
+    private int DecideRole(int random)
+    {
+        List<int> roleList = new List<int>();
+        roleList.Add(0);
+        foreach (int index in Enum.GetValues(typeof(Role)))
+        {
+            roleList.Add(index);
+            if(random <= roleList[roleList.Count - 1])
+            {
+                return roleList[roleList.Count - 1];
+            }
+        }
+        return 8192;
+    }
+    private void TestCase()
+    {
+        string str = "";
+        string rolename = "";
+        int count = 0;
+        for (int i = 0; i <= 8192; i++)
+        {
+            rolename = Enum.GetName(typeof(Role), DecideRole(i));
+            count++;
+            if (str != rolename)
+            {
+                str = rolename;
+                Debug.Log("役：" + str +" 確率："+count + "/8192");
+                count = 0;
+            }
+        }
+    }
+}
+/// <summary>
+/// 柄の列挙型
+/// <para>NONE：役無し</para>
+/// <para>CHERRY：チェリー</para>
+/// <para>WATERMELON：スイカ</para>
+/// <para>BELL：ベル</para>
+/// <para>REPLAY：リプレイ</para>
+/// <para>QUESTION：問題</para>
+/// <para>BAR：バー</para>
+/// <para>SEVEN：７</para>
+/// </summary>
 public enum Symbol
 {
     NONE = 0,
@@ -56,19 +111,31 @@ public enum Symbol
     QUESTION = 5,
     BAR = 6,
     SEVEN = 7,
-    FREEZE = 8
 }
+/// <summary>
+/// 役の列挙型
+/// <para>FREEZE：フリーズ 1/8192</para>
+/// <para>BIGBONUS：ビッグボーナス 1/4096</para>
+/// <para>REGBONUS：レギュラーボーナス 1/2048</para>
+/// <para>STRONGCHERRY：強チェリー 1/250</para>
+/// <para>CHERRY：中チェリー 1/150</para>
+/// <para>WEAKCHERRY：弱チェリー 1/80</para>
+/// <para>WATERMELON：スイカ 1/120</para>
+/// <para>QUESTION：問題出題 1/30</para>
+/// <para>REPLAY：リプレイ 1/5</para>
+/// <para>NONE：役無し</para>
+/// </summary>
 public enum Role
 {
     FREEZE = 0,
-    BIGBONUS = 1,
-    REGBONUS = 2,
-    BELL = 3,
-    STRONGCHERRY = 4,
-    CHERRY = 5,
-    WEAKCHERRY = 6,
-    WATERMELON = 7,
-    QUESTION = 8,
-    REPLAY = 9,
-    NONE = 10,
+    BIGBONUS = 2,
+    REGBONUS = 8,
+    STRONGCHERRY = 49,
+    CHERRY = 104,
+    WEAKCHERRY = 206,
+    WATERMELON = 274,
+    QUESTION = 550,
+    BELL = 960,
+    REPLAY = 2598,
+    NONE = 8192,
 }
