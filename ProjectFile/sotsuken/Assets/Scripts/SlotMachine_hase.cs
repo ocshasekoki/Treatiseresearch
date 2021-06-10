@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +8,7 @@ public class SlotMachine_hase : MonoBehaviour
     private int symbolLeft = 0;
     private int symbolCenter = 0;
     private int symbolRight = 0;
-
+    private Condition condition = Condition.NOMAL;
     /// <summary>
     /// 役に対応する柄のディクショナリ
     /// <para>Role :役のこと。列挙型</para>
@@ -17,7 +16,7 @@ public class SlotMachine_hase : MonoBehaviour
     /// <para>c :centerの略。中央の柄のIDを示す。</para>
     /// <para>r :rightの略。右の柄のIDを示す。</para>
     /// </summary>
-    public static Dictionary<Role, (int l, int c, int r)> dic = new Dictionary<Role, (int l, int c, int r)>()
+    public static Dictionary<Role, (int l, int c, int r)> symbolDic = new Dictionary<Role, (int l, int c, int r)>()
     {
         {Role.NONE,(0,0,0) },
         {Role.STRONGCHERRY,(1,1,1)},
@@ -32,36 +31,70 @@ public class SlotMachine_hase : MonoBehaviour
         {Role.FREEZE,(7, 7, 7) },
     };
 
-    private void Start()
+    public static Dictionary<Role, int> roleprobdic = new Dictionary<Role, int>()
+    { {Role.WEAKCHERRY,10 },
+      {Role.CHERRY,20 },
+    
+    
+    };
+
+    /// <summary>
+    /// 状態によっての確率のディクショナリ
+    /// </summary>
+    public static Dictionary<Condition, (int first, int last)> probdic = new Dictionary<Condition, (int first, int last)>()
     {
-        //RandomRole();
-        TestCase();
+        {Condition.NOMAL,(0,8192) },
+        {Condition.HIGHPROBABILITY,(0,6000) },
+        {Condition.SUPERHIGH,(0,4000) },
+        {Condition.BONUS,(9,960) },
+        {Condition.ART,(0,960) }
+    };
+
+    /// <summary>
+    /// ればーおん！
+    /// </summary>
+    public void LeverOn()
+    {
+        RandomRole(condition);
+    }
+    /// <summary>
+    /// ランダムな数値を出す
+    /// </summary>
+    /// <param name="condition">現在のスロットの状態</param>
+    private void RandomRole(Condition con)
+    {
+        int rand = UnityEngine.Random.Range(probdic[con].first, probdic[con].last);
+        Debug.Log(rand);
+        DecideSymbol(DecideRole(rand));
     }
 
     /// <summary>
-    /// ランダムに役を決定するメソッド
+    /// 役からそろう柄を決定するメソッド
     /// </summary>
     private void DecideSymbol(int rand)
     {
         Debug.Log("小役:" + ((Role)rand).ToString() + " ID:" + rand);
-        Debug.Log(dic[(Role)rand]);
+        Debug.Log(symbolDic[(Role)rand]);
 
-        symbolLeft = dic[(Role)rand].l;
-        symbolCenter = dic[(Role)rand].c;
-        symbolRight = dic[(Role)rand].r;
+        symbolLeft = symbolDic[(Role)rand].l;
+        symbolCenter = symbolDic[(Role)rand].c;
+        symbolRight = symbolDic[(Role)rand].r;
         
         Debug.Log("左：" + symbolLeft + "　中：" + symbolCenter + "　右：" + symbolRight);
     }
-    private void RandomRole()
-    {
-        int rand = UnityEngine.Random.Range(0, 8192);
-        Debug.Log(DecideRole(rand));
-    }
 
+    public void ConditionTest()
+    {
+        condition = Condition.SUPERHIGH;
+    }
+    /// <summary>
+    /// 数値に対応する役を抽出するメソッド
+    /// </summary>
+    /// <param name="random">確率の分母となる引数</param>
+    /// <returns>enumの役の格納ナンバー</returns>
     private int DecideRole(int random)
     {
         List<int> roleList = new List<int>();
-        roleList.Add(0);
         foreach (int index in Enum.GetValues(typeof(Role)))
         {
             roleList.Add(index);
@@ -70,8 +103,11 @@ public class SlotMachine_hase : MonoBehaviour
                 return roleList[roleList.Count - 1];
             }
         }
-        return 8192;
+        return 0;
     }
+    /// <summary>
+    /// テストメソッド
+    /// </summary>
     private void TestCase()
     {
         string str = "";
@@ -83,8 +119,11 @@ public class SlotMachine_hase : MonoBehaviour
             count++;
             if (str != rolename)
             {
+                if (str != "")
+                {
+                    Debug.Log("役：" + str + " 確率：" + count + "/8192");
+                }
                 str = rolename;
-                Debug.Log("役：" + str +" 確率："+count + "/8192");
                 count = 0;
             }
         }
@@ -135,7 +174,15 @@ public enum Role
     WEAKCHERRY = 206,
     WATERMELON = 274,
     QUESTION = 550,
-    BELL = 960,
-    REPLAY = 2598,
+    BELL = 1920,
+    REPLAY = 4651,
     NONE = 8192,
+}
+public enum Condition
+{
+    SUPERHIGH,
+    BONUS,
+    ART,
+    HIGHPROBABILITY,
+    NOMAL,
 }

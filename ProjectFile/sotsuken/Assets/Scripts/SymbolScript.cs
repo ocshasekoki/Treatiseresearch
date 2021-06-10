@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class TateScroll : MonoBehaviour
+public class SymbolScript: MonoBehaviour
 {
     //スクロールスピード
     [SerializeField] private float speed = 1;
