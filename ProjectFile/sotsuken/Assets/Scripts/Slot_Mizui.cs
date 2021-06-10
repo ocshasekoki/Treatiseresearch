@@ -15,12 +15,10 @@ public class Slot_Mizui : MonoBehaviour
         foreach (var data in dataList)
         {
             System.Console.WriteLine(data);
-            System.Console.WriteLine(test.GetKoyaku(data));
+            System.Console.WriteLine(GetKoyaku(data));
         }
     }
     // 抽選関連の処理をまとめたクラス
-    public class LotteryCreator
-    {
 
 
         // 共通変数
@@ -64,7 +62,7 @@ public class Slot_Mizui : MonoBehaviour
         // 5：バー　993～996（250分の1）
         // 6：赤７　997～998（500分の1）
         // 7：青７　999     （1000分の1）
-        public int GetKoyaku(int lottery)
+        public static int GetKoyaku(int lottery)
         {
             if (lottery <= 769 || lottery > 999) return 0;
 
@@ -99,22 +97,22 @@ public class Slot_Mizui : MonoBehaviour
     // 6：赤７　-7.71
     // 7：青７　-5.14
     private float KoyakuPoint(int koyaku)
+    {
+
+        // リール位置返却
+        switch (koyaku)
         {
-
-            // リール位置返却
-            switch (koyaku)
-            {
-                case 0: return -9.50f;
-                case 1: return 2.57f;
-                case 2: return 7.71f;
-                case 3: return 0.00f;
-                case 4: return -2.57f;
-                case 5: return 5.14f;
-                case 6: return -7.71f;
-                case 7: return -5.14f;
-                default: return -9.50f;
-            }
+            case 0: return -9.50f;
+            case 1: return 2.57f;
+            case 2: return 7.71f;
+            case 3: return 0.00f;
+            case 4: return -2.57f;
+            case 5: return 5.14f;
+            case 6: return -7.71f;
+            case 7: return -5.14f;
+            default: return -9.50f;
         }
-
     }
+
 }
+
