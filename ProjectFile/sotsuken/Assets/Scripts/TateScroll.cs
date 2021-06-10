@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TateScroll : MonoBehaviour
 {
@@ -9,7 +7,7 @@ public class TateScroll : MonoBehaviour
     [SerializeField] private float upperlimit = 250f;
     [SerializeField] private float lowerlimit = -450f;
     [SerializeField] private float assist = -150f;
-
+    [SerializeField] public  Symbol symbol = Symbol.BAR;
 
     void FixedUpdate()
     {
