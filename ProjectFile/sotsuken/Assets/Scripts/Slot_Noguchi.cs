@@ -2,80 +2,79 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using Assets.LotteryCreator;
+
 public class Slot_Noguchi : MonoBehaviour
 {
-    public GameObject[] imgobj; //絵柄のプレハブを格納(計7種）
-    GameObject[] tmp_obj = new GameObject[90];//リールの配列（プレハブの種類が入る）
-    Transform[] img_pos = new Transform[90];//リールの柄の位置
-    Transform pos;  //リールのTransform
+    private bool SpinButtonFlg;
+    private bool StopButtonFlg;
 
-    int div0 = 7;//赤＄＄＄が出るしきい値
-    int div1 = 15;//＄＄＄が出るしきい値
-    int div2 = 20;//BARが出るしきい値
-    int div3 = 40;//bが出るしきい値
-    int div4 = 55;//0が出るしきい値
-    int div5 = 80;//wが出るしきい値
-    //%が出るしきい値
-    void Awake()//ゲーム開始時に
+    private float TargetPointA;
+    private float TargetPointB;
+
+    LotteryCreator lottery = new LotteryCreator();
+    void Start()
     {
-        GenerateReel();//リール生成関数を呼び出す
+        SpinButtonFlg = false;
+        StopButtonFlg = false;
+        TargetPointA = 0f;
+        TargetPointB = 0f;
     }
-    public void GenerateReel()//リール生成関数本体
+    void Update()
     {
-        pos = GetComponent<Transform>();//リールのTransformはオブジェクト位置とする
-
-        for (int i = 0; i < 90; i++)
+        if (StopButtonFlg &&
+           (transform.position.y <= TargetPointA && transform.position.y > TargetPointB)
+          )
         {
-            Vector3 pos = new Vector3(0.0f, -1.5f + (1.5f * i), 0.0f);//プレハブ位置の決定
-            int tmp;
-            int rand = Random.Range(0, 91);//0~91の数字をランダムで生成
-            if (0 < rand && rand < div0 //もし数字が0～赤＄＄＄のしきい値以内だったら
-                )
+            SpinButtonFlg = false;
+            StopButtonFlg = false;
+
+            // win枚数反映処理
+            GameObject.Find("Canvas").GetComponent<CanvasController>().WinMedal();
+        }
+
+        // spinボタンが押されたら
+        if (SpinButtonFlg)
+        {
+            // リール回転処理
+            transform.Translate(0, -0.6425f, 0);
+
+            // リール位置が一定位置を超えたら先頭に戻る
+            if (transform.position.y < -10.25f)
             {
-                tmp = 0;//赤＄＄＄の絵柄idをtempに代入
+                transform.position = new Vector3(0, 10.2f, 0);
             }
-            else if (div0 < rand && rand < div1 // もし数字が赤＄＄＄のしきい値～＄＄＄のしきい値以内だったら               
-                )
-            {
-                tmp = 1;//＄＄＄の絵柄idをtempに代入
-            }
-            else if (div1 < rand && rand < div2 //以下他の絵柄について同様に
-               )
-            {
-                tmp = 2;
-            }
-            else if (div2 < rand && rand < div3
-               )
-            {
-                tmp = 3;
-            }
-            else if (div3 < rand && rand < div4
-               )
-            {
-                tmp = 4;
-            }
-            else if (div4 < rand && rand < div5
-               )
-            {
-                tmp = 5;
-            }
-            else
-            {
-                tmp = 6;
-            }
-            tmp_obj[i] = (GameObject)Instantiate(imgobj[tmp]); //プレハブからtempの絵柄idのGameObjectを生成
-            tmp_obj[i].transform.SetParent(transform, false); //リールのオブジェクトを親にする
-            img_pos[i] = tmp_obj[i].GetComponent<Transform>();//プレハブのtransformを取得
-            img_pos[i].localPosition = pos;//プレハブ位置の代入
+        }
+
+    }
+
+    //　画面上に配置しているボタンを押したときの処理
+    void OnGUI()
+    {
+        // spinボタン
+        if (GUI.Button(new Rect(10, 320, 100, 30), "bet and spin"))
+        {
+
+            // bet枚数反映処理
+            GameObject.Find("Canvas").GetComponent<CanvasController>().InsertMedal();
+
+            // リール停止位置AとBを取得
+            TargetPointA = lottery.LotteryKoyakuPoint();
+            TargetPointB = TargetPointA - 0.6425f;
+
+            SpinButtonFlg = true;
+
+        }
+
+        // stopボタン
+        if (GUI.Button(new Rect(385, 320, 100, 30), "stop"))
+        {
+            StopButtonFlg = true;
         }
     }
-    public void DestroyReel()
-    {　//リールをデストロイしてリセットする関数
-        GameObject[] reels = GameObject.FindGameObjectsWithTag("reel"); //reelタグが付いているオブジェクトをすべて取得
-        foreach (GameObject i in reels)//各reelsのオブジェクトに対して以下を行う
-        {
-            Destroy(i);//reelsの各オブジェクトを破壊する
-        }
-    }
+
 }
-//一応これが参考にして作成した、確率のやつ
+
+//ifの分岐を減らす
+//listを使用してコードの分量を減らす
+//とにかく減らして見やすくすること
