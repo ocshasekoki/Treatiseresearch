@@ -33,7 +33,8 @@ public class SlotMachine_hase : MonoBehaviour
 
     public static Dictionary<Role, int> roleprobdic = new Dictionary<Role, int>()
     { {Role.WEAKCHERRY,10 },
-      {Role.CHERRY,20 },
+      {Role.CHERRY,15 },
+      {Role.QUESTION, 25 },
     
     
     };
