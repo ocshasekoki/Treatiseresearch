@@ -32,18 +32,18 @@ public class SlotMachine_hase : MonoBehaviour
     };
 
     public static Dictionary<Role, int> roleprobdic = new Dictionary<Role, int>()
-    { {Role.WEAKCHERRY,10 },
-      {Role.CHERRY,15 },
-      {Role.QUESTION, 40 },
-      {Role.BELL, 25 },
-      {Role.REPLAY, 35 },
-      {Role.WATERELON, 20 },
-      {Role.STRONGCHERRY, 2 },
-      {Role.FREEZE, 1 },
-      {Role.REGBONUS, 7 },
-      {Role.BIGBOUNUS, 3 },
-      {Role.NONE, 0 },
-    
+    {
+        { Role.WEAKCHERRY,10 },
+        {Role.CHERRY,15 },
+        {Role.QUESTION, 40 },
+        {Role.BELL, 25 },
+        {Role.REPLAY, 35 },
+        {Role.WATERMELON, 20 },
+        {Role.STRONGCHERRY, 2 },
+        {Role.FREEZE, 1 },
+        {Role.REGBONUS, 7 },
+        {Role.BIGBONUS, 3 },
+        {Role.NONE, 0 },
     };
 
     /// <summary>
@@ -78,6 +78,7 @@ public class SlotMachine_hase : MonoBehaviour
 
     /// <summary>
     /// 役からそろう柄を決定するメソッド
+    /// <param name="rand">生成された乱数</param>
     /// </summary>
     private void DecideSymbol(int rand)
     {

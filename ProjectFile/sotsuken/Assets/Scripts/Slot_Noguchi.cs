@@ -2,77 +2,74 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using Assets.LotteryCreator;
+
 
 public class Slot_Noguchi : MonoBehaviour
 {
-    private bool SpinButtonFlg;
-    private bool StopButtonFlg;
-
-    private float TargetPointA;
-    private float TargetPointB;
-
-    LotteryCreator lottery = new LotteryCreator();
-    void Start()
+    int correctcount = 0;   //正解数
+    Dictionary<Role, int> percentdic = new Dictionary<Role, int>()
     {
-        SpinButtonFlg = false;
-        StopButtonFlg = false;
-        TargetPointA = 0f;
-        TargetPointB = 0f;
-    }
-    void Update()
+        { Role.WEAKCHERRY,1 },
+        {Role.CHERRY,20 },
+        {Role.QUESTION, 5 },
+        {Role.BELL, 1 },
+        {Role.WATERMELON, 10 },
+        {Role.STRONGCHERRY, 50 },
+    };
+
+    private void RoleDecide(Role role)
     {
-        if (StopButtonFlg &&
-           (transform.position.y <= TargetPointA && transform.position.y > TargetPointB)
-          )
-        {
-            SpinButtonFlg = false;
-            StopButtonFlg = false;
-
-            // win枚数反映処理
-            GameObject.Find("Canvas").GetComponent<CanvasController>().WinMedal();
-        }
-
-        // spinボタンが押されたら
-        if (SpinButtonFlg)
-        {
-            // リール回転処理
-            transform.Translate(0, -0.6425f, 0);
-
-            // リール位置が一定位置を超えたら先頭に戻る
-            if (transform.position.y < -10.25f)
-            {
-                transform.position = new Vector3(0, 10.2f, 0);
-            }
-        }
-
+         Debug.Log("ボーナス判定" + BonusJudge(percentdic[role]));
     }
 
-    //　画面上に配置しているボタンを押したときの処理
-    void OnGUI()
+    /// <summary>
+    /// 回答に対応する確率をとってくる関数
+    /// </summary>
+    /// <param name="currect">正解かどうか</param>
+    /// <returns>確率(%)</returns>
+    int Answer(bool currect)
     {
-        // spinボタン
-        if (GUI.Button(new Rect(10, 320, 100, 30), "bet and spin"))
-        {
-
-            // bet枚数反映処理
-            GameObject.Find("Canvas").GetComponent<CanvasController>().InsertMedal();
-
-            // リール停止位置AとBを取得
-            TargetPointA = lottery.LotteryKoyakuPoint();
-            TargetPointB = TargetPointA - 0.6425f;
-
-            SpinButtonFlg = true;
-
-        }
-
-        // stopボタン
-        if (GUI.Button(new Rect(385, 320, 100, 30), "stop"))
-        {
-            StopButtonFlg = true;
-        }
+        if (currect) correctcount++;
+        else correctcount = 0;
+        return correctcount * percentdic[Role.QUESTION];
+    }
+    /// <summary>
+    /// ボーナス判定
+    /// </summary>
+    /// <param name="percent">確率(%)</param>
+    /// <returns>ボーナスの判定</returns>
+    public bool BonusJudge(int percent)
+    {
+        int rand = UnityEngine.Random.Range(1, 100);
+        Debug.Log("乱数：" + rand);
+        if (rand <= percent) return true;
+        else return false;
     }
 
+    public void Test()
+    {
+        Debug.Log(Answer(true));
+        Debug.Log(Answer(true));
+        Debug.Log(Answer(true));
+        Debug.Log(Answer(true));
+        Debug.Log(Answer(true));
+        Debug.Log(Answer(false));
+        Debug.Log(Answer(true));
+        Debug.Log(Answer(true));
+    }
+    public void Test2()
+    {
+        Debug.Log("強チェリー");
+        RoleDecide(Role.STRONGCHERRY);
+        Debug.Log("中チェリー");
+        RoleDecide(Role.CHERRY);
+        Debug.Log("弱チェリー");
+        RoleDecide(Role.WEAKCHERRY);
+        Debug.Log("スイカ");
+        RoleDecide(Role.WATERMELON);
+        Debug.Log("ベル");
+        RoleDecide(Role.BELL);
+    }
 }
 
 //ifの分岐を減らす
