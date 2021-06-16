@@ -95,13 +95,11 @@ public class SlotMachine_hase : MonoBehaviour
     /// <returns>enumの役の格納ナンバー</returns>
     private int DecideRole(int random)
     {
-        List<int> roleList = new List<int>();
         foreach (int index in Enum.GetValues(typeof(Role)))
         {
-            roleList.Add(index);
             if(random <= roleList[roleList.Count - 1])
             {
-                return roleList[roleList.Count - 1];
+                return index;
             }
         }
         return 0;
@@ -109,7 +107,7 @@ public class SlotMachine_hase : MonoBehaviour
     /// <summary>
     /// テストメソッド
     /// </summary>
-    private void TestCase()
+    private static void TestCase()
     {
         string str = "";
         string rolename = "";
