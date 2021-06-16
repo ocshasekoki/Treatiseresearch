@@ -6,7 +6,7 @@ public class Slot_Mizui : MonoBehaviour
 {
     public static void Main()
     {
-        // Your code here!
+       
 
         var test = new Slot_Mizui();
         var dataList = new List<int>(){
@@ -51,18 +51,41 @@ public class Slot_Mizui : MonoBehaviour
             return random.Next(MaxLottery);
 
         }
-
-        // 抽選結果から小役振り分け（ここ次第で勝ち負けが大きく変わる）
-        // それぞれの小役に対応する番号と対応する抽選結果の範囲は以下の通り。
-        // 0：ＢＲ　0～769　（約1.3分の1）
-        // 1：リプ　770～894（8分の1）
-        // 2：チェ　945～984（20分の1）
-        // 3：ベル　945～984（25分の1）
-        // 4：ｽｲｶ   985～992（125分の1）
-        // 5：バー　993～996（250分の1）
-        // 6：赤７　997～998（500分の1）
-        // 7：青７　999     （1000分の1）
-        public static int GetKoyaku(int lottery)
+    ///<summaly>
+    /// 抽選結果から小役振り分け（ここ次第で勝ち負けが大きく変わる）
+    ///それぞれの小役に対応する番号と対応する抽選結果の範囲は以下の通り。
+    /// 0：ＢＲ　0～769　（約1.3分の1）
+    /// 1：リプ　770～894（8分の1）
+    /// 2：チェ　945～984（20分の1）
+    /// 3：ベル　945～984（25分の1）
+    /// 4：ｽｲｶ   985～992（125分の1）
+    /// 5：バー　993～996（250分の1）
+    ///6：赤７　997～998（500分の1）
+    /// 7：青７　999     （1000分の1）
+    /// </summary>
+    public enum Koyaku
+    {
+        BLUE = 0,
+        RED = 2,
+        BAR = 8,
+        WATERMELON=32,
+        BEL = 128,
+        CHERRY = 256,
+        REPLAY = 512,
+        NONE = 999
+    }
+    private Koyaku DecideRole(int random)
+    {
+        foreach (int index in Enum.GetValues(typeof(Koyaku)))
+        {
+            if (random <= index)
+            {
+                return (Koyaku)index;
+            }
+        }
+        return 0;
+    }
+    public static int GetKoyaku(int lottery)
         {
             if (lottery <= 769 || lottery > 999) return 0;
 
