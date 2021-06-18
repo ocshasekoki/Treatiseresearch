@@ -4,8 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Test
+public class Test :MonoBehaviour
 {
+    void Start()
+    {
+        TestCase();
+        Prodic dic = new Prodic();
+        dic.InputDic();
+    }
+
     /// <summary>
     /// テストメソッド
     /// </summary>
@@ -30,16 +37,6 @@ public class Test
         }
     }
 
-    public static void BonusJudgle(Role role)
-    {
-        Debug.Log(Dic.percentdic[Role.BELL]);
-        Debug.Log(Dic.percentdic[Role.CHERRY]);
-        Debug.Log(Dic.percentdic[Role.STRONGCHERRY]);
-        Debug.Log(Dic.percentdic[Role.WEAKCHERRY]);
-        Debug.Log(Dic.percentdic[Role.WATERMELON]);
-        Debug.Log(Dic.percentdic[Role.QUESTION]);
-        Debug.Log("ボーナス判定" + SlotMachine_hase.BonusJudge(Dic.percentdic[role]));
-    }
 
 }
 

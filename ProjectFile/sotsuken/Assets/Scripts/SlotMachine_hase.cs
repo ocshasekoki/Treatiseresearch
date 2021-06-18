@@ -9,9 +9,9 @@ public class SlotMachine_hase : MonoBehaviour
     private int symbolCenter = 0;
     private int symbolRight = 0;
 
-    private Data data;
     private Condition condition = Condition.NOMAL;
     private Config config = 0;
+    private Data data;
     /// <summary>
     /// ればーおん！
     /// </summary>
@@ -37,11 +37,11 @@ public class SlotMachine_hase : MonoBehaviour
     private void DecideSymbol(int rand)
     {
         Debug.Log("小役:" + ((Role)rand).ToString() + " ID:" + rand);
-        Debug.Log(Dic.symbolDic[(Role)rand]);
+        Debug.Log(Data.symbolDic[(Role)rand]);
 
-        symbolLeft = Dic.symbolDic[(Role)rand].l;
-        symbolCenter = Dic.symbolDic[(Role)rand].c;
-        symbolRight = Dic.symbolDic[(Role)rand].r;
+        symbolLeft = Data.symbolDic[(Role)rand].l;
+        symbolCenter = Data.symbolDic[(Role)rand].c;
+        symbolRight = Data.symbolDic[(Role)rand].r;
         
         Debug.Log("左：" + symbolLeft + "　中：" + symbolCenter + "　右：" + symbolRight);
     }
@@ -83,9 +83,10 @@ public class SlotMachine_hase : MonoBehaviour
     /// <returns></returns>
     public int Answer(bool currect)
     {
-        if (currect) data.correctcount++;
-        else data.correctcount = 0;
-        return data.correctcount * Dic.dic[Role.QUESTION][(int)config,(int)condition];
+        if (currect) data.Cor++;
+        else data.Cor = 0;
+        return data.Cor;
+        //return data.correctcount * Dic.dic[Role.QUESTION][(int)config,(int)condition];
     }
 }
 

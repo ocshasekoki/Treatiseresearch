@@ -74,6 +74,7 @@ public class Slot_Mizui : MonoBehaviour
         REPLAY = 512,
         NONE = 999
     }
+    /*
     private Koyaku DecideRole(int random)
     {
         foreach (int index in Enum.GetValues(typeof(Koyaku)))
@@ -85,6 +86,7 @@ public class Slot_Mizui : MonoBehaviour
         }
         return 0;
     }
+    */
     public static int GetKoyaku(int lottery)
         {
             if (lottery <= 769 || lottery > 999) return 0;

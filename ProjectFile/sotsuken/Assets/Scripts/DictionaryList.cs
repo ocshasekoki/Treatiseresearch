@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dic
+public class Dica
 {
     /// <summary>
     /// 役に対応する柄のディクショナリ
@@ -11,20 +11,7 @@ public class Dic
     /// <para>c :centerの略。中央の柄のIDを示す。</para>
     /// <para>r :rightの略。右の柄のIDを示す。</para>
     /// </summary>
-    public static Dictionary<Role, (int l, int c, int r)> symbolDic = new Dictionary<Role, (int l, int c, int r)>()
-    {
-        {Role.NONE,(0,0,0) },
-        {Role.STRONGCHERRY,(1,1,1)},
-        {Role.CHERRY,(1,1,0)  },
-        {Role.WEAKCHERRY,(1, 0,0) },
-        {Role.WATERMELON,(2, 2, 2) },
-        {Role.BELL,(3, 3, 3) },
-        {Role.REPLAY,(4, 4, 4) },
-        {Role.QUESTION,(5, 5, 5) },
-        {Role.REGBONUS,(7, 7, 6) },
-        {Role.BIGBONUS,(7, 7, 7) },
-        {Role.FREEZE,(7, 7, 7) },
-    };
+
     /// <summary>
     /// int[設定,状態(Condition)]
     /// </summary>
