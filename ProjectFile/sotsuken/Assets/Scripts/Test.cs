@@ -1,87 +1,45 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class Status
+
+
+public class Test
 {
-    public int hp;
-    public int mp;
-    public string name;
-    public void Dump()
+    /// <summary>
+    /// テストメソッド
+    /// </summary>
+    public static void TestCase()
     {
-        Debug.Log(hp);
-        Debug.Log(mp);
-        Debug.Log(name);
-    }
-}
-public class Test : MonoBehaviour
-{
-    private void Start()
-    {
-        Status status1 = new Status();
-        status1.hp = 100;
-        status1.mp = 80;
-        status1.name = "hoge";
-        status1.Dump();
-
-        Status status2 = new Status();
-        status2.hp = 150;
-        status2.mp = 50;
-        status2.name = "moge";
-        status2.Dump();
-    }
-    /* 非同期に動かすメソッド */
-    IEnumerator Hoge()
-    {
-        yield return new WaitForSeconds(1f);
-        Coin = 3;
-        Debug.Log(Coin);
-        StartCoroutine(Hoge());
-    }
-    public void Moge()
-    {
-        Debug.Log(Tinge());
-        Debug.Log(Mange());
-        Debug.Log(Ketsuge());
-        Debug.Log(coin);
-        Debug.Log(Coin);
-        Coin = 3;
-        Debug.Log(coin);
+        string str = "";
+        string rolename = "";
+        int count = 0;
+        for (int i = 0; i <= 8192; i++)
+        {
+            rolename = Enum.GetName(typeof(Role), SlotMachine_hase.DecideRole(i));
+            count++;
+            if (str != rolename)
+            {
+                if (str != "")
+                {
+                    Debug.Log("役：" + str + " 確率：" + count + "/8192");
+                }
+                str = rolename;
+                count = 0;
+            }
+        }
     }
 
-    private string Tinge()
+    public static void BonusJudgle(Role role)
     {
-        return "ちんげ"; 
+        Debug.Log(Dic.percentdic[Role.BELL]);
+        Debug.Log(Dic.percentdic[Role.CHERRY]);
+        Debug.Log(Dic.percentdic[Role.STRONGCHERRY]);
+        Debug.Log(Dic.percentdic[Role.WEAKCHERRY]);
+        Debug.Log(Dic.percentdic[Role.WATERMELON]);
+        Debug.Log(Dic.percentdic[Role.QUESTION]);
+        Debug.Log("ボーナス判定" + SlotMachine_hase.BonusJudge(Dic.percentdic[role]));
     }
 
-    private int Mange()
-    {
-        return 1;
-    }
-
-    private float Ketsuge()
-    {
-        return 1.5f;
-    }
-
-    int coin = 100;
-    int Coin
-    {
-        //読み込まれるとき
-        get { return coin; }
-        //Coin = 10  格納されるとき
-        //coin -=10
-        set { coin -= value; }
-    }
-    public static void Poge()
-    {
-        Debug.Log("ぽげ");
-    }
-    public static IEnumerator<int> Unchi()
-    {
-        yield return 1;
-        yield return 2;
-        yield return 3;
-        yield break;
-    }
 }
 
