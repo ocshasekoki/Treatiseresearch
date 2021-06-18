@@ -9,9 +9,10 @@ public class Slot_Mizui : MonoBehaviour
 
 
         var test = new Slot_Mizui();
-        var dataList = new List<int>(){
+        var dataList = new List<int>()
+        {
                 -1,1000, 0, 770, 895, 945, 985, 993, 997, 999, 894, 944, 984, 992, 996, 998
-            };
+        };
         foreach (var data in dataList)
         {
             System.Console.WriteLine(data);
