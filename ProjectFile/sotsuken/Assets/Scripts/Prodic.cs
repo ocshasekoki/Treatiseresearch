@@ -1,18 +1,32 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using UnityEngine;
 
 public class Prodic :MonoBehaviour
 {
+    private const string format = ".json";
+    /// <summary>
+    /// ボーナス確率を取ってくる関数
+    /// </summary>
+    /// <param name="dic">対応するディクショナリ</param>
+    /// <param name="c">設定</param>
+    /// <param name="r">役</param>
+    /// <param name="cd">状態</param>
+    /// <returns>確率</returns>
     public static int GetOc(Dic dic,Config c,Role r,Condition cd)
     {
-        return dic.ocdic.Find(x => x.conf == c&&x.role ==r&&x.cond == cd).param;
+        return dic.prodic.Find(x => x.conf == c&&x.role ==r&&x.cond == cd).bonuspro;
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dic"></param>
+    /// <param name="c"></param>
+    /// <param name="r"></param>
+    /// <param name="cd"></param>
+    /// <returns></returns>
     public static int GetPro(Dic dic,Config c, Role r, Condition cd)
     {
-        return dic.prodic.Find(x => x.conf == c && x.role == r && x.cond == cd).param;
+        return dic.prodic.Find(x => x.conf == c && x.role == r && x.cond == cd).appearpro;
     }
     /// <summary>
     /// 確率書き込み（ツール用）
@@ -22,17 +36,15 @@ public class Prodic :MonoBehaviour
     public static void OutputDic(string name ,Dic dic)
     {
         string json = JsonUtility.ToJson(dic);
-        string path = Application.streamingAssetsPath + "/"+name+".json";
+        string path = Application.streamingAssetsPath + "/"+name+format;
         File.WriteAllText(path,json);
         Debug.Log("出力");
     }
-    public static Dic InputDic()
+    public static Dic LoadDic()
     {
-        string path = Application.streamingAssetsPath + "/prodic.json";
+        string path = Application.streamingAssetsPath + "/prodic"+format;
         string str = File.ReadAllText(path);
-        Debug.Log(str);
-        return JsonUtility.FromJson<Dic>(str);
-        
+        return JsonUtility.FromJson<Dic>(str);  
     }
 }
 

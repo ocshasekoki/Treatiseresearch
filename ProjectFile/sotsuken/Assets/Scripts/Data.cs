@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,16 +37,16 @@ public class Data
 [Serializable]
 public class Dic
 {
-    public List<ProData> ocdic = new List<ProData>();
     public List<ProData> prodic = new List<ProData>();
 }
 [Serializable]
 public class ProData
 {
-    public Config conf;
-    public Condition cond;
-    public Role role;
-    public int param;
+    public Config conf;         //設定
+    public Condition cond;      //状態
+    public Role role;           //小役
+    public int bonuspro;        //ボーナス確率
+    public int appearpro;       //出現確率
 
     public void Dump()
     {

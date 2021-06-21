@@ -11,7 +11,15 @@ public class SlotMachine_hase : MonoBehaviour
 
     private Condition condition = Condition.NOMAL;
     private Config config = 0;
+    private Dic dic;
     private Data data;
+    public void Start()
+    {
+        config =(Config)UnityEngine.Random.Range(0,2);
+        condition = Condition.NOMAL;
+        dic = Prodic.LoadDic();
+    }
+
     /// <summary>
     /// ればーおん！
     /// </summary>
@@ -53,14 +61,8 @@ public class SlotMachine_hase : MonoBehaviour
     /// <returns>enumの役の格納ナンバー</returns>
     public static int DecideRole(int random)
     {
-        foreach (int index in Enum.GetValues(typeof(Role)))
-        {
-            if(random <= index)
-            {
-                return index;
-            }
-        }
-        return 0;
+        int rolenumber;
+        return random;
     }
 
     /// <summary>
@@ -80,13 +82,12 @@ public class SlotMachine_hase : MonoBehaviour
     /// 小役QUESTION(問題)で問題を答えた時に動かすメソッド
     /// </summary>
     /// <param name="currect">正解かどうか</param>
-    /// <returns></returns>
+    /// <returns>連続正解した数＊設定、状態に対応した確率</returns>
     public int Answer(bool currect)
     {
         if (currect) data.Cor++;
         else data.Cor = 0;
-        return data.Cor;
-        //return data.correctcount * Dic.dic[Role.QUESTION][(int)config,(int)condition];
+        return data.Cor*Prodic.GetPro(dic,config,Role.QUESTION,condition);
     }
 }
 
