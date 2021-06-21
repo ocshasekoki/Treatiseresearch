@@ -70,7 +70,7 @@ public class SlotMachine_hase : MonoBehaviour
     /// <returns>ボーナスの判定</returns>
     public static bool BonusJudge(int percent)
     {
-        int rand = UnityEngine.Random.Range(1, 100);
+        int rand = UnityEngine.Random.Range(1, 1000);
         Debug.Log("乱数：" + rand);
         if (rand <= percent) return true;
         else return false;
