@@ -87,7 +87,7 @@ public class SlotMachine_hase : MonoBehaviour
     {
         if (currect) data.Cor++;
         else data.Cor = 0;
-        return data.Cor*Prodic.GetPro(dic,config,Role.QUESTION,condition);
+        return data.Cor*Prodic.GetOc(dic,config,Role.QUESTION,condition);
     }
 }
 

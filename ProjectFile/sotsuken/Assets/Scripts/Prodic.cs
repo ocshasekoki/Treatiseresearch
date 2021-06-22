@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class Prodic :MonoBehaviour
@@ -21,12 +22,19 @@ public class Prodic :MonoBehaviour
     /// </summary>
     /// <param name="dic"></param>
     /// <param name="c"></param>
-    /// <param name="r"></param>
     /// <param name="cd"></param>
     /// <returns></returns>
-    public static int GetPro(Dic dic,Config c, Role r, Condition cd)
+    public static Dictionary<Role,int> GetPro(Dic dic,Config c, Condition cd)
     {
-        return dic.prodic.Find(x => x.conf == c && x.role == r && x.cond == cd).appearpro;
+        Dictionary<Role, int> diction = new Dictionary<Role, int>();
+        foreach(ProData p in dic.prodic)
+        {
+            if(p.cond == cd&&p.conf == c)
+            {
+                diction.Add(p.role, p.appearpro);
+            }
+        }
+        return diction;
     }
     /// <summary>
     /// 確率書き込み（ツール用）
