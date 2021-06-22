@@ -9,8 +9,7 @@ public class Test :MonoBehaviour
     void Start()
     {
         TestCase();
-        Prodic dic = new Prodic();
-        dic.InputDic();
+        Dic dic = Prodic.LoadDic();
     }
 
     /// <summary>

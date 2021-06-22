@@ -50,6 +50,6 @@ public class ProData
 
     public void Dump()
     {
-        Debug.Log("設定：" + conf + " 小役：" + role + " 状態：" + cond + " 数値：" + param);
+        Debug.Log("設定：" + conf + " 小役：" + role + " 状態：" + cond + " 出現確率：" + appearpro + " ボーナス確立：" + bonuspro);
     }
 }
