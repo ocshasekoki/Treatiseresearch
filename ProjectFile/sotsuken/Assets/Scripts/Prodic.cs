@@ -46,7 +46,6 @@ public class Prodic :MonoBehaviour
         string json = JsonUtility.ToJson(dic);
         string path = Application.streamingAssetsPath + "/"+name+format;
         File.WriteAllText(path,json);
-        Debug.Log("出力");
     }
     public static Dic LoadDic()
     {

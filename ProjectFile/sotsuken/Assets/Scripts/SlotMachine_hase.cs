@@ -8,7 +8,7 @@ public class SlotMachine_hase : MonoBehaviour
     private int symbolLeft = 0;
     private int symbolCenter = 0;
     private int symbolRight = 0;
-
+    private Dictionary<Role, int> diction; 
     private Condition condition = Condition.NOMAL;
     private Config config = 0;
     private Dic dic;
@@ -18,6 +18,7 @@ public class SlotMachine_hase : MonoBehaviour
         config =(Config)UnityEngine.Random.Range(0,2);
         condition = Condition.NOMAL;
         dic = Prodic.LoadDic();
+        Prodic.GetPro(dic, config, condition);
     }
 
     /// <summary>
