@@ -13,12 +13,14 @@ public class SlotMachine_hase : MonoBehaviour
     private Config config = 0;
     private Dic dic;
     private Data data;
+
+    private int pro = 0;
     public void Start()
     {
         config =(Config)UnityEngine.Random.Range(0,2);
         condition = Condition.NOMAL;
         dic = Prodic.LoadDic();
-        Prodic.GetPro(dic, config, condition);
+        ChangeMode();
     }
 
     /// <summary>
@@ -89,6 +91,16 @@ public class SlotMachine_hase : MonoBehaviour
         if (currect) data.Cor++;
         else data.Cor = 0;
         return data.Cor*Prodic.GetOc(dic,config,Role.QUESTION,condition);
+    }
+
+    private void ChangeMode()
+    {
+        pro = 0;
+        diction = Prodic.GetPro(dic, config, condition);
+        foreach (int value in diction.Values)
+        {
+            pro += value;
+        }
     }
 }
 
