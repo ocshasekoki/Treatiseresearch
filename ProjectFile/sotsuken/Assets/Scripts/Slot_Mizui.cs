@@ -20,7 +20,7 @@ public class Slot_Mizui : MonoBehaviour
     
         }
     }
-    // 抽選関連の処理をまとめたクラス
+   
 
 
     // 共通変数
@@ -105,7 +105,7 @@ public class Slot_Mizui : MonoBehaviour
     /// 7：青７　-5.14
     /// </summary>
     private float KoyakuPoint(Koyaku koyaku)
-        {
+    {
 
             // リール位置返却
             switch (koyaku)
@@ -120,6 +120,6 @@ public class Slot_Mizui : MonoBehaviour
                 case Koyaku.BLUE: return -5.14f;
                 default: return -9.50f;
             }
-        }
+    }
 }
 
