@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,7 +21,8 @@ public class SlotMachine_hase : MonoBehaviour
         config =(Config)UnityEngine.Random.Range(0,2);
         condition = Condition.NOMAL;
         dic = Prodic.LoadDic();
-        ChangeMode();
+        ChangeMode(dic);
+        Test.TestProdic(dic);
     }
 
     /// <summary>
@@ -28,16 +30,16 @@ public class SlotMachine_hase : MonoBehaviour
     /// </summary>
     public void LeverOn()
     {
-        RandomRole(condition);
+        RandomRole();
     }
+
     /// <summary>
     /// ランダムな数値を出す
     /// </summary>
     /// <param name="condition">現在のスロットの状態</param>
-    private void RandomRole(Condition con)
+    private void RandomRole()
     {
-        int rand = UnityEngine.Random.Range(0,8192);
-        Debug.Log(rand);
+        int rand = UnityEngine.Random.Range(0,pro);
         DecideSymbol(DecideRole(rand));
     }
 
@@ -45,15 +47,13 @@ public class SlotMachine_hase : MonoBehaviour
     /// 役からそろう柄を決定するメソッド
     /// <param name="rand">生成された乱数</param>
     /// </summary>
-    private void DecideSymbol(int rand)
+    private void DecideSymbol(Role r)
     {
-        Debug.Log("小役:" + ((Role)rand).ToString() + " ID:" + rand);
-        Debug.Log(Data.symbolDic[(Role)rand]);
-
-        symbolLeft = Data.symbolDic[(Role)rand].l;
-        symbolCenter = Data.symbolDic[(Role)rand].c;
-        symbolRight = Data.symbolDic[(Role)rand].r;
-        
+        Debug.Log("小役:" + r + " ID:" + diction[r]);
+        Debug.Log(Data.symbolDic[r]);
+        symbolLeft = Data.symbolDic[r].l;
+        symbolCenter = Data.symbolDic[r].c;
+        symbolRight = Data.symbolDic[r].r;
         Debug.Log("左：" + symbolLeft + "　中：" + symbolCenter + "　右：" + symbolRight);
     }
 
@@ -62,10 +62,16 @@ public class SlotMachine_hase : MonoBehaviour
     /// </summary>
     /// <param name="random">確率の分母となる引数</param>
     /// <returns>enumの役の格納ナンバー</returns>
-    public static int DecideRole(int random)
+    public Role DecideRole(int random)
     {
-        int rolenumber;
-        return random;
+        foreach(Role r in diction.Keys)
+        {
+            if(random <= diction[r])
+            {
+                return r;
+            }
+        }
+        return 0;
     }
 
     /// <summary>
@@ -76,7 +82,6 @@ public class SlotMachine_hase : MonoBehaviour
     public static bool BonusJudge(int percent)
     {
         int rand = UnityEngine.Random.Range(1, 1000);
-        Debug.Log("乱数：" + rand);
         if (rand <= percent) return true;
         else return false;
     }
@@ -93,14 +98,13 @@ public class SlotMachine_hase : MonoBehaviour
         return data.Cor*Prodic.GetOc(dic,config,Role.QUESTION,condition);
     }
 
-    private void ChangeMode()
+    private void ChangeMode(Dic dic)
     {
         pro = 0;
         diction = Prodic.GetPro(dic, config, condition);
-        foreach (int value in diction.Values)
+        foreach(Role r in diction.Keys)
         {
-            pro += value;
+            pro += diction[r];
         }
     }
 }
-

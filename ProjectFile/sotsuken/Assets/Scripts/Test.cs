@@ -6,33 +6,37 @@ using UnityEngine;
 
 public class Test :MonoBehaviour
 {
-    void Start()
-    {
-        TestCase();
-        Dic dic = Prodic.LoadDic();
-    }
-
     /// <summary>
     /// テストメソッド
     /// </summary>
-    public static void TestCase()
+    public static void TestProdic(Dic dic)
     {
-        string str = "";
-        string rolename = "";
-        int count = 0;
-        for (int i = 0; i <= 8192; i++)
+        int appearsum = 0;
+        int bonussum = 0;
+        foreach (ProData p in dic.prodic)
         {
-            rolename = Enum.GetName(typeof(Role), SlotMachine_hase.DecideRole(i));
-            count++;
-            if (str != rolename)
+            p.Dump();
+            appearsum += p.appearpro;
+            bonussum += p.bonuspro;
+            foreach (Config conf in Enum.GetValues(typeof(Config))) 
             {
-                if (str != "")
+                foreach (Condition cond in Enum.GetValues(typeof(Condition)))
                 {
-                    Debug.Log("役：" + str + " 確率：" + count + "/8192");
+                    Dictionary<Role, int> d = Prodic.GetPro(dic,conf,cond);
+                    foreach(Role r in d.Keys)
+                    {
+                        appearsum += d[r];
+                    }
+                    Debug.Log("設定：" + conf.ToString() + " 状態：" + cond.ToString() + " 総合値：" + appearsum);
+                    foreach (Role r in d.Keys)
+                    {
+                        Debug.Log("小役：" + r.ToString() + " 確率：" + d[r] +"/" + appearsum);
+                    }
+                    appearsum = 0;
+                    bonussum = 0;
                 }
-                str = rolename;
-                count = 0;
-            }
+
+            } 
         }
     }
 
