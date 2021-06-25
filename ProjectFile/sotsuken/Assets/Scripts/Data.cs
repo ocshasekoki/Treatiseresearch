@@ -41,7 +41,7 @@ public class Dic
 }
 
 [Serializable]
-public class ProData
+public struct ProData
 {
     public Config conf;         //設定
     public Condition cond;      //状態

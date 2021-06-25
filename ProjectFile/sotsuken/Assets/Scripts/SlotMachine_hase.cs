@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SlotMachine_hase : MonoBehaviour
 {
     private int symbolLeft = 0;
     private int symbolCenter = 0;
     private int symbolRight = 0;
-    private Dictionary<Role, int> diction; 
+    private Dictionary<Role, ProData> diction; 
     private Condition condition = Condition.NOMAL;
     private Config config = 0;
     private Dic dic;
@@ -39,7 +36,7 @@ public class SlotMachine_hase : MonoBehaviour
     /// <param name="condition">現在のスロットの状態</param>
     private void RandomRole()
     {
-        int rand = UnityEngine.Random.Range(0,pro);
+        int rand = UnityEngine.Random.Range(1,pro);
         DecideSymbol(DecideRole(rand));
     }
 
@@ -64,9 +61,11 @@ public class SlotMachine_hase : MonoBehaviour
     /// <returns>enumの役の格納ナンバー</returns>
     public Role DecideRole(int random)
     {
+        int sum = 0;
         foreach(Role r in diction.Keys)
         {
-            if(random <= diction[r])
+            sum += diction[r].appearpro;
+            if(random <= sum)
             {
                 return r;
             }
@@ -91,11 +90,10 @@ public class SlotMachine_hase : MonoBehaviour
     /// </summary>
     /// <param name="currect">正解かどうか</param>
     /// <returns>連続正解した数＊設定、状態に対応した確率</returns>
-    public int Answer(bool currect)
+    public void Answer(bool currect)
     {
         if (currect) data.Cor++;
         else data.Cor = 0;
-        return data.Cor*Prodic.GetOc(dic,config,Role.QUESTION,condition);
     }
 
     private void ChangeMode(Dic dic)
@@ -104,7 +102,7 @@ public class SlotMachine_hase : MonoBehaviour
         diction = Prodic.GetPro(dic, config, condition);
         foreach(Role r in diction.Keys)
         {
-            pro += diction[r];
+            pro += diction[r].appearpro;
         }
     }
 }
