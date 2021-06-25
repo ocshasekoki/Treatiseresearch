@@ -6,9 +6,9 @@ using UnityEngine;
 public class Test :MonoBehaviour
 {
     /// <summary>
-    /// 
+    /// 全ての設定+状態のそれぞれの確率を出力するテスト
     /// </summary>
-    /// <param name="dic"></param>
+    /// <param name="dic">Jsonファイルから読み取ったデータ</param>
     public static void TestProdic(Dic dic)
     {
         int appearsum = 0;
