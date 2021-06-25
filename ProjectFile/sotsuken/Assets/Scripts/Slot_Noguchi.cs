@@ -75,4 +75,3 @@ public class Slot_Noguchi : MonoBehaviour
 //ifの分岐を減らす
 //listを使用してコードの分量を減らす
 //とにかく減らして見やすくすること
-
