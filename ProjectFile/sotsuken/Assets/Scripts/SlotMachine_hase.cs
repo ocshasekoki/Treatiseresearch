@@ -1,78 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SlotMachine_hase : MonoBehaviour
 {
     private int symbolLeft = 0;
     private int symbolCenter = 0;
     private int symbolRight = 0;
+    private Dictionary<Role, ProData> diction; 
     private Condition condition = Condition.NOMAL;
-    /// <summary>
-    /// 役に対応する柄のディクショナリ
-    /// <para>Role :役のこと。列挙型</para>
-    /// <para>l :leftの略。左の柄のIDを示す。</para>
-    /// <para>c :centerの略。中央の柄のIDを示す。</para>
-    /// <para>r :rightの略。右の柄のIDを示す。</para>
-    /// </summary>
-    public static Dictionary<Role, (int l, int c, int r)> symbolDic = new Dictionary<Role, (int l, int c, int r)>()
-    {
-        {Role.NONE,(0,0,0) },
-        {Role.STRONGCHERRY,(1,1,1)},
-        {Role.CHERRY,(1,1,0)  },
-        {Role.WEAKCHERRY,(1, 0,0) },
-        {Role.WATERMELON,(2, 2, 2) },
-        {Role.BELL,(3, 3, 3) },
-        {Role.REPLAY,(4, 4, 4) },
-        {Role.QUESTION,(5, 5, 5) },
-        {Role.REGBONUS,(7, 7, 6) },
-        {Role.BIGBONUS,(7, 7, 7) },
-        {Role.FREEZE,(7, 7, 7) },
-    };
+    private Config config = 0;
+    private Dic dic;
+    private Data data;
 
-    public static Dictionary<Role, int> roleprobdic = new Dictionary<Role, int>()
+    private int pro = 0;
+    public void Start()
     {
-        { Role.WEAKCHERRY,10 },
-        {Role.CHERRY,15 },
-        {Role.QUESTION, 40 },
-        {Role.BELL, 25 },
-        {Role.REPLAY, 35 },
-        {Role.WATERMELON, 20 },
-        {Role.STRONGCHERRY, 2 },
-        {Role.FREEZE, 1 },
-        {Role.REGBONUS, 7 },
-        {Role.BIGBONUS, 3 },
-        {Role.NONE, 0 },
-    };
-
-    /// <summary>
-    /// 状態によっての確率のディクショナリ
-    /// </summary>
-    public static Dictionary<Condition, (int first, int last)> probdic = new Dictionary<Condition, (int first, int last)>()
-    {
-        {Condition.NOMAL,(0,8192) },
-        {Condition.HIGHPROBABILITY,(0,6000) },
-        {Condition.SUPERHIGH,(0,4000) },
-        {Condition.BONUS,(9,960) },
-        {Condition.ART,(0,960) }
-    };
+        config =(Config)UnityEngine.Random.Range(0,2);
+        condition = Condition.NOMAL;
+        dic = Prodic.LoadDic();
+        ChangeMode(dic);
+        Test.TestProdic(dic);
+    }
 
     /// <summary>
     /// ればーおん！
     /// </summary>
     public void LeverOn()
     {
-        RandomRole(condition);
+        RandomRole();
     }
+
     /// <summary>
     /// ランダムな数値を出す
     /// </summary>
     /// <param name="condition">現在のスロットの状態</param>
-    private void RandomRole(Condition con)
+    private void RandomRole()
     {
-        int rand = UnityEngine.Random.Range(probdic[con].first, probdic[con].last);
-        Debug.Log(rand);
+        int rand = UnityEngine.Random.Range(1,pro);
         DecideSymbol(DecideRole(rand));
     }
 
@@ -80,116 +44,65 @@ public class SlotMachine_hase : MonoBehaviour
     /// 役からそろう柄を決定するメソッド
     /// <param name="rand">生成された乱数</param>
     /// </summary>
-    private void DecideSymbol(int rand)
+    private void DecideSymbol(Role r)
     {
-        Debug.Log("小役:" + ((Role)rand).ToString() + " ID:" + rand);
-        Debug.Log(symbolDic[(Role)rand]);
-
-        symbolLeft = symbolDic[(Role)rand].l;
-        symbolCenter = symbolDic[(Role)rand].c;
-        symbolRight = symbolDic[(Role)rand].r;
-        
+        Debug.Log("小役:" + r + " ID:" + diction[r]);
+        Debug.Log(Data.symbolDic[r]);
+        symbolLeft = Data.symbolDic[r].l;
+        symbolCenter = Data.symbolDic[r].c;
+        symbolRight = Data.symbolDic[r].r;
         Debug.Log("左：" + symbolLeft + "　中：" + symbolCenter + "　右：" + symbolRight);
     }
 
-    public void ConditionTest()
-    {
-        condition = Condition.SUPERHIGH;
-    }
     /// <summary>
     /// 数値に対応する役を抽出するメソッド
     /// </summary>
     /// <param name="random">確率の分母となる引数</param>
     /// <returns>enumの役の格納ナンバー</returns>
-    private int DecideRole(int random)
+    public Role DecideRole(int random)
     {
-        foreach (int index in Enum.GetValues(typeof(Role)))
+        int sum = 0;
+        foreach(Role r in diction.Keys)
         {
-            if(random <= roleList[roleList.Count - 1])
+            sum += diction[r].appearpro;
+            if(random <= sum)
             {
-                return index;
+                return r;
             }
         }
         return 0;
     }
+
     /// <summary>
-    /// テストメソッド
+    /// ボーナス判定
     /// </summary>
-    private static void TestCase()
+    /// <param name="percent">ボーナス確率(%)</param>
+    /// <returns>ボーナスの判定</returns>
+    public static bool BonusJudge(int percent)
     {
-        string str = "";
-        string rolename = "";
-        int count = 0;
-        for (int i = 0; i <= 8192; i++)
+        int rand = UnityEngine.Random.Range(1, 1000);
+        if (rand <= percent) return true;
+        else return false;
+    }
+
+    /// <summary>
+    /// 小役QUESTION(問題)で問題を答えた時に動かすメソッド
+    /// </summary>
+    /// <param name="currect">正解かどうか</param>
+    /// <returns>連続正解した数＊設定、状態に対応した確率</returns>
+    public void Answer(bool currect)
+    {
+        if (currect) data.Cor++;
+        else data.Cor = 0;
+    }
+
+    private void ChangeMode(Dic dic)
+    {
+        pro = 0;
+        diction = Prodic.GetPro(dic, config, condition);
+        foreach(Role r in diction.Keys)
         {
-            rolename = Enum.GetName(typeof(Role), DecideRole(i));
-            count++;
-            if (str != rolename)
-            {
-                if (str != "")
-                {
-                    Debug.Log("役：" + str + " 確率：" + count + "/8192");
-                }
-                str = rolename;
-                count = 0;
-            }
+            pro += diction[r].appearpro;
         }
     }
-}
-/// <summary>
-/// 柄の列挙型
-/// <para>NONE：役無し</para>
-/// <para>CHERRY：チェリー</para>
-/// <para>WATERMELON：スイカ</para>
-/// <para>BELL：ベル</para>
-/// <para>REPLAY：リプレイ</para>
-/// <para>QUESTION：問題</para>
-/// <para>BAR：バー</para>
-/// <para>SEVEN：７</para>
-/// </summary>
-public enum Symbol
-{
-    NONE = 0,
-    CHERRY = 1,
-    WATERMELON = 2,
-    BELL = 3,
-    REPLAY = 4,
-    QUESTION = 5,
-    BAR = 6,
-    SEVEN = 7,
-}
-/// <summary>
-/// 役の列挙型
-/// <para>FREEZE：フリーズ 1/8192</para>
-/// <para>BIGBONUS：ビッグボーナス 1/4096</para>
-/// <para>REGBONUS：レギュラーボーナス 1/2048</para>
-/// <para>STRONGCHERRY：強チェリー 1/250</para>
-/// <para>CHERRY：中チェリー 1/150</para>
-/// <para>WEAKCHERRY：弱チェリー 1/80</para>
-/// <para>WATERMELON：スイカ 1/120</para>
-/// <para>QUESTION：問題出題 1/30</para>
-/// <para>REPLAY：リプレイ 1/5</para>
-/// <para>NONE：役無し</para>
-/// </summary>
-public enum Role
-{
-    FREEZE = 0,
-    BIGBONUS = 2,
-    REGBONUS = 8,
-    STRONGCHERRY = 49,
-    CHERRY = 104,
-    WEAKCHERRY = 206,
-    WATERMELON = 274,
-    QUESTION = 550,
-    BELL = 1920,
-    REPLAY = 4651,
-    NONE = 8192,
-}
-public enum Condition
-{
-    SUPERHIGH,
-    BONUS,
-    ART,
-    HIGHPROBABILITY,
-    NOMAL,
 }
