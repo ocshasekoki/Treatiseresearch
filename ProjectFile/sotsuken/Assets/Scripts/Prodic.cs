@@ -126,3 +126,9 @@ public enum Config
     MIDDLE = 1,
     HIGH = 2
 }
+public enum Position
+{
+    RIGHT = 0,
+    MIDDLE = 1,
+    LEFT = 2
+}
