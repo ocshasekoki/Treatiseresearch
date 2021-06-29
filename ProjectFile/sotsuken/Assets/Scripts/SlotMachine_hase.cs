@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SlotMachine_hase : MonoBehaviour
@@ -11,17 +13,40 @@ public class SlotMachine_hase : MonoBehaviour
     private Config config = 0;
     private Dic dic;
     private Data data;
-
     private int pro = 0;
+    private Role role;
+
+    private List<GameObject> leftsymbol;
+    private List<GameObject> centersymbol;
+    private List<GameObject> rightsymbol;
+
+    [SerializeField] private GameObject leftReal;
+    [SerializeField] private GameObject centerReal;
+    [SerializeField] private GameObject rightReal;
+
+
     public void Start()
     {
         config =(Config)UnityEngine.Random.Range(0,2);
         condition = Condition.NOMAL;
         dic = Prodic.LoadDic();
         ChangeMode(dic);
-        Test.TestProdic(dic);
-    }
+        //Test.TestProdic(dic);
 
+        leftsymbol = SetReal(leftReal);
+        centersymbol = SetReal(centerReal);
+        rightsymbol = SetReal(rightReal);
+
+    }
+    private List<GameObject> SetReal(GameObject obj)
+    {
+        List<GameObject> list = new List<GameObject>();
+        for (int i = 0; i < obj.transform.childCount; i++)
+        {
+         list.Add(obj.transform.GetChild(i).gameObject);
+        }
+        return list;
+    }
     /// <summary>
     /// ればーおん！
     /// </summary>
@@ -37,7 +62,8 @@ public class SlotMachine_hase : MonoBehaviour
     private void RandomRole()
     {
         int rand = UnityEngine.Random.Range(1,pro);
-        DecideSymbol(DecideRole(rand));
+        role = DecideRole(rand);
+        DecideSymbol(role);
     }
 
     /// <summary>
@@ -103,6 +129,66 @@ public class SlotMachine_hase : MonoBehaviour
         foreach(Role r in diction.Keys)
         {
             pro += diction[r].appearpro;
+        }
+    }
+
+    public void btnPush(string pos)
+    {
+        Position p = (Position)Enum.Parse(typeof(Position),pos);
+        switch (p)
+        {
+            case Position.LEFT:
+                AssistDicision(leftsymbol, (Symbol)Data.symbolDic[role].l);
+                break;
+            case Position.MIDDLE:
+                AssistDicision(centersymbol, (Symbol)Data.symbolDic[role].c);
+                break;
+            case Position.RIGHT:
+                AssistDicision(rightsymbol, (Symbol)Data.symbolDic[role].r);
+                break;
+        }
+    }
+
+    private void AssistDicision(List<GameObject> list,Symbol s)
+    {
+        foreach(GameObject obj in list)
+        {
+            Symbol sm = obj.GetComponent<SymbolData>().GetSymbol();
+            if (obj.transform.localPosition.y >= -100f&& sm == s &&sm!=0)
+            {
+                StartCoroutine(Assist(obj));
+            }
+        }
+    }
+    private IEnumerator Assist(GameObject obj)
+    {
+        Debug.Log(obj.name);
+        yield return new WaitWhile(() =>obj.transform.localPosition.y >= 0f);
+        obj.GetComponent<SymbolScript>().RealStop();
+        AllRealStop(obj.GetComponent<SymbolData>().GetPos());
+    }
+    private void AllRealStop(Position p)
+    {
+        switch (p)
+        {
+            case Position.LEFT:
+                foreach(GameObject obj in leftsymbol)
+                {
+                    obj.GetComponent<SymbolScript>().RealStop();
+                }
+                break;
+            case Position.MIDDLE:
+                foreach (GameObject obj in leftsymbol)
+                {
+                    obj.GetComponent<SymbolScript>().RealStop();
+                }
+                break;
+            case Position.RIGHT:
+                foreach (GameObject obj in leftsymbol)
+                {
+                    obj.GetComponent<SymbolScript>().RealStop();
+                }
+                break;
         }
     }
 }
