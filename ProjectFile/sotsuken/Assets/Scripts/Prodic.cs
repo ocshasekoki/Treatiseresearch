@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class Prodic :MonoBehaviour
@@ -12,22 +13,30 @@ public class Prodic :MonoBehaviour
     /// <param name="r">役</param>
     /// <param name="cd">状態</param>
     /// <returns>確率</returns>
-    public static int GetOc(Dic dic,Config c,Role r,Condition cd)
+    public static ProData GetOc(Dic dic,Config c,Role r,Condition cd)
     {
-        return dic.prodic.Find(x => x.conf == c&&x.role ==r&&x.cond == cd).bonuspro;
+        return dic.prodic.Find(x => x.conf == c&&x.role ==r&&x.cond == cd);
     }
     /// <summary>
     /// 
     /// </summary>
     /// <param name="dic"></param>
     /// <param name="c"></param>
-    /// <param name="r"></param>
     /// <param name="cd"></param>
     /// <returns></returns>
-    public static int GetPro(Dic dic,Config c, Role r, Condition cd)
+    public static Dictionary<Role,ProData> GetPro(Dic dic,Config c, Condition cd)
     {
-        return dic.prodic.Find(x => x.conf == c && x.role == r && x.cond == cd).appearpro;
+        Dictionary<Role, ProData> diction = new Dictionary<Role, ProData>();
+        foreach(ProData p in dic.prodic)
+        {
+            if(p.cond == cd&&p.conf == c)
+            {
+                diction.Add(p.role, p);
+            }
+        }
+        return diction;
     }
+
     /// <summary>
     /// 確率書き込み（ツール用）
     /// </summary>
@@ -38,7 +47,6 @@ public class Prodic :MonoBehaviour
         string json = JsonUtility.ToJson(dic);
         string path = Application.streamingAssetsPath + "/"+name+format;
         File.WriteAllText(path,json);
-        Debug.Log("出力");
     }
     public static Dic LoadDic()
     {
@@ -117,4 +125,10 @@ public enum Config
     LOW = 0,
     MIDDLE = 1,
     HIGH = 2
+}
+public enum Position
+{
+    RIGHT = 0,
+    MIDDLE = 1,
+    LEFT = 2
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿/*
+
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -40,7 +42,7 @@ public class Program
         Console.WriteLine("hello world1"); //文字を表示
         /*Console.WriteLine("hello world2");
         Console.WriteLine("hello world3");*/
-    }
+/*    }
 }
 
 // HTMLを表示する
@@ -54,4 +56,4 @@ public class Program
         Console.Write("<b>こんにちは</b></p>");
     }
 }
-s
+*/

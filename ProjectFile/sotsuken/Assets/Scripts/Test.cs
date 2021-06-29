@@ -1,42 +1,58 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 public class Test :MonoBehaviour
 {
-    void Start()
-    {
-        TestCase();
-        Prodic dic = new Prodic();
-        dic.InputDic();
-    }
-
     /// <summary>
-    /// テストメソッド
+    /// 全ての設定+状態のそれぞれの確率を出力するテスト
     /// </summary>
-    public static void TestCase()
+    /// <param name="dic">Jsonファイルから読み取ったデータ</param>
+    public static void TestProdic(Dic dic)
     {
-        string str = "";
-        string rolename = "";
-        int count = 0;
-        for (int i = 0; i <= 8192; i++)
+        int appearsum = 0;
+        int bonussum = 0;
+        int bigbonussum = 0;
+        int freezesum = 0;
+        int chancezonesum = 0;
+
+        foreach (Config conf in Enum.GetValues(typeof(Config))) 
         {
-            rolename = Enum.GetName(typeof(Role), SlotMachine_hase.DecideRole(i));
-            count++;
-            if (str != rolename)
+            foreach (Condition cond in Enum.GetValues(typeof(Condition)))
             {
-                if (str != "")
+                Dictionary<Role, ProData> d = Prodic.GetPro(dic,conf,cond);
+                foreach(Role r in d.Keys)
                 {
-                    Debug.Log("役：" + str + " 確率：" + count + "/8192");
+                    appearsum += d[r].appearpro;
+                    bonussum += d[r].bonuspro;
+                    bigbonussum += d[r].bigbonuspro;
+                    freezesum += d[r].freezepro;
+                    chancezonesum += d[r].chancezonepro;
                 }
-                str = rolename;
-                count = 0;
+                Debug.Log("設定：" + conf.ToString() + " 状態：" + cond.ToString());
+                Debug.Log(" 出現総合値（分母）：" + appearsum + " 総ボーナス出現確率（合算）：" + (bonussum+bigbonussum+freezesum+chancezonesum) + "/40000");
+                Debug.Log("ボーナス確率：" + bonussum+"/100000");
+                Debug.Log("ビッグボーナス確率：" + bigbonussum + "/100000");
+                Debug.Log("フリーズ確率：" + freezesum + "/100000");
+                Debug.Log("チャンスゾーン確率：" + chancezonesum + "/100000");
+                foreach (Role r in d.Keys)
+                {
+                    Debug.Log("小役：" + r.ToString() + " 出現確率：" + d[r].appearpro +"/" + appearsum);
+                    Debug.Log("小役：" + r.ToString() + " ボーナス確率：" + d[r].bonuspro + "/100000");
+                    Debug.Log("小役：" + r.ToString() + " ビッグボーナス確率：" + d[r].bigbonuspro + "/100000");
+                    Debug.Log("小役：" + r.ToString() + " フリーズ確率：" + d[r].freezepro + "/100000");
+                    Debug.Log("小役：" + r.ToString() + " チャンスゾーン確率：" + d[r].chancezonepro + "/100000");
+                }
+                appearsum = 0;
+                bonussum = 0;
+                bigbonussum = 0;
+                freezesum = 0;
+                chancezonesum = 0;
             }
-        }
+
+        } 
     }
-
-
 }
+
 

@@ -39,17 +39,20 @@ public class Dic
 {
     public List<ProData> prodic = new List<ProData>();
 }
+
 [Serializable]
-public class ProData
+public struct ProData
 {
     public Config conf;         //設定
     public Condition cond;      //状態
     public Role role;           //小役
     public int bonuspro;        //ボーナス確率
+    public int bigbonuspro;
+    public int freezepro;
+    public int chancezonepro;
     public int appearpro;       //出現確率
-
     public void Dump()
     {
-        Debug.Log("設定：" + conf + " 小役：" + role + " 状態：" + cond + " 数値：" + param);
+        Debug.Log("設定：" + conf + " 小役：" + role + " 状態：" + cond + " 出現確率：" + appearpro + " ボーナス確率：" + bonuspro);
     }
 }
