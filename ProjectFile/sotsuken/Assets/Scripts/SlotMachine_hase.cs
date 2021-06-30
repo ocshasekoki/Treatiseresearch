@@ -16,13 +16,13 @@ public class SlotMachine_hase : MonoBehaviour
     private int pro = 0;
     private Role role;
 
-    private List<GameObject> leftsymbol;
-    private List<GameObject> centersymbol;
-    private List<GameObject> rightsymbol;
+    private List<GameObject> leftsymbol = null;
+    private List<GameObject> centersymbol = null;
+    private List<GameObject> rightsymbol = null;
 
-    [SerializeField] private GameObject leftReal;
-    [SerializeField] private GameObject centerReal;
-    [SerializeField] private GameObject rightReal;
+    [SerializeField] private GameObject leftReal = null;
+    [SerializeField] private GameObject centerReal = null;
+    [SerializeField] private GameObject rightReal = null;
 
 
     public void Start()
@@ -52,7 +52,25 @@ public class SlotMachine_hase : MonoBehaviour
     /// </summary>
     public void LeverOn()
     {
+
         RandomRole();
+        RealRotate();
+    }
+
+    private void RealRotate()
+    {
+        foreach(GameObject g in leftsymbol)
+        {
+            g.GetComponent<SymbolScript>().RealStart(20);
+        }
+        foreach (GameObject g in centersymbol)
+        {
+            g.GetComponent<SymbolScript>().RealStart(20);
+        }
+        foreach (GameObject g in rightsymbol)
+        {
+            g.GetComponent<SymbolScript>().RealStart(20);
+        }
     }
 
     /// <summary>
@@ -154,16 +172,19 @@ public class SlotMachine_hase : MonoBehaviour
         foreach(GameObject obj in list)
         {
             Symbol sm = obj.GetComponent<SymbolData>().GetSymbol();
-            if (obj.transform.localPosition.y >= -100f&& sm == s &&sm!=0)
+            if (obj.transform.localPosition.y >= 0f&& sm == s &&sm!=0)
             {
                 StartCoroutine(Assist(obj));
+            }
+            else
+            {
+
             }
         }
     }
     private IEnumerator Assist(GameObject obj)
     {
-        Debug.Log(obj.name);
-        yield return new WaitWhile(() =>obj.transform.localPosition.y >= 0f);
+        yield return new WaitWhile(() =>obj.transform.localPosition.y >= 10f);
         obj.GetComponent<SymbolScript>().RealStop();
         AllRealStop(obj.GetComponent<SymbolData>().GetPos());
     }
@@ -178,13 +199,13 @@ public class SlotMachine_hase : MonoBehaviour
                 }
                 break;
             case Position.MIDDLE:
-                foreach (GameObject obj in leftsymbol)
+                foreach (GameObject obj in centersymbol)
                 {
                     obj.GetComponent<SymbolScript>().RealStop();
                 }
                 break;
             case Position.RIGHT:
-                foreach (GameObject obj in leftsymbol)
+                foreach (GameObject obj in rightsymbol)
                 {
                     obj.GetComponent<SymbolScript>().RealStop();
                 }

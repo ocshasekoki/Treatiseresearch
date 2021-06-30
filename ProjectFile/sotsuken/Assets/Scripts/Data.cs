@@ -17,7 +17,7 @@ public class Data
         {Role.QUESTION,(5, 5, 5) },
         {Role.REGBONUS,(7, 7, 6) },
         {Role.BIGBONUS,(7, 7, 7) },
-        {Role.FREEZE,(7, 7, 7) },
+        {Role.FREEZE,(6, 6, 6) },
     };
 
     private int correctcount = 0;
