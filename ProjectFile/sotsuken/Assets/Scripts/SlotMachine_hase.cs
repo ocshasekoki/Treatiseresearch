@@ -23,8 +23,10 @@ public class SlotMachine_hase : MonoBehaviour
     [SerializeField] private GameObject leftReal = null;
     [SerializeField] private GameObject centerReal = null;
     [SerializeField] private GameObject rightReal = null;
+    [SerializeField] private List<GameObject> effectList = null;
+    [SerializeField] private GameObject effectArea = null;
 
-
+    [SerializeField] private GameObject colorTest = null;
     public void Start()
     {
         config =(Config)UnityEngine.Random.Range(0,2);
@@ -81,6 +83,7 @@ public class SlotMachine_hase : MonoBehaviour
     {
         int rand = UnityEngine.Random.Range(1,pro);
         role = DecideRole(rand);
+        SetColor(role,colorTest);
         DecideSymbol(role);
     }
 
@@ -169,25 +172,27 @@ public class SlotMachine_hase : MonoBehaviour
 
     private void AssistDicision(List<GameObject> list,Symbol s)
     {
-        foreach(GameObject obj in list)
+        if (s == 0)
+        {
+            s = (Symbol)UnityEngine.Random.Range(2,7);
+        }
+        foreach (GameObject obj in list)
         {
             Symbol sm = obj.GetComponent<SymbolData>().GetSymbol();
-            if (obj.transform.localPosition.y >= 0f&& sm == s &&sm!=0)
+            if (obj.transform.localPosition.y >= 0f&& sm == s)
             {
                 StartCoroutine(Assist(obj));
             }
-            else
-            {
-
-            }
         }
     }
+
     private IEnumerator Assist(GameObject obj)
     {
         yield return new WaitWhile(() =>obj.transform.localPosition.y >= 10f);
         obj.GetComponent<SymbolScript>().RealStop();
         AllRealStop(obj.GetComponent<SymbolData>().GetPos());
     }
+
     private void AllRealStop(Position p)
     {
         switch (p)
@@ -211,5 +216,15 @@ public class SlotMachine_hase : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    private void EffectVisible(GameObject effect)
+    {
+        Instantiate(effect,effectArea.transform);
+    }
+
+    private void SetColor(Role r,GameObject obj)
+    {
+        obj.GetComponent<MeshRenderer>().material.color = Data.rolecolor[r];
     }
 }

@@ -19,7 +19,19 @@ public class Data
         {Role.BIGBONUS,(7, 7, 7) },
         {Role.FREEZE,(6, 6, 6) },
     };
-
+    public static Dictionary<Role, Color> rolecolor = new Dictionary<Role, Color>() {
+        {Role.NONE,Color.clear },
+        {Role.STRONGCHERRY,new Color(255f,112f,108f)},
+        {Role.CHERRY,  Color.red},
+        {Role.WEAKCHERRY,new Color(255f,163f,255f) },
+        {Role.WATERMELON,Color.green },
+        {Role.BELL,Color.yellow },
+        {Role.REPLAY,Color.blue },
+        {Role.QUESTION,new Color(34f,154f,115f) },
+        {Role.REGBONUS,new Color(255f,78f,120f) },
+        {Role.BIGBONUS,new Color(255f,78f,120f) },
+        {Role.FREEZE,new Color(255f,198f,0) },
+    };
     private int correctcount = 0;
     public int Cor
     {
