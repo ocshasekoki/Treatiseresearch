@@ -21,16 +21,16 @@ public class Data
     };
     public static Dictionary<Role, Color> rolecolor = new Dictionary<Role, Color>() {
         {Role.NONE,Color.clear },
-        {Role.STRONGCHERRY,new Color(255f,112f,108f)},
+        {Role.STRONGCHERRY,new Color(0.75f,0,0.75f)},
         {Role.CHERRY,  Color.red},
-        {Role.WEAKCHERRY,new Color(255f,163f,255f) },
+        {Role.WEAKCHERRY,new Color(1f,0.64f,1f) },
         {Role.WATERMELON,Color.green },
         {Role.BELL,Color.yellow },
         {Role.REPLAY,Color.blue },
-        {Role.QUESTION,new Color(34f,154f,115f) },
-        {Role.REGBONUS,new Color(255f,78f,120f) },
-        {Role.BIGBONUS,new Color(255f,78f,120f) },
-        {Role.FREEZE,new Color(255f,198f,0) },
+        {Role.QUESTION,new Color(0.1333f,0.6039f,0.4509f) },
+        {Role.REGBONUS,new Color(1f,0.3058f,0.4705f) },
+        {Role.BIGBONUS,new Color(1f,0.3058f,0.4705f) },
+        {Role.FREEZE,new Color(1f,0.7764f,0) },
     };
     private int correctcount = 0;
     public int Cor
