@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SlotMachine_hase : MonoBehaviour
 {
@@ -25,8 +26,9 @@ public class SlotMachine_hase : MonoBehaviour
     [SerializeField] private GameObject rightReal = null;
     [SerializeField] private List<GameObject> effectList = null;
     [SerializeField] private GameObject effectArea = null;
-
     [SerializeField] private GameObject colorTest = null;
+
+    [SerializeField] private Dropdown configDD;
     public void Start()
     {
         config =(Config)UnityEngine.Random.Range(0,2);
@@ -39,6 +41,7 @@ public class SlotMachine_hase : MonoBehaviour
         centersymbol = SetReal(centerReal);
         rightsymbol = SetReal(rightReal);
 
+        SetConfigDD();
     }
     private List<GameObject> SetReal(GameObject obj)
     {
@@ -223,8 +226,28 @@ public class SlotMachine_hase : MonoBehaviour
         Instantiate(effect,effectArea.transform);
     }
 
+    [Obsolete]
     private void SetColor(Role r,GameObject obj)
     {
-        obj.GetComponent<MeshRenderer>().material.color = Data.rolecolor[r];
+        Debug.Log(r.ToString());
+        Debug.Log(Data.rolecolor[r]);
+        obj.GetComponent<ParticleSystem>().startColor = Data.rolecolor[r];
+    }
+
+    public void SetConfig()
+    {
+        config =(Config) configDD.value;
+        ChangeMode(dic);
+    }
+    public void SetConfigDD()
+    {
+        string[] ops = Enum.GetNames(typeof(Config));
+        List<string> ddvalues = new List<string>();
+        foreach (string typename in ops)
+        {
+            ddvalues.Add(typename);
+        }
+        configDD.ClearOptions();
+        configDD.AddOptions(ddvalues);
     }
 }
