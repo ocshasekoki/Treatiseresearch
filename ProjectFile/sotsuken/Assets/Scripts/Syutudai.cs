@@ -69,6 +69,7 @@ public class Syutudai : MonoBehaviour
     }
 
     public void Answer(string ans)
+
     {
        if(ans == m.GetAnswer())
         {
