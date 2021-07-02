@@ -2,13 +2,13 @@
 
 public class Mondai : MonoBehaviour
 {
-    public Genre genre;
-    public string MondaiText;
-    public string answer;
-    public string kaisetsu;
-    public int b;
-    public string[] t;
-    public bool clear;
+    [SerializeField] private Genre genre;
+    [SerializeField] private string MondaiText;
+    [SerializeField] private string answer;
+    [SerializeField] private string kaisetsu;
+    [SerializeField] private int b;
+    [SerializeField] private string[] t;
+    [SerializeField] private bool clear;
 }
 
 public enum Genre
