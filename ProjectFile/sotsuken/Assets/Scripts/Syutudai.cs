@@ -37,4 +37,15 @@ public class Syutudai : MonoBehaviour
             numbers.RemoveAt(index);
         }
     }
+
+    public void CreateMondai()
+    {
+        mondaiText.text = m.GetMondaiText();
+        answerText.text = m.GetAnswer();
+        kaisetsuText.text = m.GetKaisetsu();
+        foreach (int ) ; 
+        {
+            gogunText();
+        }
+    }
 }
