@@ -5,9 +5,8 @@ public class Mondai : MonoBehaviour
     [SerializeField] private string mondaiText;
     [SerializeField] private string answer;
     [SerializeField] private string kaisetsu;
-    [SerializeField] private int b;
     [SerializeField] private string[] t;
-    [SerializeField] private bool clear;
+
 
     public string GetAnswer()
     {
@@ -34,14 +33,15 @@ public class Mondai : MonoBehaviour
         return t[index];
     }
 
-    public bool GetClear()
+    public void Dunp()
     {
-        return clear;
-    }
-
-    public void SetClear(bool b)
-    {
-        clear = b;
+        Debug.Log("問題："+mondaiText);
+        Debug.Log("回答：" + answer);
+        Debug.Log("解説：" + kaisetsu);
+        foreach(string s in t)
+        {
+            Debug.Log("選択肢：" + s);
+        }
     }
 }
 
