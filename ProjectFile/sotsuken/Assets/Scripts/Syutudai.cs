@@ -20,19 +20,19 @@ public class Syutudai : MonoBehaviour
     GameObject[] mondaiList;
     private int count;
      private void Start()
-    {
-        clearText.text = "";
-        kaisetsuText.text = "";
-        mondai = (GameObject)Resources.Load("Prefabs/" + subjectName + "/" + tangenName);
-        mondai = Instantiate(mondai);
+     {
+         clearText.text = "";
+         kaisetsuText.text = "";
+         mondai = (GameObject)Resources.Load("Prefabs/" + subjectName + "/" + tangenName);
+         mondai = Instantiate(mondai);
 
-        mondaiList = new GameObject[mondai.transform.childCount];
-        for (int i = 0; i < mondai.transform.childCount; i++)
-        {
+          mondaiList = new GameObject[mondai.transform.childCount];
+         for (int i = 0; i < mondai.transform.childCount; i++)
+         {
             mondaiList[i] = mondai.transform.GetChild(i).gameObject;
-        }
-        m = mondaiList[count].GetComponent<Mondai>();
-    }
+         }
+         m = mondaiList[count].GetComponent<Mondai>();
+     }
 
     void SetButton(Text[] text,string[] gogun)
     {
@@ -82,10 +82,4 @@ public class Syutudai : MonoBehaviour
             StartCoroutine(SetText("ぶぶー！"));
         }
     }
-}
-
-public string Question()
-{
-    var qes = "ここに問題を記述";
-        Console.WriteLine(qes);
 }
