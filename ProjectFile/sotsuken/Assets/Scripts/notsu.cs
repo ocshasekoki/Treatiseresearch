@@ -57,3 +57,38 @@ public class Program
     }
 }
 */
+
+/*// 変数を使う
+using System;
+public class Program
+{
+    public static void Main()
+    {
+        var player = "勇者";
+        Console.WriteLine(player + "はレベルアップした");
+    }
+}*/
+
+/*// 変数を使う
+using System;
+public class Program
+{
+    public static void Main()
+    {
+        var player = "勇者";
+        Console.WriteLine(player + "の体力が回復した");
+    }
+}*/
+
+/*// 変数を使う
+using System;
+public class Program
+{
+    public static void Main()
+    {
+        var team = "勇者と戦士";
+        Console.WriteLine(team + "の体力が回復した");
+    }
+}*/
+
+

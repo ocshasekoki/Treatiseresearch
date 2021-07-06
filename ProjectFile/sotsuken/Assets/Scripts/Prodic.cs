@@ -110,6 +110,7 @@ public enum Role
     NONE=10,
 }
 
+
 public enum Condition
 {
     NOMAL=0,

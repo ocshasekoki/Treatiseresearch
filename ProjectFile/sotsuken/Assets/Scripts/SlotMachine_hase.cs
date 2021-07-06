@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SlotMachine_hase : MonoBehaviour
 {
@@ -16,15 +17,18 @@ public class SlotMachine_hase : MonoBehaviour
     private int pro = 0;
     private Role role;
 
-    private List<GameObject> leftsymbol;
-    private List<GameObject> centersymbol;
-    private List<GameObject> rightsymbol;
+    private List<GameObject> leftsymbol = null;
+    private List<GameObject> centersymbol = null;
+    private List<GameObject> rightsymbol = null;
 
-    [SerializeField] private GameObject leftReal;
-    [SerializeField] private GameObject centerReal;
-    [SerializeField] private GameObject rightReal;
+    [SerializeField] private GameObject leftReal = null;
+    [SerializeField] private GameObject centerReal = null;
+    [SerializeField] private GameObject rightReal = null;
+    [SerializeField] private List<GameObject> effectList = null;
+    [SerializeField] private GameObject effectArea = null;
+    [SerializeField] private GameObject colorTest = null;
 
-
+    [SerializeField] private Dropdown configDD;
     public void Start()
     {
         config =(Config)UnityEngine.Random.Range(0,2);
@@ -37,6 +41,7 @@ public class SlotMachine_hase : MonoBehaviour
         centersymbol = SetReal(centerReal);
         rightsymbol = SetReal(rightReal);
 
+        SetConfigDD();
     }
     private List<GameObject> SetReal(GameObject obj)
     {
@@ -52,7 +57,25 @@ public class SlotMachine_hase : MonoBehaviour
     /// </summary>
     public void LeverOn()
     {
+
         RandomRole();
+        RealRotate();
+    }
+
+    private void RealRotate()
+    {
+        foreach(GameObject g in leftsymbol)
+        {
+            g.GetComponent<SymbolScript>().RealStart(20);
+        }
+        foreach (GameObject g in centersymbol)
+        {
+            g.GetComponent<SymbolScript>().RealStart(20);
+        }
+        foreach (GameObject g in rightsymbol)
+        {
+            g.GetComponent<SymbolScript>().RealStart(20);
+        }
     }
 
     /// <summary>
@@ -63,6 +86,7 @@ public class SlotMachine_hase : MonoBehaviour
     {
         int rand = UnityEngine.Random.Range(1,pro);
         role = DecideRole(rand);
+        SetColor(role,colorTest);
         DecideSymbol(role);
     }
 
@@ -151,22 +175,27 @@ public class SlotMachine_hase : MonoBehaviour
 
     private void AssistDicision(List<GameObject> list,Symbol s)
     {
-        foreach(GameObject obj in list)
+        if (s == 0)
+        {
+            s = (Symbol)UnityEngine.Random.Range(2,7);
+        }
+        foreach (GameObject obj in list)
         {
             Symbol sm = obj.GetComponent<SymbolData>().GetSymbol();
-            if (obj.transform.localPosition.y >= -100f&& sm == s &&sm!=0)
+            if (obj.transform.localPosition.y >= 0f&& sm == s)
             {
                 StartCoroutine(Assist(obj));
             }
         }
     }
+
     private IEnumerator Assist(GameObject obj)
     {
-        Debug.Log(obj.name);
-        yield return new WaitWhile(() =>obj.transform.localPosition.y >= 0f);
+        yield return new WaitWhile(() =>obj.transform.localPosition.y >= 10f);
         obj.GetComponent<SymbolScript>().RealStop();
         AllRealStop(obj.GetComponent<SymbolData>().GetPos());
     }
+
     private void AllRealStop(Position p)
     {
         switch (p)
@@ -178,17 +207,47 @@ public class SlotMachine_hase : MonoBehaviour
                 }
                 break;
             case Position.MIDDLE:
-                foreach (GameObject obj in leftsymbol)
+                foreach (GameObject obj in centersymbol)
                 {
                     obj.GetComponent<SymbolScript>().RealStop();
                 }
                 break;
             case Position.RIGHT:
-                foreach (GameObject obj in leftsymbol)
+                foreach (GameObject obj in rightsymbol)
                 {
                     obj.GetComponent<SymbolScript>().RealStop();
                 }
                 break;
         }
+    }
+
+    private void EffectVisible(GameObject effect)
+    {
+        Instantiate(effect,effectArea.transform);
+    }
+
+    [Obsolete]
+    private void SetColor(Role r,GameObject obj)
+    {
+        Debug.Log(r.ToString());
+        Debug.Log(Data.rolecolor[r]);
+        obj.GetComponent<ParticleSystem>().startColor = Data.rolecolor[r];
+    }
+
+    public void SetConfig()
+    {
+        config =(Config) configDD.value;
+        ChangeMode(dic);
+    }
+    public void SetConfigDD()
+    {
+        string[] ops = Enum.GetNames(typeof(Config));
+        List<string> ddvalues = new List<string>();
+        foreach (string typename in ops)
+        {
+            ddvalues.Add(typename);
+        }
+        configDD.ClearOptions();
+        configDD.AddOptions(ddvalues);
     }
 }
