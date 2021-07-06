@@ -83,3 +83,9 @@ public class Syutudai : MonoBehaviour
         }
     }
 }
+
+public string Question()
+{
+    var qes = "ここに問題を記述";
+        Console.WriteLine(qes);
+}
