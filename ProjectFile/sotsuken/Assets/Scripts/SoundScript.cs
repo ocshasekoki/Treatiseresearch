@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SoundScript : MonoBehaviour
 {
@@ -23,23 +21,23 @@ public class SoundScript : MonoBehaviour
         if (roop)
         {
             float x = transform.position.x;
-            if (spd.x >= 0)
+            if (spd.x > 0)
             {
                 if (x >= turnarea.x && !turn) turn = true;
-                if (x <= defaultarea.x && turn) turn = false;
+                else if (x <= defaultarea.x && turn) turn = false;
             }
-            else
+            else if(spd.x<0)
             {
                 if (x <= turnarea.x && !turn) turn = true;
-                if (x >= defaultarea.x && turn) turn = false;
+                else if (x >= defaultarea.x && turn) turn = false;
             }
             if (turn)
             {
-                r.velocity = spd;
+                r.velocity = -spd;
             }
             else
             {
-                r.velocity = -spd;
+                r.velocity = spd;
             }
         }
     }
@@ -47,7 +45,12 @@ public class SoundScript : MonoBehaviour
     {
         souce.Play();
         stop = true;
-        //r.isKinematic =true;
+        r.isKinematic =true;
         r.velocity = Vector2.zero;
+    }
+
+    public void RoopFinish()
+    {
+        roop = false;
     }
 }
