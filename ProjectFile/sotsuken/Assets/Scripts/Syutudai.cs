@@ -14,6 +14,7 @@ public class Syutudai : MonoBehaviour
     [SerializeField] Text[] gogunText;
     [SerializeField] GameObject ansButton;
 
+    
     public void SetButton()
     {
         //リスト初期化
@@ -43,9 +44,9 @@ public class Syutudai : MonoBehaviour
         mondaiText.text = m.GetMondaiText();
         answerText.text = m.GetAnswer();
         kaisetsuText.text = m.GetKaisetsu();
-        foreach (int ) ; 
+        for (int i = 0;i<gogunText.Length;i++) 
         {
-            gogunText();
+            gogunText[i].text = m.GetT(i);
         }
     }
 }

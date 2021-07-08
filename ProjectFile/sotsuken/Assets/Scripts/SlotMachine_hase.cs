@@ -29,8 +29,22 @@ public class SlotMachine_hase : MonoBehaviour
     [SerializeField] private GameObject colorTest = null;
 
     [SerializeField] private Dropdown configDD;
+    Dictionary<Role, GameObject> prefDic = new Dictionary<Role, GameObject>();
+
+    
     public void Start()
     {
+        prefDic.Clear();
+        foreach (Role r in Enum.GetValues(typeof(Role)))
+        {
+            prefDic.Add(r, PrefLoad(r));
+        }
+        Debug.Log(prefDic.Count);
+        foreach(GameObject g in prefDic.Values)
+        {
+            Debug.Log(g.name);
+        }
+
         config =(Config)UnityEngine.Random.Range(0,2);
         condition = Condition.NOMAL;
         dic = Prodic.LoadDic();
@@ -87,7 +101,14 @@ public class SlotMachine_hase : MonoBehaviour
         int rand = UnityEngine.Random.Range(1,pro);
         role = DecideRole(rand);
         SetColor(role,colorTest);
+        CreatePrefab(role);
         DecideSymbol(role);
+    }
+
+    private void CreatePrefab(Role r)
+    {
+        Debug.Log(r.ToString());
+        Instantiate(prefDic[r],effectArea.transform);
     }
 
     /// <summary>
@@ -249,5 +270,17 @@ public class SlotMachine_hase : MonoBehaviour
         }
         configDD.ClearOptions();
         configDD.AddOptions(ddvalues);
+    }
+    private GameObject PrefLoad(Role r)
+    {
+        GameObject obj = null;
+        Debug.Log(r);
+        //r.ToString()  (Role名)_prefのプレハブ読み込み
+        //obj = (GameObject)Resources.Load("/Prefabs/" + r + "_pref");
+        obj = Resources.Load<GameObject>("Prefabs/"+ r+"_pref");
+        
+        Debug.Log(obj.name);
+        //CHERRY_pref
+        return obj;
     }
 }

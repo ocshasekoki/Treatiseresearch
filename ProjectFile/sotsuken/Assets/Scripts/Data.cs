@@ -18,6 +18,7 @@ public class Data
         {Role.BIGBONUS,(7, 7, 7) },
         {Role.FREEZE,(6, 6, 6) },
     };
+
     public static Dictionary<Role, Color> rolecolor = new Dictionary<Role, Color>() {
         {Role.NONE,Color.clear },
         {Role.STRONGCHERRY,new Color(0.75f,0,0.75f)},
@@ -31,6 +32,7 @@ public class Data
         {Role.BIGBONUS,new Color(1f,0.3058f,0.4705f) },
         {Role.FREEZE,new Color(1f,0.7764f,0) },
     };
+
     private int correctcount = 0;
     public int Cor
     {

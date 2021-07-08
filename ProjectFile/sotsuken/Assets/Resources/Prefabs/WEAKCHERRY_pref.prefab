@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6721812878810316944}
   - component: {fileID: 9002420274771743381}
   m_Layer: 0
-  m_Name: Burst
+  m_Name: WEAKCHERRY_pref
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
