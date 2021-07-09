@@ -24,7 +24,6 @@ public class SlotMachine_hase : MonoBehaviour
     [SerializeField] private GameObject leftReal = null;
     [SerializeField] private GameObject centerReal = null;
     [SerializeField] private GameObject rightReal = null;
-    [SerializeField] private List<GameObject> effectList = null;
     [SerializeField] private GameObject effectArea = null;
     [SerializeField] private GameObject colorTest = null;
 
@@ -49,7 +48,6 @@ public class SlotMachine_hase : MonoBehaviour
         condition = Condition.NOMAL;
         dic = Prodic.LoadDic();
         ChangeMode(dic);
-        //Test.TestProdic(dic);
 
         leftsymbol = SetReal(leftReal);
         centersymbol = SetReal(centerReal);
@@ -242,11 +240,6 @@ public class SlotMachine_hase : MonoBehaviour
         }
     }
 
-    private void EffectVisible(GameObject effect)
-    {
-        Instantiate(effect,effectArea.transform);
-    }
-
     [Obsolete]
     private void SetColor(Role r,GameObject obj)
     {
@@ -275,12 +268,8 @@ public class SlotMachine_hase : MonoBehaviour
     {
         GameObject obj = null;
         Debug.Log(r);
-        //r.ToString()  (Role名)_prefのプレハブ読み込み
-        //obj = (GameObject)Resources.Load("/Prefabs/" + r + "_pref");
-        obj = Resources.Load<GameObject>("Prefabs/"+ r+"_pref");
-        
+        obj = Resources.Load<GameObject>("Prefabs/"+ r+"_pref");       
         Debug.Log(obj.name);
-        //CHERRY_pref
         return obj;
     }
 }

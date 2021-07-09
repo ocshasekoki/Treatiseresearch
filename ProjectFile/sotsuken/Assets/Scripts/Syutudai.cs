@@ -14,7 +14,6 @@ public class Syutudai : MonoBehaviour
     [SerializeField] Text[] gogunText;
     [SerializeField] GameObject ansButton;
 
-    
     public void SetButton()
     {
         //リスト初期化
