@@ -18,12 +18,13 @@ public class Prodic :MonoBehaviour
         return dic.prodic.Find(x => x.conf == c&&x.role ==r&&x.cond == cd);
     }
     /// <summary>
-    /// 
+    /// 現在の設定とコンディションから一致した物を
+    /// Keyを小役、ValueをProdata（確率）としてDictionaryとして抽出するスクリプト
     /// </summary>
-    /// <param name="dic"></param>
-    /// <param name="c"></param>
-    /// <param name="cd"></param>
-    /// <returns></returns>
+    /// <param name="dic">全通り確率が格納されたリスト</param>
+    /// <param name="c">現在の設定状態</param>
+    /// <param name="cd">現在のコンディション状態</param>
+    /// <returns>Keyを小役、ValueをProdata（確率）としてDictionary</returns>
     public static Dictionary<Role,ProData> GetPro(Dic dic,Config c, Condition cd)
     {
         Dictionary<Role, ProData> diction = new Dictionary<Role, ProData>();
@@ -48,6 +49,11 @@ public class Prodic :MonoBehaviour
         string path = Application.streamingAssetsPath + "/"+name+format;
         File.WriteAllText(path,json);
     }
+    /// <summary>
+    /// prodic(確率)Jsonファイルからロードしたデータを
+    /// Dicクラスに変換する関数
+    /// </summary>
+    /// <returns>すべての確率のリスト</returns>
     public static Dic LoadDic()
     {
         string path = Application.streamingAssetsPath + "/prodic"+format;

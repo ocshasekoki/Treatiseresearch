@@ -46,7 +46,9 @@ public class Data
         set { coin = value; }
     }
 }
-
+/// <summary>
+/// ProDateのリスト
+/// </summary>
 [Serializable]
 public class Dic
 {
