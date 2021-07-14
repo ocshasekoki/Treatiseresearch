@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class Data
 {
-    public static Dictionary<Role, (int l, int c, int r)> symbolDic = new Dictionary<Role, (int l, int c, int r)>()
+    public static Dictionary<Role, (Symbol l, Symbol c, Symbol r)> symbolDic = new Dictionary<Role, (Symbol l, Symbol c, Symbol r)>()
     {
-        {Role.NONE,(0,0,0) },
-        {Role.STRONGCHERRY,(1,1,1)},
-        {Role.CHERRY,(1,1,0)  },
-        {Role.WEAKCHERRY,(1, 0,0) },
-        {Role.WATERMELON,(2, 2, 2) },
-        {Role.BELL,(3, 3, 3) },
-        {Role.REPLAY,(4, 4, 4) },
-        {Role.QUESTION,(5, 5, 5) },
-        {Role.REGBONUS,(7, 7, 6) },
-        {Role.BIGBONUS,(7, 7, 7) },
-        {Role.FREEZE,(6, 6, 6) },
+        {Role.NONE,(Symbol.NONE,Symbol.NONE,Symbol.NONE)},
+        {Role.STRONGCHERRY,(Symbol.CHERRY,Symbol.CHERRY,Symbol.CHERRY)},
+        {Role.CHERRY,(Symbol.CHERRY,Symbol.CHERRY,Symbol.NONE)  },
+        {Role.WEAKCHERRY,(Symbol.CHERRY,Symbol.NONE,Symbol.NONE) },
+        {Role.WATERMELON,(Symbol.WATERMELON, Symbol.WATERMELON, Symbol.WATERMELON) },
+        {Role.BELL,(Symbol.BELL, Symbol.BELL, Symbol.BELL) },
+        {Role.REPLAY,(Symbol.REPLAY, Symbol.REPLAY, Symbol.REPLAY) },
+        {Role.QUESTION,(Symbol.QUESTION, Symbol.QUESTION, Symbol.QUESTION) },
+        {Role.REGBONUS,(Symbol.SEVEN, Symbol.SEVEN, Symbol.BAR) },
+        {Role.BIGBONUS,(Symbol.SEVEN, Symbol.SEVEN, Symbol.SEVEN) },
+        {Role.FREEZE,(Symbol.BAR, Symbol.BAR, Symbol.BAR) },
     };
 
     public static Dictionary<Role, Color> rolecolor = new Dictionary<Role, Color>() {

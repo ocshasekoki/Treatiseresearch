@@ -31,9 +31,9 @@ namespace Slot
     /// </summary>
     public class SlotMachine_hase : MonoBehaviour
     {
-        private int symbolLeft = 0;
-        private int symbolCenter = 0;
-        private int symbolRight = 0;
+        private Symbol symbolLeft = 0;
+        private Symbol symbolCenter = 0;
+        private Symbol symbolRight = 0;
         private Dictionary<Role, ProData> diction;
         private Condition condition = Condition.NOMAL;
         private Config config = 0;
@@ -240,7 +240,7 @@ namespace Slot
         /// <param name="s"></param>
         private void AssistDicision(List<GameObject> list, Symbol s)
         {
-            if (s == 0)
+            if (s == Symbol.NONE)
             {
                 s = (Symbol)UnityEngine.Random.Range(2, 7);
             }
@@ -254,9 +254,9 @@ namespace Slot
             }
         }
         /// <summary>
-        /// リールを止めるスクリプトを取得
+        /// 役に対応した図柄をアシストする
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="obj">図柄に対応したオブジェクト</param>
         /// <returns></returns>
         private IEnumerator Assist(GameObject obj)
         {
@@ -267,7 +267,7 @@ namespace Slot
         /// <summary>
         /// ボタンを押したとき全ての図柄を止める。
         /// </summary>
-        /// <param name="p"></param>
+        /// <param name="p">リールの位置</param>
         private void AllRealStop(Position p)
         {
             switch (p)
@@ -296,8 +296,8 @@ namespace Slot
         /// <summary>
         /// 演出に合わせた色を出力する。
         /// </summary>
-        /// <param name="r"></param>
-        /// <param name="obj"></param>
+        /// <param name="r">小役</param>
+        /// <param name="obj">演出のオブジェクト</param>
         [Obsolete]
         private void SetColor(Role r, GameObject obj)
         {
@@ -316,7 +316,7 @@ namespace Slot
         }
         
         /// <summary>
-        /// 
+        /// コンフィグのドロップダウンの中身を書き換える処理
         /// </summary>
         public void SetConfigDD()
         {
@@ -326,15 +326,15 @@ namespace Slot
             {
                 ddvalues.Add(typename);
             }
-            configDD.ClearOptions();
-            configDD.AddOptions(ddvalues);
+            configDD.ClearOptions();　
+            configDD.AddOptions(ddvalues);　
         }
 
         /// <summary>
-        /// 
+        /// 小役に対応したResources内のプレハブを読み込む
         /// </summary>
-        /// <param name="r"></param>
-        /// <returns></returns>
+        /// <param name="r">小役</param>
+        /// <returns>小役に対応したゲームオブジェクト</returns>
         private GameObject PrefLoad(Role r)
         {
             GameObject obj = null;
@@ -345,3 +345,4 @@ namespace Slot
         }
     }
 }
+
