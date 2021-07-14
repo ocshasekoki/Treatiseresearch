@@ -38,6 +38,10 @@ public class Syutudai : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 問題を生成し、表示させるプログラム
+    /// </summary>
+
     public void CreateMondai()
     {
         mondaiText.text = m.GetMondaiText();

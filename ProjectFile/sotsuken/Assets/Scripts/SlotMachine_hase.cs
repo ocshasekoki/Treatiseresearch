@@ -214,7 +214,7 @@ namespace Slot
             }
         }
         /// <summary>
-        /// 
+        /// 押されたボタンを判定して、対応する箇所の図柄を止める
         /// </summary>
         /// <param name="pos"></param>
         public void btnPush(string pos)
@@ -234,7 +234,7 @@ namespace Slot
             }
         }
         /// <summary>
-        /// 
+        /// 取ってきた図柄をsmに入れる。図柄と役が一致しているか判定。
         /// </summary>
         /// <param name="list"></param>
         /// <param name="s"></param>
@@ -254,7 +254,7 @@ namespace Slot
             }
         }
         /// <summary>
-        /// 
+        /// リールを止めるスクリプトを取得
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -265,7 +265,7 @@ namespace Slot
             AllRealStop(obj.GetComponent<SymbolData>().GetPos());
         }
         /// <summary>
-        /// 
+        /// ボタンを押したとき全ての図柄を止める。
         /// </summary>
         /// <param name="p"></param>
         private void AllRealStop(Position p)
@@ -294,7 +294,7 @@ namespace Slot
         }
 
         /// <summary>
-        /// 
+        /// 演出に合わせた色を出力する。
         /// </summary>
         /// <param name="r"></param>
         /// <param name="obj"></param>
@@ -307,7 +307,7 @@ namespace Slot
         }
         
         /// <summary>
-        /// 
+        ///　設定でモードを変更する
         /// </summary>
         public void SetConfig()
         {
