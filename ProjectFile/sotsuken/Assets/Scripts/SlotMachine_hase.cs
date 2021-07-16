@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 namespace Slot
@@ -41,10 +42,16 @@ namespace Slot
         private Data data;
         private int pro = 0;
         private Role role;
+        private int realcon;
+
+        private int coin =100;
+        private int bedcoin = 3;
 
         private List<GameObject> leftsymbol = null;
         private List<GameObject> centersymbol = null;
         private List<GameObject> rightsymbol = null;
+
+        private bool[] rotate = new bool[3];
 
         [SerializeField] private GameObject leftReal = null;
         [SerializeField] private GameObject centerReal = null;
@@ -55,9 +62,9 @@ namespace Slot
         [SerializeField] private Dropdown configDD;
         Dictionary<Role, GameObject> prefDic = new Dictionary<Role, GameObject>();
 
-
         public void Start()
         {
+            realcon = 0;
             prefDic.Clear();
             foreach (Role r in Enum.GetValues(typeof(Role)))
             {
@@ -95,12 +102,22 @@ namespace Slot
             }
             return list;
         }
+
+        public void PushBed()
+        {
+            if(coin-bedcoin < 0 && realcon !=(int)Real.NOBET)
+            {
+                return;
+            }
+            coin -= bedcoin;
+            realcon = (int)Real.BET;
+        }
+
         /// <summary>
         /// ればーおん！
         /// </summary>
         public void LeverOn()
         {
-
             RandomRole();
             RealRotate();
         }
@@ -121,6 +138,11 @@ namespace Slot
             {
                 g.GetComponent<SymbolScript>().RealStart(20);
             }
+            for (int i =0;i<rotate.Length; i++) 
+            { 
+                rotate[i] = true; 
+            }
+            realcon = (int)Real.ROTATE;
         }
 
         /// <summary>
@@ -135,6 +157,7 @@ namespace Slot
             CreatePrefab(role);
             DecideSymbol(role);
         }
+
         /// <summary>
         /// 役に対しての演出設定
         /// </summary>
@@ -223,16 +246,18 @@ namespace Slot
             switch (p)
             {
                 case Position.LEFT:
-                    AssistDicision(leftsymbol, (Symbol)Data.symbolDic[role].l);
+                    if (rotate[(int)Position.LEFT]) AssistDicision(leftsymbol, (Symbol)Data.symbolDic[role].l);
                     break;
                 case Position.MIDDLE:
-                    AssistDicision(centersymbol, (Symbol)Data.symbolDic[role].c);
+                    if (rotate[(int)Position.MIDDLE]) AssistDicision(centersymbol, (Symbol)Data.symbolDic[role].c);
                     break;
                 case Position.RIGHT:
-                    AssistDicision(rightsymbol, (Symbol)Data.symbolDic[role].r);
+                    if (rotate[(int)Position.RIGHT]) AssistDicision(rightsymbol, (Symbol)Data.symbolDic[role].r);
                     break;
             }
         }
+
+
         /// <summary>
         /// 取ってきた図柄をsmに入れる。図柄と役が一致しているか判定。
         /// </summary>
@@ -240,6 +265,10 @@ namespace Slot
         /// <param name="s"></param>
         private void AssistDicision(List<GameObject> list, Symbol s)
         {
+            if(realcon < (int)Real.ROTATE&&realcon>(int)Real.THREESTOP)
+            {
+                return;
+            }
             if (s == Symbol.NONE)
             {
                 s = (Symbol)UnityEngine.Random.Range(2, 7);
@@ -253,6 +282,8 @@ namespace Slot
                 }
             }
         }
+
+
         /// <summary>
         /// 役に対応した図柄をアシストする
         /// </summary>
@@ -263,28 +294,36 @@ namespace Slot
             yield return new WaitWhile(() => obj.transform.localPosition.y >= 10f);
             obj.GetComponent<SymbolScript>().RealStop();
             AllRealStop(obj.GetComponent<SymbolData>().GetPos());
+            
+            Debug.Log((Real)realcon);
         }
+
         /// <summary>
         /// ボタンを押したとき全ての図柄を止める。
         /// </summary>
         /// <param name="p">リールの位置</param>
         private void AllRealStop(Position p)
         {
+            realcon++;
+            if ((Real)realcon == Real.ONESTOP) Answer(p);
             switch (p)
             {
                 case Position.LEFT:
+                    rotate[(int)Position.LEFT] = false;
                     foreach (GameObject obj in leftsymbol)
                     {
                         obj.GetComponent<SymbolScript>().RealStop();
                     }
                     break;
                 case Position.MIDDLE:
+                    rotate[(int)Position.MIDDLE] = false;
                     foreach (GameObject obj in centersymbol)
                     {
                         obj.GetComponent<SymbolScript>().RealStop();
                     }
                     break;
                 case Position.RIGHT:
+                    rotate[(int)Position.RIGHT] = false;
                     foreach (GameObject obj in rightsymbol)
                     {
                         obj.GetComponent<SymbolScript>().RealStop();
@@ -342,6 +381,68 @@ namespace Slot
             obj = Resources.Load<GameObject>("Prefabs/" + r + "_pref");
             Debug.Log(obj.name);
             return obj;
+        }
+
+        [SerializeField] private Mondai m;
+        [SerializeField] Text mondaiText;
+        [SerializeField] Text answerText;
+        [SerializeField] Text kaisetsuText;
+        [SerializeField] Text[] gogunText;
+        [SerializeField] GameObject ansButton;
+
+        /// <summary>
+        /// 問題を生成し、表示させるプログラム
+        /// </summary>
+        private void CreateMondai(Mondai m)
+        {
+            mondaiText.text = m.GetMondaiText();
+            answerText.text = m.GetAnswer();
+            kaisetsuText.text = m.GetKaisetsu();
+            for (int i = 0; i < gogunText.Length; i++)
+            {
+                gogunText[i].text = m.GetT(i);
+            }
+        }
+
+        private void SetMondai()
+        {
+            Mondai mondai = GetMondai(role);
+            //リスト初期化
+            List<int> numbers = new List<int>();
+            //ボタンの数だけ数値を用意({0,1,2})
+            for (int i = 0; i < 3; i++)
+            {
+                //リストに入れる
+                numbers.Add(i);
+            }
+            //リストが１つ以上データがあるとき
+            while (numbers.Count > 0)
+            {
+                //リストの長さだけ乱数生成
+                int index = UnityEngine.Random.Range(0, numbers.Count);
+                //「乱数で出た数値」番目を取り出す
+                int ransu = numbers[index];
+                //テキストを設置する
+                gogunText[index].text = m.GetT(ransu);
+                //入れた数値をリストから削除する
+                numbers.RemoveAt(index);
+            }
+        }
+
+        private bool Answer(Position p)
+        {
+            if(gogunText[(int)p].text == m.GetAnswer())
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private static Mondai GetMondai(Role r)
+        {
+            string path = Application.streamingAssetsPath + "/question/" +r+ ".json";
+            string str = File.ReadAllText(path);
+            return JsonUtility.FromJson<Mondai>(str);
         }
     }
 }
