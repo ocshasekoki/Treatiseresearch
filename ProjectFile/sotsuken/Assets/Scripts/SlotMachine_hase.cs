@@ -39,7 +39,7 @@ namespace Slot
         private Condition condition = Condition.NOMAL;
         private Config config = 0;
         private Dic dic;
-        private Data data;
+        private Data data = new Data();
         private int pro = 0;
         private Role role;
         private int realcon;
@@ -156,6 +156,7 @@ namespace Slot
             SetColor(role, colorTest);
             CreatePrefab(role);
             DecideSymbol(role);
+            if(role == Role.QUESTION)SetMondai();
         }
 
         /// <summary>
@@ -218,7 +219,7 @@ namespace Slot
         /// </summary>
         /// <param name="currect">正解かどうか</param>
         /// <returns>連続正解した数＊設定、状態に対応した確率</returns>
-        public void Answer(bool currect)
+        public void AnswerDicision(bool currect)
         {
             if (currect) data.Cor++;
             else data.Cor = 0;
@@ -305,7 +306,9 @@ namespace Slot
         private void AllRealStop(Position p)
         {
             realcon++;
-            if ((Real)realcon == Real.ONESTOP) Answer(p);
+            if ((Real)realcon == Real.ONESTOP && role == Role.QUESTION){
+                AnswerDicision(Answer(p));
+                    }       
             switch (p)
             {
                 case Position.LEFT:
@@ -406,10 +409,11 @@ namespace Slot
 
         private void SetMondai()
         {
-            Mondai mondai = GetMondai(role);
+            //Mondai mondai = GetMondai(role);
             //リスト初期化
             List<int> numbers = new List<int>();
             //ボタンの数だけ数値を用意({0,1,2})
+            Debug.Log("問題が出題されました");
             for (int i = 0; i < 3; i++)
             {
                 //リストに入れる
@@ -433,8 +437,10 @@ namespace Slot
         {
             if(gogunText[(int)p].text == m.GetAnswer())
             {
+                Debug.Log("正解しました");
                 return true;
             }
+            Debug.Log("不正解");
             return false;
         }
 
