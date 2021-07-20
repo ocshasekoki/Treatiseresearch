@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EnumDic;
 
 public class SymbolData : MonoBehaviour
 {
 
-    [SerializeField] private Position pos = Position.LEFT;
-    [SerializeField] private Symbol symbol = Symbol.BAR;
+    [SerializeField] protected Position pos = Position.LEFT;
+    [SerializeField] protected Symbol symbol = Symbol.BAR;
 
     public void Dump()
     {
