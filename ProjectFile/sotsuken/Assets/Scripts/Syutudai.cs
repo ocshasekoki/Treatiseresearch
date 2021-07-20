@@ -37,19 +37,4 @@ public class Syutudai : MonoBehaviour
             numbers.RemoveAt(index);
         }
     }
-
-    /// <summary>
-    /// 問題を生成し、表示させるプログラム
-    /// </summary>
-
-    public void CreateMondai()
-    {
-        mondaiText.text = m.GetMondaiText();
-        answerText.text = m.GetAnswer();
-        kaisetsuText.text = m.GetKaisetsu();
-        for (int i = 0;i<gogunText.Length;i++) 
-        {
-            gogunText[i].text = m.GetT(i);
-        }
-    }
 }
