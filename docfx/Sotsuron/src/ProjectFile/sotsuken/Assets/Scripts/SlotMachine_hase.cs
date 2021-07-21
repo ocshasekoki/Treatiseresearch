@@ -11,51 +11,46 @@ namespace Slot
 {
     public class SlotMachine_hase : MonoBehaviour
     {
-        /// <summary>
-        /// スロットの根幹システム
-        /// [型]　　　　　　　　　　　  [変数名]        [説明]
-        /// int                         symbolLeft      左の図柄  
-        /// int                         symbolCenter    中央の図柄
-        /// int                         symbolRight     右の図柄
-        /// Dictionary<Role, ProData>   diction         役別の各確率が入ったディクショナリ
-        /// Condition                   condition       状態（低確、高確、超高確）
-        /// Config                      config          設定（LOW,MIDDLE,HIGH）
-        /// Dic                         dic             すべての確率のリスト
-        /// Data                        data            役に対応する図柄のディクショナリなどのデータが格納された関数
-        /// int                         pro             確率の分母
-        /// Role                        role            現在の小役
 
-        /// List<GameObject>            leftsymbol      左の図柄のリスト
-        /// List<GameObject>            centersymbol    中央の図柄のリスト
-        /// List<GameObject>            rightsymbol     右の図柄のリスト
-
-        /// GameObject                  leftReal        左のとまる場所
-        /// GameObject                  centerReal      真ん中のとまる場所
-        /// GameObject                  rightReal       右のとまる場所
-        /// GameObject                  effectArea      エフェクト発生のエリア
-        /// GameObject                  colorTest       色（テスト用）
-        /// </summary>
+        ///<summary>symbolLeft:左の図柄</summary>
         protected Symbol symbolLeft = 0;
+        ///<summary>symbolCenter:中央の図柄</summary> 
         protected Symbol symbolCenter = 0;
+        /// <summary> symbolRight:右の図柄 </summary>
         protected Symbol symbolRight = 0;
+        /// <summary>diction:役別の各確率が入ったディクショナリ</summary>
         protected Dictionary<Role, ProData> diction;
+        /// <summary>condition:状態（低確、高確、超高確）</summary>
         protected Condition condition = Condition.NOMAL;
+        /// <summary>config:設定（LOW,MIDDLE,HIGH）</summary>
         protected Config config = 0;
+        /// <summary> dic :すべての確率のリスト</summary>
         protected Dic dic;
+        /// <summary>data:役に対応する図柄のディクショナリなどのデータが格納された関数</summary>
         protected DicData data;
+        /// <summary>pro:確率の分母/ </summary>
         protected int pro = 0;
+        /// <summary>role :現在の小役 </summary>
         protected Role role;
 
+        /// <summary> leftsymbol:左の図柄のリスト</summary>
         protected List<GameObject> leftsymbol = null;
+        /// <summary> centersymbol:中央の図柄のリスト</summary>
         protected List<GameObject> centersymbol = null;
+        /// <summary>rightReal:右のとまる場所 </summary>
         protected List<GameObject> rightsymbol = null;
 
+        /// <summary> leftReal:左のとまる場所 </summary>
         [SerializeField] protected GameObject leftReal = null;
+        /// <summary>centerReal:真ん中のとまる場所 </summary>
         [SerializeField] protected GameObject centerReal = null;
+        /// <summary>rightReal:右のとまる場所</summary>
         [SerializeField] protected GameObject rightReal = null;
+        /// <summary> effectArea:エフェクト発生のエリア </summary>
         [SerializeField] protected GameObject effectArea = null;
+        /// <summary>colorTest:色（テスト用） </summary>
         [SerializeField] protected GameObject colorTest = null;
-
+        /// <summary>configDD: 設定の変更のドロップダウン/summary>
         [SerializeField] protected Dropdown configDD;
         Dictionary<Role, GameObject> prefDic = new Dictionary<Role, GameObject>();
 
@@ -86,7 +81,6 @@ namespace Slot
         }
         /// <summary>
         /// 指定したリールの絵柄すべてをリストに格納する。
-        /// 
         /// </summary>
         /// <param name="obj">各リールの親</param>
         /// <returns>絵柄のリスト</returns>

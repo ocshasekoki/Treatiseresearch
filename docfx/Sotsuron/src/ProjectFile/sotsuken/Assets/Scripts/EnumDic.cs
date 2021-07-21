@@ -54,7 +54,7 @@
         NONE = 10,
     }
 
-
+    /// <summary> Condition:状態の列挙型 </summary>
     public enum Condition
     {
         NOMAL = 0,
@@ -65,12 +65,15 @@
         AT = 5,
     }
 
+    /// <summary>Config:選挙</summary>
     public enum Config
     {
         LOW = 0,
         MIDDLE = 1,
         HIGH = 2
     }
+
+    /// <summary>Position:リールの列 </summary>
     public enum Position
     {
         RIGHT = 0,
