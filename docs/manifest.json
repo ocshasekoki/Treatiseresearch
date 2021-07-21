@@ -249,10 +249,10 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "STIui3SdrKOWAyio9qiWQn2V1U5yEkw+EnqhjmkNhC4="
+          "hash": "iLKkOJHM8MP1sAEiCBW0qZF4GJABCuZyFdH7hYJrMfk="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -261,7 +261,7 @@
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "WSuRrYiGwKKMbtdG9z8W9fXmLoCyTnGg9AxbPKLXm2Y="
+          "hash": "RwYYj7VfEgH7HG4haSIFShzM5r7hbqvjqHSCrylrmR0="
         }
       },
       "is_incremental": false,
@@ -281,7 +281,7 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 3,
-          "skipped_file_count": 3
+          "skipped_file_count": 2
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
