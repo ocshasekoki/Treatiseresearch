@@ -90,14 +90,14 @@ namespace Data
     [Serializable]
     public struct ProData
     {
-        public Config conf;         /// <summary>設定/// </summary>
-        public Condition cond;      /// <summary>状態/// </summary>
-        public Role role;           /// <summary>小役/// </summary>
-        public int bonuspro;        /// <summary>ボーナス確率/// </summary>
-        public int bigbonuspro;     /// <summary>ビッグボーナス確率 /// </summary>
-        public int freezepro;       /// <summary>フリーズ確率/// </summary>
-        public int chancezonepro;   /// <summary>/// チャンスゾーンの確率</summary>
-        public int appearpro;       /// <summary>出現確率/// </summary>
+        public Config conf;         /// <summary>設定</summary>
+        public Condition cond;      /// <summary>状態</summary>
+        public Role role;           /// <summary>小役</summary>
+        public int bonuspro;        /// <summary>ボーナス確率</summary>
+        public int bigbonuspro;     /// <summary>ビッグボーナス確率</summary>
+        public int freezepro;       /// <summary>フリーズ確率</summary>
+        public int chancezonepro;   /// <summary>チャンスゾーンの確率</summary>
+        public int appearpro;       /// <summary>出現確率</summary>
         
         /// <summary>
         /// 現在の状態を出力
