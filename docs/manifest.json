@@ -1,0 +1,318 @@
+{
+  "homepages": [],
+  "source_base_path": "G:/Treatiseresearch/docfx/Sotsuron",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Data.Dic.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Data.Dic.html",
+          "hash": "8ktWchZE0Elvkr2fN0ro55Q9y0BAk0grkyiBtmLKE1k="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Data.DicData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Data.DicData.html",
+          "hash": "sm43egtxULSGhITVDer5nYOexRvMHH5mON7tlcVAB/4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Data.ProData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Data.ProData.html",
+          "hash": "MknjYmTwPpmJXK6MruFQm7Ff4zPdU2FrmCNbxNS3RCE="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Data.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Data.html",
+          "hash": "wp+LuAAuZZSzzIMYtBEZ9YabnUZ45EOG+9V6VJfved4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/EnumDic.Condition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/EnumDic.Condition.html",
+          "hash": "n/9EFL7mshk2llXMsx0m2Fkf3g2wMbTQgIsqtvt7g9k="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/EnumDic.Config.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/EnumDic.Config.html",
+          "hash": "5ZLu3Cw1mp39X5W8WT7a2HgipHw/lOlUfDKe79xGD2I="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/EnumDic.Position.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/EnumDic.Position.html",
+          "hash": "d6MUe/+c9gwA8oxiwKjutbbTuCmEvTta0XTKgWoze34="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/EnumDic.Role.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/EnumDic.Role.html",
+          "hash": "7MuboAeLFKtG1jV2tkBXj8oQfWUU61ZRXY4cBCpxrvA="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/EnumDic.Symbol.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/EnumDic.Symbol.html",
+          "hash": "u7j1OkKJOi8Kv4gDqCCaDIQEWy0G8sWPbss62UVXEUs="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/EnumDic.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/EnumDic.html",
+          "hash": "J4xsV6UdyDNpe6wYFZqbzqx9Qh+hm8cRrbw7e2O9+Gw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Prob.Prodic.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Prob.Prodic.html",
+          "hash": "iAHMLTnf4lX9ow0bXhhPrfeBUNQ7Bc1r+VD6wcEf+X4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Prob.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Prob.html",
+          "hash": "f96eb41evBrqKbYazzLFMiWMYQLqEEp5ZYs53NXm0zw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Slot.SlotMachine_hase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Slot.SlotMachine_hase.html",
+          "hash": "+WV7DNm52qDGA/MrW3JkfUnw3bPXIUD74t0ndyXfGvM="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Slot.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Slot.html",
+          "hash": "2uWg61dtAzHvlM+FYcl/LJEUkTa460FSj4GKjsNfgwo="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Test.SrotTest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Test.SrotTest.html",
+          "hash": "y2hFysWSCzPQtLeK6AEa0jlzuPqaaQeYYmozTQ/jEqM="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Test.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Test.html",
+          "hash": "9n9Udk5tCWIlFstwAS29rBp3YUYzz064JsWyzeAxms0="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "5YN3hR0HkKc/ZcV3pqS9N6Sc/B7CPcioDvJXZXbjzvE="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "N1oRsrMabpxuVz/3MnhHxzt6lFzJ3eve2PUnrN0bb9I="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/intro.html",
+          "hash": "uQzbHWTq/7HRlmmE4u/Z6nVAopc1RHxpd82wf6KFeW4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html",
+          "hash": "BlPxk5mtl2kgfcZUgkEguqiSAR/EUyUTT4EdebwkQvs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "STIui3SdrKOWAyio9qiWQn2V1U5yEkw+EnqhjmkNhC4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "WSuRrYiGwKKMbtdG9z8W9fXmLoCyTnGg9AxbPKLXm2Y="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": true,
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 3,
+          "skipped_file_count": 3
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 16,
+          "skipped_file_count": 16
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": true,
+        "details": "Can support incremental post processing.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
