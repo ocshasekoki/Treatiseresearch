@@ -6,8 +6,14 @@ using Prob;
 
 namespace Data
 {
+    /// <summary>
+    /// 役のデータ
+    /// </summary>
     public class DicData
     {
+        /// <summary>
+        /// 役に対応した図柄のディクショナリ
+        /// </summary>
         public static Dictionary<Role, (Symbol l, Symbol c, Symbol r)> symbolDic = new Dictionary<Role, (Symbol l, Symbol c, Symbol r)>()
         {
         {Role.NONE,(Symbol.NONE,Symbol.NONE,Symbol.NONE)},
@@ -23,6 +29,9 @@ namespace Data
         {Role.FREEZE,(Symbol.BAR, Symbol.BAR, Symbol.BAR) },
         };
 
+        /// <summary>
+        /// 役に対応した色の演出の設定
+        /// </summary>
         public static Dictionary<Role, Color> rolecolor = new Dictionary<Role, Color>() {
         {Role.NONE,Color.clear },
         {Role.STRONGCHERRY,new Color(0.75f,0,0.75f)},
@@ -36,14 +45,28 @@ namespace Data
         {Role.BIGBONUS,new Color(1f,0.3058f,0.4705f) },
         {Role.FREEZE,new Color(1f,0.7764f,0) },
         };
-
+        /// <summary>
+        /// 正解数のカウント
+        /// </summary>
         protected int correctcount = 0;
-        public int Cor
+
+        /// <summary>
+        /// 正解数のカウントプロパティ
+        /// </summary>
+        public int Cor 
         {
             get { return correctcount; }
             set { correctcount = value; }
         }
+
+        /// <summary>
+        /// コインの枚数
+        /// </summary>
         protected int coin;
+
+        /// <summary>
+        /// コインのプロパティ
+        /// </summary>
         public int Coin
         {
             get { return coin; }
@@ -51,25 +74,34 @@ namespace Data
         }
     }
     /// <summary>
-    /// ProDateのリスト
+    /// 小役のすべてのデータ
     /// </summary>
     [Serializable]
     public class Dic
     {
+        /// <summary>
+        /// ProDataのリスト
+        /// </summary>
         public List<ProData> prodic = new List<ProData>();
     }
-
+    /// <summary>
+    /// 状態、設定、小役それぞれに対応した小役の確率が入ったクラス
+    /// </summary>
     [Serializable]
     public struct ProData
     {
-        public Config conf;         //設定
-        public Condition cond;      //状態
-        public Role role;           //小役
-        public int bonuspro;        //ボーナス確率
-        public int bigbonuspro;
-        public int freezepro;
-        public int chancezonepro;
-        public int appearpro;       //出現確率
+        public Config conf;         /// <summary>設定/// </summary>
+        public Condition cond;      /// <summary>状態/// </summary>
+        public Role role;           /// <summary>小役/// </summary>
+        public int bonuspro;        /// <summary>ボーナス確率/// </summary>
+        public int bigbonuspro;     /// <summary>ビッグボーナス確率 /// </summary>
+        public int freezepro;       /// <summary>フリーズ確率/// </summary>
+        public int chancezonepro;   /// <summary>/// チャンスゾーンの確率</summary>
+        public int appearpro;       /// <summary>出現確率/// </summary>
+        
+        /// <summary>
+        /// 現在の状態を出力
+        /// </summary>
         public void Dump()
         {
             Debug.Log("設定：" + conf + " 小役：" + role + " 状態：" + cond + " 出現確率：" + appearpro + " ボーナス確率：" + bonuspro);

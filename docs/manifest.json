@@ -1,6 +1,6 @@
 {
   "homepages": [],
-  "source_base_path": "G:/Treatiseresearch/docfx/Sotsuron",
+  "source_base_path": "C:/Users/notsukota/Documents/GitHub/Treatiseresearch/docfx/Sotsuron",
   "xrefmap": "xrefmap.yml",
   "files": [
     {
@@ -9,10 +9,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Data.Dic.html",
-          "hash": "8ktWchZE0Elvkr2fN0ro55Q9y0BAk0grkyiBtmLKE1k="
+          "hash": "N8iCDN2Nv1TUHz6UqxYLCQJyC+bS7wVmg/HOclsAakA="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -21,10 +21,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Data.DicData.html",
-          "hash": "sm43egtxULSGhITVDer5nYOexRvMHH5mON7tlcVAB/4="
+          "hash": "ODsaGOXCZ8JgHNTxhU3z71nlictNDPN847h8lxE4BSk="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -33,10 +33,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Data.ProData.html",
-          "hash": "MknjYmTwPpmJXK6MruFQm7Ff4zPdU2FrmCNbxNS3RCE="
+          "hash": "VKDJ7sf5QVVMcGyq0WYDuMf8W4ULvL17ls6lLcekGtI="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -45,10 +45,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Data.html",
-          "hash": "wp+LuAAuZZSzzIMYtBEZ9YabnUZ45EOG+9V6VJfved4="
+          "hash": "RO7Pd48LwVBDl42XEtvKSzaiHUn07Jwz7sPoSYMNvFo="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -60,7 +60,7 @@
           "hash": "n/9EFL7mshk2llXMsx0m2Fkf3g2wMbTQgIsqtvt7g9k="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -72,7 +72,7 @@
           "hash": "5ZLu3Cw1mp39X5W8WT7a2HgipHw/lOlUfDKe79xGD2I="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -84,7 +84,7 @@
           "hash": "d6MUe/+c9gwA8oxiwKjutbbTuCmEvTta0XTKgWoze34="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -96,7 +96,7 @@
           "hash": "7MuboAeLFKtG1jV2tkBXj8oQfWUU61ZRXY4cBCpxrvA="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -108,7 +108,7 @@
           "hash": "u7j1OkKJOi8Kv4gDqCCaDIQEWy0G8sWPbss62UVXEUs="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -120,7 +120,7 @@
           "hash": "J4xsV6UdyDNpe6wYFZqbzqx9Qh+hm8cRrbw7e2O9+Gw="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -132,7 +132,7 @@
           "hash": "iAHMLTnf4lX9ow0bXhhPrfeBUNQ7Bc1r+VD6wcEf+X4="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -144,7 +144,7 @@
           "hash": "f96eb41evBrqKbYazzLFMiWMYQLqEEp5ZYs53NXm0zw="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -156,7 +156,7 @@
           "hash": "+WV7DNm52qDGA/MrW3JkfUnw3bPXIUD74t0ndyXfGvM="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -168,7 +168,7 @@
           "hash": "2uWg61dtAzHvlM+FYcl/LJEUkTa460FSj4GKjsNfgwo="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -180,7 +180,7 @@
           "hash": "y2hFysWSCzPQtLeK6AEa0jlzuPqaaQeYYmozTQ/jEqM="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -192,7 +192,7 @@
           "hash": "9n9Udk5tCWIlFstwAS29rBp3YUYzz064JsWyzeAxms0="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -201,10 +201,10 @@
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "5YN3hR0HkKc/ZcV3pqS9N6Sc/B7CPcioDvJXZXbjzvE="
+          "hash": "6i/B4aauF4I4Eam7Wyer+fGpwPVtyn0MWaxp0nogZF0="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -225,10 +225,10 @@
       "output": {
         ".html": {
           "relative_path": "articles/intro.html",
-          "hash": "uQzbHWTq/7HRlmmE4u/Z6nVAopc1RHxpd82wf6KFeW4="
+          "hash": "JejJPpxpr2nfyjff4wDb04CZ32T1j/m2hFn6ScO1jA8="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -249,10 +249,10 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "STIui3SdrKOWAyio9qiWQn2V1U5yEkw+EnqhjmkNhC4="
+          "hash": "5CEZzWYTD3qqGkIcx8QkQOYfWpJl0LwDFV7ZEBDgrdQ="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -271,23 +271,25 @@
   "incremental_info": [
     {
       "status": {
-        "can_incremental": true,
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
         "incrementalPhase": "build",
         "total_file_count": 0,
-        "skipped_file_count": 0
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
         "ConceptualDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 3,
-          "skipped_file_count": 3
+          "skipped_file_count": 0
         },
         "ManagedReferenceDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 16,
-          "skipped_file_count": 16
+          "skipped_file_count": 0
         },
         "TocDocumentProcessor": {
           "can_incremental": false,
@@ -300,8 +302,8 @@
     },
     {
       "status": {
-        "can_incremental": true,
-        "details": "Can support incremental post processing.",
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: last post processor info is null.",
         "incrementalPhase": "postProcessing",
         "total_file_count": 0,
         "skipped_file_count": 0
