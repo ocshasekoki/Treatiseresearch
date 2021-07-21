@@ -50,7 +50,7 @@ namespace Slot
         [SerializeField] protected GameObject effectArea = null;
         /// <summary>colorTest:色（テスト用） </summary>
         [SerializeField] protected GameObject colorTest = null;
-        /// <summary>configDD: 設定の変更のドロップダウン/summary>
+        /// <summary>configDD: 設定の変更のドロップダウン</summary>
         [SerializeField] protected Dropdown configDD;
         Dictionary<Role, GameObject> prefDic = new Dictionary<Role, GameObject>();
 

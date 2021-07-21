@@ -65,7 +65,7 @@
         AT = 5,
     }
 
-    /// <summary>Config:選挙</summary>
+    /// <summary>Config:設定の列挙</summary>
     public enum Config
     {
         LOW = 0,
