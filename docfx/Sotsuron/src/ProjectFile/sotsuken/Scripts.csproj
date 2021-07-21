@@ -47,7 +47,11 @@
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Unity/VSTU</UnityProjectGenerator>
+<<<<<<< HEAD
     <UnityProjectGeneratorVersion>4.8.2.0</UnityProjectGeneratorVersion>
+=======
+    <UnityProjectGeneratorVersion>4.10.3.0</UnityProjectGeneratorVersion>
+>>>>>>> b1e1101ea3b9ee5879a3f9b1db115af284bd4854
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2019.4.4f1</UnityVersion>
@@ -269,7 +273,11 @@
       <HintPath>C:/2019.3.1f1/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+<<<<<<< HEAD
       <HintPath>C:/2019.3.1f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+=======
+      <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.4f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+>>>>>>> b1e1101ea3b9ee5879a3f9b1db115af284bd4854
     </Reference>
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
@@ -620,10 +628,17 @@
       <HintPath>C:/2019.3.1f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
+<<<<<<< HEAD
       <HintPath>C:/Users/Mining-Base/Documents/GitHub/Treatiseresearch/docfx/Sotsuron/src/ProjectFile/sotsuken/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Users/Mining-Base/Documents/GitHub/Treatiseresearch/docfx/Sotsuron/src/ProjectFile/sotsuken/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+=======
+      <HintPath>C:/Users/notsukota/Documents/GitHub/Treatiseresearch/docfx/Sotsuron/src/ProjectFile/sotsuken/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>C:/Users/notsukota/Documents/GitHub/Treatiseresearch/docfx/Sotsuron/src/ProjectFile/sotsuken/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+>>>>>>> b1e1101ea3b9ee5879a3f9b1db115af284bd4854
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>

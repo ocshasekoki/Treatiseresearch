@@ -47,7 +47,11 @@ The following packages were updated:
   com.unity.2d.animation from version 3.2.2 to 3.2.3
   com.unity.2d.spriteshape from version 3.0.11 to 3.0.12
 
+<<<<<<< HEAD
 === Wed Jul 21 09:49:06 2021
+=======
+=== Wed Jul 21 09:47:22 2021
+>>>>>>> b1e1101ea3b9ee5879a3f9b1db115af284bd4854
 
 Packages were changed.
 Update Mode: resetToDefaultDependencies
