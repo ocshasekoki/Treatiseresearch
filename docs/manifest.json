@@ -1,6 +1,6 @@
 {
   "homepages": [],
-  "source_base_path": "C:/Users/notsukota/Documents/GitHub/Treatiseresearch/docfx/Sotsuron",
+  "source_base_path": "C:/Users/Mining-Base/Documents/GitHub/Treatiseresearch/docfx/Sotsuron",
   "xrefmap": "xrefmap.yml",
   "files": [
     {
@@ -12,7 +12,7 @@
           "hash": "N8iCDN2Nv1TUHz6UqxYLCQJyC+bS7wVmg/HOclsAakA="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -24,7 +24,7 @@
           "hash": "ODsaGOXCZ8JgHNTxhU3z71nlictNDPN847h8lxE4BSk="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -57,10 +57,10 @@
       "output": {
         ".html": {
           "relative_path": "api/EnumDic.Condition.html",
-          "hash": "n/9EFL7mshk2llXMsx0m2Fkf3g2wMbTQgIsqtvt7g9k="
+          "hash": "ON2soIlHuuvcEHUAD+NtJi6oDDUR0oDs3Rk1Yw7X6aU="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -69,10 +69,10 @@
       "output": {
         ".html": {
           "relative_path": "api/EnumDic.Config.html",
-          "hash": "5ZLu3Cw1mp39X5W8WT7a2HgipHw/lOlUfDKe79xGD2I="
+          "hash": "mw8+8k/NQEc8xpS9hn1C4zx/SwdbBqScSbD8V638d0E="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -81,10 +81,10 @@
       "output": {
         ".html": {
           "relative_path": "api/EnumDic.Position.html",
-          "hash": "d6MUe/+c9gwA8oxiwKjutbbTuCmEvTta0XTKgWoze34="
+          "hash": "YcS1glvuKZoQRwtyU4aaXZcUEkxBB5v/d1D1B7obdNo="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -96,7 +96,7 @@
           "hash": "7MuboAeLFKtG1jV2tkBXj8oQfWUU61ZRXY4cBCpxrvA="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -108,7 +108,7 @@
           "hash": "u7j1OkKJOi8Kv4gDqCCaDIQEWy0G8sWPbss62UVXEUs="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -117,10 +117,10 @@
       "output": {
         ".html": {
           "relative_path": "api/EnumDic.html",
-          "hash": "J4xsV6UdyDNpe6wYFZqbzqx9Qh+hm8cRrbw7e2O9+Gw="
+          "hash": "L/O9+SD1Ycn0lt28+lNT2Lg6+Tp+vveoXrULuvY0TGw="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -132,7 +132,7 @@
           "hash": "iAHMLTnf4lX9ow0bXhhPrfeBUNQ7Bc1r+VD6wcEf+X4="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -144,7 +144,7 @@
           "hash": "f96eb41evBrqKbYazzLFMiWMYQLqEEp5ZYs53NXm0zw="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -153,10 +153,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Slot.SlotMachine_hase.html",
-          "hash": "+WV7DNm52qDGA/MrW3JkfUnw3bPXIUD74t0ndyXfGvM="
+          "hash": "abqTDSnxLwEIdTuyClOvIQ37GcSEQiwPdf3bxPk0NDs="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -168,7 +168,7 @@
           "hash": "2uWg61dtAzHvlM+FYcl/LJEUkTa460FSj4GKjsNfgwo="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -180,7 +180,7 @@
           "hash": "y2hFysWSCzPQtLeK6AEa0jlzuPqaaQeYYmozTQ/jEqM="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -192,7 +192,7 @@
           "hash": "9n9Udk5tCWIlFstwAS29rBp3YUYzz064JsWyzeAxms0="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -287,7 +287,7 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 16,
-          "skipped_file_count": 15
+          "skipped_file_count": 5
         },
         "TocDocumentProcessor": {
           "can_incremental": false,
