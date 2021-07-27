@@ -54,7 +54,7 @@ namespace Slot
         [SerializeField] protected Dropdown configDD = null;
         Dictionary<Role, GameObject> prefDic = null;
         /// <summary>m:テスト用の問題データ</summary>
-        [SerializeField] private Mondai m = null;
+        [SerializeField] protected Mondai m = null;
         /// <summary>mondaiText:問題のテキスト</summary>
         [SerializeField] Text mondaiText = null;
         /// <summary>gogunText:語群のテキストの配列</summary>
@@ -99,7 +99,7 @@ namespace Slot
         /// </summary>
         /// <param name="obj">各リールの親</param>
         /// <returns>絵柄のリスト</returns>
-        private List<GameObject> SetReal(GameObject obj)
+        protected List<GameObject> SetReal(GameObject obj)
         {
             List<GameObject> list = new List<GameObject>();
             for (int i = 0; i < obj.transform.childCount; i++)
@@ -130,7 +130,7 @@ namespace Slot
         /// <summary>
         /// リールを回すスクリプト
         /// </summary>
-        private void RealRotate()
+        protected void RealRotate()
         {
             foreach (GameObject g in leftsymbol)
             {
@@ -156,7 +156,7 @@ namespace Slot
         /// ランダムな数値を出す
         /// </summary>
         /// <param name="condition">現在のスロットの状態</param>
-        private void RandomRole()
+        protected void RandomRole()
         {
             int rand = UnityEngine.Random.Range(1, pro);
             role = DecideRole(rand);
@@ -170,7 +170,7 @@ namespace Slot
         /// 役に対しての演出設定
         /// </summary>
         /// <param name="r"></param>
-        private void CreatePrefab(Role r)
+        protected void CreatePrefab(Role r)
         {
             //Debug.Log(r.ToString());
             Instantiate(prefDic[r], effectArea.transform);
@@ -180,7 +180,7 @@ namespace Slot
         /// 役からそろう柄を決定するメソッド
         /// <param name="rand">生成された乱数</param>
         /// </summary>
-        private void DecideSymbol(Role r)
+        protected void DecideSymbol(Role r)
         {
             Debug.Log("小役:" + r + " ID:" + diction[r]);
             Debug.Log(DicData.symbolDic[r]);
@@ -235,7 +235,7 @@ namespace Slot
         /// 状態に対応したdictionaryに変更する関数
         /// </summary>
         /// <param name="dic"></param>
-        private void ChangeMode(Dic dic)
+        protected void ChangeMode(Dic dic)
         {
             pro = 0;
             diction = Prodic.GetPro(dic, config, condition);
@@ -271,7 +271,7 @@ namespace Slot
         /// </summary>
         /// <param name="list"></param>
         /// <param name="s"></param>
-        private void AssistDicision(List<GameObject> list, Symbol s)
+        protected void AssistDicision(List<GameObject> list, Symbol s)
         {
             if (realcon < (int)Real.ROTATE && realcon > (int)Real.ALLSTOP)
             {
@@ -297,7 +297,7 @@ namespace Slot
         /// </summary>
         /// <param name="obj">図柄に対応したオブジェクト</param>
         /// <returns></returns>
-        private IEnumerator Assist(GameObject obj)
+        protected IEnumerator Assist(GameObject obj)
         {
             yield return new WaitWhile(() => obj.transform.localPosition.y >= 10f);
             obj.GetComponent<SymbolScript>().RealStop();
@@ -310,7 +310,7 @@ namespace Slot
         /// ボタンを押したとき全ての図柄を止める。
         /// </summary>
         /// <param name="p">リールの位置</param>
-        private void AllRealStop(Position p)
+        protected void AllRealStop(Position p)
         {
             realcon++;
             if ((Real)realcon == Real.ONESTOP && role == Role.QUESTION)
@@ -349,7 +349,7 @@ namespace Slot
         /// <param name="r">小役</param>
         /// <param name="obj">演出のオブジェクト</param>
         [Obsolete]
-        private void SetColor(Role r, GameObject obj)
+        protected void SetColor(Role r, GameObject obj)
         {
             Debug.Log(r.ToString());
             Debug.Log(DicData.rolecolor[r]);
@@ -385,7 +385,7 @@ namespace Slot
         /// </summary>
         /// <param name="r">小役</param>
         /// <returns>小役に対応したゲームオブジェクト</returns>
-        private GameObject PrefLoad(Role r)
+        protected GameObject PrefLoad(Role r)
         {
             GameObject obj = null;
             Debug.Log(r);
@@ -398,7 +398,7 @@ namespace Slot
         /// <summary>
         /// 問題を生成し、表示させるプログラム
         /// </summary>
-        private void SetMondai()
+        protected void SetMondai()
         {
             mondaiText.text = m.GetMondaiText();
             //Mondai mondai = GetMondai(role);
@@ -428,7 +428,7 @@ namespace Slot
         /// </summary>
         /// <param name="p">リールの列</param>
         /// <returns>正解の判定</returns>
-        private bool Answer(Position p)
+        protected bool Answer(Position p)
         {
             if (gogunText[2-(int)p].text == m.GetAnswer())
             {
@@ -443,7 +443,7 @@ namespace Slot
         /// </summary>
         /// <param name="r">小役</param>
         /// <returns>問題のデータ</returns>
-        private static Mondai GetMondai(Role r)
+        protected static Mondai GetMondai(Role r)
         {
             string path = Application.streamingAssetsPath + "/question/" + r + ".json";
             string str = File.ReadAllText(path);
