@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using EnumDic;
 using Prob;
 using Data;
+using System.IO;
 
 namespace Slot
 {
@@ -19,7 +20,7 @@ namespace Slot
         protected Symbol symbolRight = 0;
         /// <summary>diction:役別の各確率が入ったディクショナリ</summary>
         protected Dictionary<Role, ProData> diction;
-        /// <summary>condition:状態（低確、高確、超高確）</summary>
+        /// <summary>condition:確率の状態（低確、高確、超高確）</summary>
         protected Condition condition = Condition.NOMAL;
         /// <summary>config:設定（LOW,MIDDLE,HIGH）</summary>
         protected Config config = 0;
@@ -50,11 +51,26 @@ namespace Slot
         /// <summary>colorTest:色（テスト用） </summary>
         [SerializeField] protected GameObject colorTest = null;
         /// <summary>configDD: 設定の変更のドロップダウン</summary>
-        [SerializeField] protected Dropdown configDD;
-        Dictionary<Role, GameObject> prefDic = new Dictionary<Role, GameObject>();
+        [SerializeField] protected Dropdown configDD = null;
+        Dictionary<Role, GameObject> prefDic = null;
+        /// <summary>m:テスト用の問題データ</summary>
+        [SerializeField] private Mondai m = null;
+        /// <summary>mondaiText:問題のテキスト</summary>
+        [SerializeField] Text mondaiText = null;
+        /// <summary>gogunText:語群のテキストの配列</summary>
+        [SerializeField] Text[] gogunText = null;
 
+        /// <summary>coin:所持コイン</summary>
+        protected int coin = 100;
+        /// <summary>betcoin:掛け金</summary>
+        protected const int betcoin = 3;
+        /// <summary>realcon:リールの状態</summary>
+        protected int realcon = 0;
+        protected bool[] rotate;
         public void Start()
         {
+            prefDic = new Dictionary<Role, GameObject>();
+            realcon = 0;
             prefDic.Clear();
             foreach (Role r in Enum.GetValues(typeof(Role)))
             {
@@ -68,7 +84,7 @@ namespace Slot
 
             config = (Config)UnityEngine.Random.Range(0, 2);
             condition = Condition.NOMAL;
-            dic = Prob.Prodic.LoadDic();
+            dic = Prodic.LoadDic();
             ChangeMode(dic);
 
             leftsymbol = SetReal(leftReal);
@@ -79,10 +95,11 @@ namespace Slot
         }
         /// <summary>
         /// 指定したリールの絵柄すべてをリストに格納する。
+        /// 
         /// </summary>
         /// <param name="obj">各リールの親</param>
         /// <returns>絵柄のリスト</returns>
-        protected List<GameObject> SetReal(GameObject obj)
+        private List<GameObject> SetReal(GameObject obj)
         {
             List<GameObject> list = new List<GameObject>();
             for (int i = 0; i < obj.transform.childCount; i++)
@@ -91,19 +108,29 @@ namespace Slot
             }
             return list;
         }
+
+        public void PushBed()
+        {
+            if (coin - betcoin < 0 && realcon != (int)Real.NOBET)
+            {
+                return;
+            }
+            coin -= betcoin;
+            realcon = (int)Real.BET;
+        }
+
         /// <summary>
         /// ればーおん！
         /// </summary>
         public void LeverOn()
         {
-
             RandomRole();
             RealRotate();
         }
         /// <summary>
         /// リールを回すスクリプト
         /// </summary>
-        protected void RealRotate()
+        private void RealRotate()
         {
             foreach (GameObject g in leftsymbol)
             {
@@ -117,26 +144,35 @@ namespace Slot
             {
                 g.GetComponent<SymbolScript>().RealStart(20);
             }
+            rotate = new bool[3];
+            for (int i = 0; i < rotate.Length; i++)
+            {
+                rotate[i] = true;
+            }
+            realcon = (int)Real.ROTATE;
         }
 
         /// <summary>
         /// ランダムな数値を出す
         /// </summary>
         /// <param name="condition">現在のスロットの状態</param>
-        protected void RandomRole()
+        private void RandomRole()
         {
             int rand = UnityEngine.Random.Range(1, pro);
             role = DecideRole(rand);
             SetColor(role, colorTest);
             CreatePrefab(role);
             DecideSymbol(role);
+            if (role == Role.QUESTION) SetMondai();
         }
+
         /// <summary>
         /// 役に対しての演出設定
         /// </summary>
         /// <param name="r"></param>
-        protected void CreatePrefab(Role r)
+        private void CreatePrefab(Role r)
         {
+            //Debug.Log(r.ToString());
             Instantiate(prefDic[r], effectArea.transform);
         }
 
@@ -144,7 +180,7 @@ namespace Slot
         /// 役からそろう柄を決定するメソッド
         /// <param name="rand">生成された乱数</param>
         /// </summary>
-        protected void DecideSymbol(Role r)
+        private void DecideSymbol(Role r)
         {
             Debug.Log("小役:" + r + " ID:" + diction[r]);
             Debug.Log(DicData.symbolDic[r]);
@@ -190,16 +226,16 @@ namespace Slot
         /// </summary>
         /// <param name="currect">正解かどうか</param>
         /// <returns>連続正解した数＊設定、状態に対応した確率</returns>
-        public void Answer(bool currect)
+        public void AnswerDicision(bool currect)
         {
-            if (currect) data.Cor++;
-            else data.Cor = 0;
+            //if (currect) data.Cor++;
+            //else data.Cor = 0;
         }
         /// <summary>
         /// 状態に対応したdictionaryに変更する関数
         /// </summary>
         /// <param name="dic"></param>
-        protected void ChangeMode(Dic dic)
+        private void ChangeMode(Dic dic)
         {
             pro = 0;
             diction = Prodic.GetPro(dic, config, condition);
@@ -211,30 +247,36 @@ namespace Slot
         /// <summary>
         /// 押されたボタンを判定して、対応する箇所の図柄を止める
         /// </summary>
-        /// <param name="pos">リールの場所</param>
+        /// <param name="pos"></param>
         public void btnPush(string pos)
         {
             Position p = (Position)Enum.Parse(typeof(Position), pos);
             switch (p)
             {
                 case Position.LEFT:
-                    AssistDicision(leftsymbol, (Symbol)DicData.symbolDic[role].l);
+                    if (rotate[(int)Position.LEFT]) AssistDicision(leftsymbol, (Symbol)DicData.symbolDic[role].l);
                     break;
                 case Position.MIDDLE:
-                    AssistDicision(centersymbol, (Symbol)DicData.symbolDic[role].c);
+                    if (rotate[(int)Position.MIDDLE]) AssistDicision(centersymbol, (Symbol)DicData.symbolDic[role].c);
                     break;
                 case Position.RIGHT:
-                    AssistDicision(rightsymbol, (Symbol)DicData.symbolDic[role].r);
+                    if (rotate[(int)Position.RIGHT]) AssistDicision(rightsymbol, (Symbol)DicData.symbolDic[role].r);
                     break;
             }
         }
+
+
         /// <summary>
         /// 取ってきた図柄をsmに入れる。図柄と役が一致しているか判定。
         /// </summary>
         /// <param name="list"></param>
         /// <param name="s"></param>
-        protected void AssistDicision(List<GameObject> list, Symbol s)
+        private void AssistDicision(List<GameObject> list, Symbol s)
         {
+            if (realcon < (int)Real.ROTATE && realcon > (int)Real.ALLSTOP)
+            {
+                return;
+            }
             if (s == Symbol.NONE)
             {
                 s = (Symbol)UnityEngine.Random.Range(2, 7);
@@ -248,38 +290,51 @@ namespace Slot
                 }
             }
         }
+
+
         /// <summary>
         /// 役に対応した図柄をアシストする
         /// </summary>
         /// <param name="obj">図柄に対応したオブジェクト</param>
         /// <returns></returns>
-        protected IEnumerator Assist(GameObject obj)
+        private IEnumerator Assist(GameObject obj)
         {
             yield return new WaitWhile(() => obj.transform.localPosition.y >= 10f);
             obj.GetComponent<SymbolScript>().RealStop();
             AllRealStop(obj.GetComponent<SymbolData>().GetPos());
+
+            Debug.Log((Real)realcon);
         }
+
         /// <summary>
         /// ボタンを押したとき全ての図柄を止める。
         /// </summary>
         /// <param name="p">リールの位置</param>
-        protected void AllRealStop(Position p)
+        private void AllRealStop(Position p)
         {
+            realcon++;
+            if ((Real)realcon == Real.ONESTOP && role == Role.QUESTION)
+            {
+                AnswerDicision(Answer(p));
+            }
             switch (p)
             {
                 case Position.LEFT:
+                    rotate[(int)Position.LEFT] = false;
                     foreach (GameObject obj in leftsymbol)
                     {
                         obj.GetComponent<SymbolScript>().RealStop();
                     }
                     break;
                 case Position.MIDDLE:
+                    rotate[(int)Position.MIDDLE] = false;
                     foreach (GameObject obj in centersymbol)
                     {
                         obj.GetComponent<SymbolScript>().RealStop();
                     }
                     break;
                 case Position.RIGHT:
+                    rotate[(int)Position.RIGHT] = false;
                     foreach (GameObject obj in rightsymbol)
                     {
                         obj.GetComponent<SymbolScript>().RealStop();
@@ -294,13 +349,13 @@ namespace Slot
         /// <param name="r">小役</param>
         /// <param name="obj">演出のオブジェクト</param>
         [Obsolete]
-        protected void SetColor(Role r, GameObject obj)
+        private void SetColor(Role r, GameObject obj)
         {
             Debug.Log(r.ToString());
             Debug.Log(DicData.rolecolor[r]);
             obj.GetComponent<ParticleSystem>().startColor = DicData.rolecolor[r];
         }
-        
+
         /// <summary>
         ///　設定でモードを変更する
         /// </summary>
@@ -309,7 +364,7 @@ namespace Slot
             config = (Config)configDD.value;
             ChangeMode(dic);
         }
-        
+
         /// <summary>
         /// コンフィグのドロップダウンの中身を書き換える処理
         /// </summary>
@@ -321,8 +376,8 @@ namespace Slot
             {
                 ddvalues.Add(typename);
             }
-            configDD.ClearOptions();　
-            configDD.AddOptions(ddvalues);　
+            configDD.ClearOptions();
+            configDD.AddOptions(ddvalues);
         }
 
         /// <summary>
@@ -330,13 +385,69 @@ namespace Slot
         /// </summary>
         /// <param name="r">小役</param>
         /// <returns>小役に対応したゲームオブジェクト</returns>
-        protected GameObject PrefLoad(Role r)
+        private GameObject PrefLoad(Role r)
         {
             GameObject obj = null;
             Debug.Log(r);
             obj = Resources.Load<GameObject>("Prefabs/" + r + "_pref");
             Debug.Log(obj.name);
             return obj;
+        }
+
+
+        /// <summary>
+        /// 問題を生成し、表示させるプログラム
+        /// </summary>
+        private void SetMondai()
+        {
+            mondaiText.text = m.GetMondaiText();
+            //Mondai mondai = GetMondai(role);
+            //リスト初期化
+            List<int> numbers = new List<int>();
+            //ボタンの数だけ数値を用意({0,1,2})
+            for (int i = 0; i < 3; i++)
+            {
+                //リストに入れる
+                numbers.Add(i);
+            }
+            //リストが１つ以上データがあるとき
+            while (numbers.Count > 0)
+            {
+                //リストの長さだけ乱数生成
+                int index = UnityEngine.Random.Range(0, numbers.Count);
+                //「乱数で出た数値」番目を取り出す
+                int ransu = numbers[index];
+                //テキストを設置する
+                gogunText[numbers.Count-1].text = m.GetT(ransu);
+                //入れた数値をリストから削除する
+                numbers.RemoveAt(index);
+            }
+        }
+        /// <summary>
+        /// 正解の判定
+        /// </summary>
+        /// <param name="p">リールの列</param>
+        /// <returns>正解の判定</returns>
+        private bool Answer(Position p)
+        {
+            if (gogunText[2-(int)p].text == m.GetAnswer())
+            {
+                Debug.Log("正解しました");
+                return true;
+            }
+            Debug.Log("不正解");
+            return false;
+        }
+        /// <summary>
+        /// 問題をロードするクラス
+        /// </summary>
+        /// <param name="r">小役</param>
+        /// <returns>問題のデータ</returns>
+        private static Mondai GetMondai(Role r)
+        {
+            string path = Application.streamingAssetsPath + "/question/" + r + ".json";
+            string str = File.ReadAllText(path);
+            return JsonUtility.FromJson<Mondai>(str);
         }
     }
 }

@@ -2,19 +2,15 @@
 
 public class SoundScript : MonoBehaviour
 {
-    [SerializeField]AudioSource souce;
-    [SerializeField] Vector2 spd;
-    [SerializeField] Vector2 turnarea;
-    [SerializeField] Vector2 defaultarea;
-    [SerializeField]private Rigidbody2D r;
-    private bool stop;
-    [SerializeField]private bool roop;
-    private bool turn;
-    private void Start()
-    {
-        stop = false;
-        turn = false;
-    }
+    [SerializeField]AudioSource souce = null;
+    [SerializeField] Vector2 spd = Vector2.zero;
+    [SerializeField] Vector2 turnarea = Vector2.zero;
+    [SerializeField] Vector2 defaultarea = Vector2.zero;
+    [SerializeField]private Rigidbody2D r = null;
+    private bool stop = false;
+    [SerializeField]private bool roop = false;
+    private bool turn = false;
+
     private void Update()
     {
         if(!stop&&!roop) r.velocity = spd;

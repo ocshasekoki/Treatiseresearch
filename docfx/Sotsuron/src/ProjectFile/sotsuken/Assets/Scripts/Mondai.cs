@@ -2,10 +2,10 @@
 
 public class Mondai : MonoBehaviour
 {
-    [SerializeField] private string mondaiText;
-    [SerializeField] private string answer;
-    [SerializeField] private string kaisetsu;
-    [SerializeField] private string[] t;
+    [SerializeField] private string mondaiText = null;
+    [SerializeField] private string answer = null;
+    [SerializeField] private string kaisetsu = null;
+    [SerializeField] private string[] t = null;
 
 
     public string GetAnswer()

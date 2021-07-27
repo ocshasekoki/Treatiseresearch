@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{861904CF-04DF-B2CE-B1E6-98C0C4ECD498}</ProjectGuid>
+    <ProjectGuid>{79489DF8-482E-5E6F-729B-2B8C5262C5ED}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Scripts</AssemblyName>
+    <AssemblyName>Sotsuken</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -70,11 +70,15 @@
     <Compile Include="Assets\Scripts\Prodic.cs" />
     <Compile Include="Assets\Scripts\SceneChanger.cs" />
     <Compile Include="Assets\Scripts\SlotMachine_hase.cs" />
+    <Compile Include="Assets\Scripts\Slot_Mizui.cs" />
+    <Compile Include="Assets\Scripts\Slot_Noguchi.cs" />
     <Compile Include="Assets\Scripts\SoundScript.cs" />
     <Compile Include="Assets\Scripts\SymbolData.cs" />
     <Compile Include="Assets\Scripts\SymbolScript.cs" />
+    <Compile Include="Assets\Scripts\Syutudai.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
-    <None Include="Assets\Scripts.asmdef" />
+    <Compile Include="Assets\Scripts\notsu.cs" />
+    <None Include="Assets\Sotsuken.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.4f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -616,10 +620,10 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.4f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/184031/Documents/Treatiseresearch/docfx/Sotsuron/src/ProjectFile/sotsuken/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Users/184031/Documents/Treatiseresearch/ProjectFile/sotsuken/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Users/184031/Documents/Treatiseresearch/docfx/Sotsuron/src/ProjectFile/sotsuken/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Users/184031/Documents/Treatiseresearch/ProjectFile/sotsuken/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>

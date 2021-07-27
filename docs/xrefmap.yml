@@ -238,6 +238,48 @@ references:
   commentId: F:EnumDic.Position.RIGHT
   fullName: EnumDic.Position.RIGHT
   nameWithType: Position.RIGHT
+- uid: EnumDic.Real
+  name: Real
+  href: api/EnumDic.Real.html
+  commentId: T:EnumDic.Real
+  fullName: EnumDic.Real
+  nameWithType: Real
+- uid: EnumDic.Real.ALLSTOP
+  name: ALLSTOP
+  href: api/EnumDic.Real.html#EnumDic_Real_ALLSTOP
+  commentId: F:EnumDic.Real.ALLSTOP
+  fullName: EnumDic.Real.ALLSTOP
+  nameWithType: Real.ALLSTOP
+- uid: EnumDic.Real.BET
+  name: BET
+  href: api/EnumDic.Real.html#EnumDic_Real_BET
+  commentId: F:EnumDic.Real.BET
+  fullName: EnumDic.Real.BET
+  nameWithType: Real.BET
+- uid: EnumDic.Real.NOBET
+  name: NOBET
+  href: api/EnumDic.Real.html#EnumDic_Real_NOBET
+  commentId: F:EnumDic.Real.NOBET
+  fullName: EnumDic.Real.NOBET
+  nameWithType: Real.NOBET
+- uid: EnumDic.Real.ONESTOP
+  name: ONESTOP
+  href: api/EnumDic.Real.html#EnumDic_Real_ONESTOP
+  commentId: F:EnumDic.Real.ONESTOP
+  fullName: EnumDic.Real.ONESTOP
+  nameWithType: Real.ONESTOP
+- uid: EnumDic.Real.ROTATE
+  name: ROTATE
+  href: api/EnumDic.Real.html#EnumDic_Real_ROTATE
+  commentId: F:EnumDic.Real.ROTATE
+  fullName: EnumDic.Real.ROTATE
+  nameWithType: Real.ROTATE
+- uid: EnumDic.Real.TWOSTOP
+  name: TWOSTOP
+  href: api/EnumDic.Real.html#EnumDic_Real_TWOSTOP
+  commentId: F:EnumDic.Real.TWOSTOP
+  fullName: EnumDic.Real.TWOSTOP
+  nameWithType: Real.TWOSTOP
 - uid: EnumDic.Role
   name: Role
   href: api/EnumDic.Role.html
@@ -446,61 +488,25 @@ references:
   commentId: T:Slot.SlotMachine_hase
   fullName: Slot.SlotMachine_hase
   nameWithType: SlotMachine_hase
-- uid: Slot.SlotMachine_hase.AllRealStop(EnumDic.Position)
-  name: AllRealStop(Position)
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_AllRealStop_EnumDic_Position_
-  commentId: M:Slot.SlotMachine_hase.AllRealStop(EnumDic.Position)
-  fullName: Slot.SlotMachine_hase.AllRealStop(EnumDic.Position)
-  nameWithType: SlotMachine_hase.AllRealStop(Position)
-- uid: Slot.SlotMachine_hase.AllRealStop*
-  name: AllRealStop
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_AllRealStop_
-  commentId: Overload:Slot.SlotMachine_hase.AllRealStop
+- uid: Slot.SlotMachine_hase.AnswerDicision(System.Boolean)
+  name: AnswerDicision(Boolean)
+  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_AnswerDicision_System_Boolean_
+  commentId: M:Slot.SlotMachine_hase.AnswerDicision(System.Boolean)
+  fullName: Slot.SlotMachine_hase.AnswerDicision(System.Boolean)
+  nameWithType: SlotMachine_hase.AnswerDicision(Boolean)
+- uid: Slot.SlotMachine_hase.AnswerDicision*
+  name: AnswerDicision
+  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_AnswerDicision_
+  commentId: Overload:Slot.SlotMachine_hase.AnswerDicision
   isSpec: "True"
-  fullName: Slot.SlotMachine_hase.AllRealStop
-  nameWithType: SlotMachine_hase.AllRealStop
-- uid: Slot.SlotMachine_hase.Answer(System.Boolean)
-  name: Answer(Boolean)
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_Answer_System_Boolean_
-  commentId: M:Slot.SlotMachine_hase.Answer(System.Boolean)
-  fullName: Slot.SlotMachine_hase.Answer(System.Boolean)
-  nameWithType: SlotMachine_hase.Answer(Boolean)
-- uid: Slot.SlotMachine_hase.Answer*
-  name: Answer
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_Answer_
-  commentId: Overload:Slot.SlotMachine_hase.Answer
-  isSpec: "True"
-  fullName: Slot.SlotMachine_hase.Answer
-  nameWithType: SlotMachine_hase.Answer
-- uid: Slot.SlotMachine_hase.Assist(GameObject)
-  name: Assist(GameObject)
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_Assist_GameObject_
-  commentId: M:Slot.SlotMachine_hase.Assist(GameObject)
-  fullName: Slot.SlotMachine_hase.Assist(GameObject)
-  nameWithType: SlotMachine_hase.Assist(GameObject)
-- uid: Slot.SlotMachine_hase.Assist*
-  name: Assist
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_Assist_
-  commentId: Overload:Slot.SlotMachine_hase.Assist
-  isSpec: "True"
-  fullName: Slot.SlotMachine_hase.Assist
-  nameWithType: SlotMachine_hase.Assist
-- uid: Slot.SlotMachine_hase.AssistDicision(System.Collections.Generic.List{GameObject},EnumDic.Symbol)
-  name: AssistDicision(List<GameObject>, Symbol)
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_AssistDicision_System_Collections_Generic_List_GameObject__EnumDic_Symbol_
-  commentId: M:Slot.SlotMachine_hase.AssistDicision(System.Collections.Generic.List{GameObject},EnumDic.Symbol)
-  name.vb: AssistDicision(List(Of GameObject), Symbol)
-  fullName: Slot.SlotMachine_hase.AssistDicision(System.Collections.Generic.List<GameObject>, EnumDic.Symbol)
-  fullName.vb: Slot.SlotMachine_hase.AssistDicision(System.Collections.Generic.List(Of GameObject), EnumDic.Symbol)
-  nameWithType: SlotMachine_hase.AssistDicision(List<GameObject>, Symbol)
-  nameWithType.vb: SlotMachine_hase.AssistDicision(List(Of GameObject), Symbol)
-- uid: Slot.SlotMachine_hase.AssistDicision*
-  name: AssistDicision
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_AssistDicision_
-  commentId: Overload:Slot.SlotMachine_hase.AssistDicision
-  isSpec: "True"
-  fullName: Slot.SlotMachine_hase.AssistDicision
-  nameWithType: SlotMachine_hase.AssistDicision
+  fullName: Slot.SlotMachine_hase.AnswerDicision
+  nameWithType: SlotMachine_hase.AnswerDicision
+- uid: Slot.SlotMachine_hase.betcoin
+  name: betcoin
+  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_betcoin
+  commentId: F:Slot.SlotMachine_hase.betcoin
+  fullName: Slot.SlotMachine_hase.betcoin
+  nameWithType: SlotMachine_hase.betcoin
 - uid: Slot.SlotMachine_hase.BonusJudge(System.Int32)
   name: BonusJudge(Int32)
   href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_BonusJudge_System_Int32_
@@ -539,19 +545,12 @@ references:
   commentId: F:Slot.SlotMachine_hase.centersymbol
   fullName: Slot.SlotMachine_hase.centersymbol
   nameWithType: SlotMachine_hase.centersymbol
-- uid: Slot.SlotMachine_hase.ChangeMode(Dic)
-  name: ChangeMode(Dic)
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_ChangeMode_Dic_
-  commentId: M:Slot.SlotMachine_hase.ChangeMode(Dic)
-  fullName: Slot.SlotMachine_hase.ChangeMode(Dic)
-  nameWithType: SlotMachine_hase.ChangeMode(Dic)
-- uid: Slot.SlotMachine_hase.ChangeMode*
-  name: ChangeMode
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_ChangeMode_
-  commentId: Overload:Slot.SlotMachine_hase.ChangeMode
-  isSpec: "True"
-  fullName: Slot.SlotMachine_hase.ChangeMode
-  nameWithType: SlotMachine_hase.ChangeMode
+- uid: Slot.SlotMachine_hase.coin
+  name: coin
+  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_coin
+  commentId: F:Slot.SlotMachine_hase.coin
+  fullName: Slot.SlotMachine_hase.coin
+  nameWithType: SlotMachine_hase.coin
 - uid: Slot.SlotMachine_hase.colorTest
   name: colorTest
   href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_colorTest
@@ -576,19 +575,6 @@ references:
   commentId: F:Slot.SlotMachine_hase.configDD
   fullName: Slot.SlotMachine_hase.configDD
   nameWithType: SlotMachine_hase.configDD
-- uid: Slot.SlotMachine_hase.CreatePrefab(EnumDic.Role)
-  name: CreatePrefab(Role)
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_CreatePrefab_EnumDic_Role_
-  commentId: M:Slot.SlotMachine_hase.CreatePrefab(EnumDic.Role)
-  fullName: Slot.SlotMachine_hase.CreatePrefab(EnumDic.Role)
-  nameWithType: SlotMachine_hase.CreatePrefab(Role)
-- uid: Slot.SlotMachine_hase.CreatePrefab*
-  name: CreatePrefab
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_CreatePrefab_
-  commentId: Overload:Slot.SlotMachine_hase.CreatePrefab
-  isSpec: "True"
-  fullName: Slot.SlotMachine_hase.CreatePrefab
-  nameWithType: SlotMachine_hase.CreatePrefab
 - uid: Slot.SlotMachine_hase.data
   name: data
   href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_data
@@ -608,19 +594,6 @@ references:
   isSpec: "True"
   fullName: Slot.SlotMachine_hase.DecideRole
   nameWithType: SlotMachine_hase.DecideRole
-- uid: Slot.SlotMachine_hase.DecideSymbol(EnumDic.Role)
-  name: DecideSymbol(Role)
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_DecideSymbol_EnumDic_Role_
-  commentId: M:Slot.SlotMachine_hase.DecideSymbol(EnumDic.Role)
-  fullName: Slot.SlotMachine_hase.DecideSymbol(EnumDic.Role)
-  nameWithType: SlotMachine_hase.DecideSymbol(Role)
-- uid: Slot.SlotMachine_hase.DecideSymbol*
-  name: DecideSymbol
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_DecideSymbol_
-  commentId: Overload:Slot.SlotMachine_hase.DecideSymbol
-  isSpec: "True"
-  fullName: Slot.SlotMachine_hase.DecideSymbol
-  nameWithType: SlotMachine_hase.DecideSymbol
 - uid: Slot.SlotMachine_hase.dic
   name: dic
   href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_dic
@@ -664,51 +637,31 @@ references:
   isSpec: "True"
   fullName: Slot.SlotMachine_hase.LeverOn
   nameWithType: SlotMachine_hase.LeverOn
-- uid: Slot.SlotMachine_hase.PrefLoad(EnumDic.Role)
-  name: PrefLoad(Role)
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_PrefLoad_EnumDic_Role_
-  commentId: M:Slot.SlotMachine_hase.PrefLoad(EnumDic.Role)
-  fullName: Slot.SlotMachine_hase.PrefLoad(EnumDic.Role)
-  nameWithType: SlotMachine_hase.PrefLoad(Role)
-- uid: Slot.SlotMachine_hase.PrefLoad*
-  name: PrefLoad
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_PrefLoad_
-  commentId: Overload:Slot.SlotMachine_hase.PrefLoad
-  isSpec: "True"
-  fullName: Slot.SlotMachine_hase.PrefLoad
-  nameWithType: SlotMachine_hase.PrefLoad
 - uid: Slot.SlotMachine_hase.pro
   name: pro
   href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_pro
   commentId: F:Slot.SlotMachine_hase.pro
   fullName: Slot.SlotMachine_hase.pro
   nameWithType: SlotMachine_hase.pro
-- uid: Slot.SlotMachine_hase.RandomRole
-  name: RandomRole()
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_RandomRole
-  commentId: M:Slot.SlotMachine_hase.RandomRole
-  fullName: Slot.SlotMachine_hase.RandomRole()
-  nameWithType: SlotMachine_hase.RandomRole()
-- uid: Slot.SlotMachine_hase.RandomRole*
-  name: RandomRole
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_RandomRole_
-  commentId: Overload:Slot.SlotMachine_hase.RandomRole
+- uid: Slot.SlotMachine_hase.PushBed
+  name: PushBed()
+  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_PushBed
+  commentId: M:Slot.SlotMachine_hase.PushBed
+  fullName: Slot.SlotMachine_hase.PushBed()
+  nameWithType: SlotMachine_hase.PushBed()
+- uid: Slot.SlotMachine_hase.PushBed*
+  name: PushBed
+  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_PushBed_
+  commentId: Overload:Slot.SlotMachine_hase.PushBed
   isSpec: "True"
-  fullName: Slot.SlotMachine_hase.RandomRole
-  nameWithType: SlotMachine_hase.RandomRole
-- uid: Slot.SlotMachine_hase.RealRotate
-  name: RealRotate()
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_RealRotate
-  commentId: M:Slot.SlotMachine_hase.RealRotate
-  fullName: Slot.SlotMachine_hase.RealRotate()
-  nameWithType: SlotMachine_hase.RealRotate()
-- uid: Slot.SlotMachine_hase.RealRotate*
-  name: RealRotate
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_RealRotate_
-  commentId: Overload:Slot.SlotMachine_hase.RealRotate
-  isSpec: "True"
-  fullName: Slot.SlotMachine_hase.RealRotate
-  nameWithType: SlotMachine_hase.RealRotate
+  fullName: Slot.SlotMachine_hase.PushBed
+  nameWithType: SlotMachine_hase.PushBed
+- uid: Slot.SlotMachine_hase.realcon
+  name: realcon
+  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_realcon
+  commentId: F:Slot.SlotMachine_hase.realcon
+  fullName: Slot.SlotMachine_hase.realcon
+  nameWithType: SlotMachine_hase.realcon
 - uid: Slot.SlotMachine_hase.rightReal
   name: rightReal
   href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_rightReal
@@ -727,19 +680,12 @@ references:
   commentId: F:Slot.SlotMachine_hase.role
   fullName: Slot.SlotMachine_hase.role
   nameWithType: SlotMachine_hase.role
-- uid: Slot.SlotMachine_hase.SetColor(EnumDic.Role,GameObject)
-  name: SetColor(Role, GameObject)
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_SetColor_EnumDic_Role_GameObject_
-  commentId: M:Slot.SlotMachine_hase.SetColor(EnumDic.Role,GameObject)
-  fullName: Slot.SlotMachine_hase.SetColor(EnumDic.Role, GameObject)
-  nameWithType: SlotMachine_hase.SetColor(Role, GameObject)
-- uid: Slot.SlotMachine_hase.SetColor*
-  name: SetColor
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_SetColor_
-  commentId: Overload:Slot.SlotMachine_hase.SetColor
-  isSpec: "True"
-  fullName: Slot.SlotMachine_hase.SetColor
-  nameWithType: SlotMachine_hase.SetColor
+- uid: Slot.SlotMachine_hase.rotate
+  name: rotate
+  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_rotate
+  commentId: F:Slot.SlotMachine_hase.rotate
+  fullName: Slot.SlotMachine_hase.rotate
+  nameWithType: SlotMachine_hase.rotate
 - uid: Slot.SlotMachine_hase.SetConfig
   name: SetConfig()
   href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_SetConfig
@@ -766,19 +712,6 @@ references:
   isSpec: "True"
   fullName: Slot.SlotMachine_hase.SetConfigDD
   nameWithType: SlotMachine_hase.SetConfigDD
-- uid: Slot.SlotMachine_hase.SetReal(GameObject)
-  name: SetReal(GameObject)
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_SetReal_GameObject_
-  commentId: M:Slot.SlotMachine_hase.SetReal(GameObject)
-  fullName: Slot.SlotMachine_hase.SetReal(GameObject)
-  nameWithType: SlotMachine_hase.SetReal(GameObject)
-- uid: Slot.SlotMachine_hase.SetReal*
-  name: SetReal
-  href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_SetReal_
-  commentId: Overload:Slot.SlotMachine_hase.SetReal
-  isSpec: "True"
-  fullName: Slot.SlotMachine_hase.SetReal
-  nameWithType: SlotMachine_hase.SetReal
 - uid: Slot.SlotMachine_hase.Start
   name: Start()
   href: api/Slot.SlotMachine_hase.html#Slot_SlotMachine_hase_Start

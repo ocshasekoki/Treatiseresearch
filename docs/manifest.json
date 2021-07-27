@@ -1,6 +1,6 @@
 {
   "homepages": [],
-  "source_base_path": "C:/Users/Mining-Base/Documents/GitHub/Treatiseresearch/docfx/Sotsuron",
+  "source_base_path": "C:/Users/184031/Documents/Treatiseresearch/docfx/Sotsuron",
   "xrefmap": "xrefmap.yml",
   "files": [
     {
@@ -12,7 +12,7 @@
           "hash": "N8iCDN2Nv1TUHz6UqxYLCQJyC+bS7wVmg/HOclsAakA="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -24,7 +24,7 @@
           "hash": "ODsaGOXCZ8JgHNTxhU3z71nlictNDPN847h8lxE4BSk="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -60,7 +60,7 @@
           "hash": "ON2soIlHuuvcEHUAD+NtJi6oDDUR0oDs3Rk1Yw7X6aU="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -84,7 +84,19 @@
           "hash": "YcS1glvuKZoQRwtyU4aaXZcUEkxBB5v/d1D1B7obdNo="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/EnumDic.Real.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/EnumDic.Real.html",
+          "hash": "0a0PQ18Fuoxxw6XhHtQof6v1nkHmU1khlTItVkhz2HY="
+        }
+      },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -96,7 +108,7 @@
           "hash": "7MuboAeLFKtG1jV2tkBXj8oQfWUU61ZRXY4cBCpxrvA="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -108,7 +120,7 @@
           "hash": "u7j1OkKJOi8Kv4gDqCCaDIQEWy0G8sWPbss62UVXEUs="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -117,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "api/EnumDic.html",
-          "hash": "yCPZ8sxqk7e/vg0USS8DDgFh2WEr7cpDdkSiQ4dQ1sA="
+          "hash": "CMr4/bSYrAj7/YE00rHp0DkLqP7EIgPY8t5ZsnpcD3I="
         }
       },
       "is_incremental": false,
@@ -153,7 +165,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Slot.SlotMachine_hase.html",
-          "hash": "QfYy/vvcf8esMaioUgOpexMJgPsl5FXjPsbZkV+mP7o="
+          "hash": "3FlRTxhIQLpjxGr9rxRo19ZiBc0Tp0kxAxrHF2ic748="
         }
       },
       "is_incremental": false,
@@ -180,7 +192,7 @@
           "hash": "y2hFysWSCzPQtLeK6AEa0jlzuPqaaQeYYmozTQ/jEqM="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -192,7 +204,7 @@
           "hash": "9n9Udk5tCWIlFstwAS29rBp3YUYzz064JsWyzeAxms0="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -201,10 +213,10 @@
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "6i/B4aauF4I4Eam7Wyer+fGpwPVtyn0MWaxp0nogZF0="
+          "hash": "5YN3hR0HkKc/ZcV3pqS9N6Sc/B7CPcioDvJXZXbjzvE="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -213,7 +225,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "N1oRsrMabpxuVz/3MnhHxzt6lFzJ3eve2PUnrN0bb9I="
+          "hash": "MF+KWYq8MZmANBR8AuZ0iRx+oEGY/omw0S3wkJTtl3Q="
         }
       },
       "is_incremental": false,
@@ -225,10 +237,10 @@
       "output": {
         ".html": {
           "relative_path": "articles/intro.html",
-          "hash": "JejJPpxpr2nfyjff4wDb04CZ32T1j/m2hFn6ScO1jA8="
+          "hash": "uQzbHWTq/7HRlmmE4u/Z6nVAopc1RHxpd82wf6KFeW4="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -249,10 +261,10 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "5CEZzWYTD3qqGkIcx8QkQOYfWpJl0LwDFV7ZEBDgrdQ="
+          "hash": "iLKkOJHM8MP1sAEiCBW0qZF4GJABCuZyFdH7hYJrMfk="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -271,23 +283,25 @@
   "incremental_info": [
     {
       "status": {
-        "can_incremental": true,
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
         "incrementalPhase": "build",
         "total_file_count": 0,
-        "skipped_file_count": 0
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
         "ConceptualDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 3,
-          "skipped_file_count": 3
+          "skipped_file_count": 0
         },
         "ManagedReferenceDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 16,
-          "skipped_file_count": 14
+          "total_file_count": 17,
+          "skipped_file_count": 0
         },
         "TocDocumentProcessor": {
           "can_incremental": false,
@@ -300,8 +314,8 @@
     },
     {
       "status": {
-        "can_incremental": true,
-        "details": "Can support incremental post processing.",
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: last post processor info is null.",
         "incrementalPhase": "postProcessing",
         "total_file_count": 0,
         "skipped_file_count": 0
