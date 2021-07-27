@@ -12,7 +12,6 @@ public class Syutudai : MonoBehaviour
     [SerializeField] Text answerText;
     [SerializeField] Text kaisetsuText;
     [SerializeField] Text[] gogunText;
-    [SerializeField] GameObject ansButton;
 
     public void SetButton()
     {

@@ -11,7 +11,6 @@ namespace Slot
 {
     public class SlotMachine_hase : MonoBehaviour
     {
-
         ///<summary>symbolLeft:左の図柄</summary>
         protected Symbol symbolLeft = 0;
         ///<summary>symbolCenter:中央の図柄</summary> 
@@ -53,7 +52,6 @@ namespace Slot
         /// <summary>configDD: 設定の変更のドロップダウン</summary>
         [SerializeField] protected Dropdown configDD;
         Dictionary<Role, GameObject> prefDic = new Dictionary<Role, GameObject>();
-
 
         public void Start()
         {
@@ -139,7 +137,6 @@ namespace Slot
         /// <param name="r"></param>
         protected void CreatePrefab(Role r)
         {
-            //Debug.Log(r.ToString());
             Instantiate(prefDic[r], effectArea.transform);
         }
 
@@ -214,7 +211,7 @@ namespace Slot
         /// <summary>
         /// 押されたボタンを判定して、対応する箇所の図柄を止める
         /// </summary>
-        /// <param name="pos"></param>
+        /// <param name="pos">リールの場所</param>
         public void btnPush(string pos)
         {
             Position p = (Position)Enum.Parse(typeof(Position), pos);
