@@ -50,6 +50,8 @@ namespace Slot
         [SerializeField] protected GameObject effectArea = null;
         /// <summary>colorTest:色（テスト用） </summary>
         [SerializeField] protected GameObject colorTest = null;
+
+        [SerializeField] protected GameObject mondaipanel;
         /// <summary>configDD: 設定の変更のドロップダウン</summary>
         [SerializeField] protected Dropdown configDD = null;
         Dictionary<Role, GameObject> prefDic = null;
@@ -69,6 +71,7 @@ namespace Slot
         protected bool[] rotate;
         public void Start()
         {
+            Invisible();
             prefDic = new Dictionary<Role, GameObject>();
             realcon = 0;
             prefDic.Clear();
@@ -109,23 +112,27 @@ namespace Slot
             return list;
         }
 
-        public void PushBed()
+        public void PushBet()
         {
-            if (coin - betcoin < 0 && realcon != (int)Real.NOBET)
+            if ((coin - betcoin < 0 || realcon != (int)Real.NOBET)&&realcon != (int)Real.ALLSTOP)
             {
+                Debug.Log("コインが足りないかベット済");
                 return;
             }
+            Debug.Log("ベット");
             coin -= betcoin;
             realcon = (int)Real.BET;
         }
-
         /// <summary>
         /// ればーおん！
         /// </summary>
         public void LeverOn()
         {
-            RandomRole();
-            RealRotate();
+            if (realcon == (int)Real.BET)
+            {
+                RandomRole();
+                RealRotate();
+            }
         }
         /// <summary>
         /// リールを回すスクリプト
@@ -400,6 +407,7 @@ namespace Slot
         /// </summary>
         protected void SetMondai()
         {
+            Syutudai();
             mondaiText.text = m.GetMondaiText();
             //Mondai mondai = GetMondai(role);
             //リスト初期化
@@ -430,13 +438,16 @@ namespace Slot
         /// <returns>正解の判定</returns>
         protected bool Answer(Position p)
         {
+            Invisible();
             if (gogunText[2-(int)p].text == m.GetAnswer())
             {
+                
                 Debug.Log("正解しました");
                 return true;
             }
             Debug.Log("不正解");
             return false;
+         
         }
         /// <summary>
         /// 問題をロードするクラス
@@ -445,10 +456,23 @@ namespace Slot
         /// <returns>問題のデータ</returns>
         protected static Mondai GetMondai(Role r)
         {
+            
             string path = Application.streamingAssetsPath + "/question/" + r + ".json";
             string str = File.ReadAllText(path);
             return JsonUtility.FromJson<Mondai>(str);
+
         }
+
+        public void Syutudai()
+        {
+            mondaipanel.SetActive(true);
+        }
+
+        public void Invisible()
+        {
+            mondaipanel.SetActive(false);
+        }
+
     }
 }
 
