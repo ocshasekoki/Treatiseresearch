@@ -45,33 +45,7 @@ namespace Data
         {Role.BIGBONUS,new Color(1f,0.3058f,0.4705f) },
         {Role.FREEZE,new Color(1f,0.7764f,0) },
         };
-        /// <summary>
-        /// 正解数のカウント
-        /// </summary>
-        protected int correctcount = 0;
-
-        /// <summary>
-        /// 正解数のカウントプロパティ
-        /// </summary>
-        public int Cor 
-        {
-            get { return correctcount; }
-            set { correctcount = value; }
-        }
-
-        /// <summary>
-        /// コインの枚数
-        /// </summary>
-        protected int coin;
-
-        /// <summary>
-        /// コインのプロパティ
-        /// </summary>
-        public int Coin
-        {
-            get { return coin; }
-            set { coin = value; }
-        }
+        
     }
     /// <summary>
     /// 小役のすべてのデータ
@@ -93,7 +67,7 @@ namespace Data
         public Config conf;         /// <summary>設定</summary>
         public Condition cond;      /// <summary>状態</summary>
         public Role role;           /// <summary>小役</summary>
-        public int bonuspro;        /// <summary>ボーナス確率</summary>
+        public int bonuspro;        /// <summary>レギュラーボーナス確率</summary>
         public int bigbonuspro;     /// <summary>ビッグボーナス確率</summary>
         public int freezepro;       /// <summary>フリーズ確率</summary>
         public int chancezonepro;   /// <summary>チャンスゾーンの確率</summary>
@@ -105,6 +79,36 @@ namespace Data
         public void Dump()
         {
             Debug.Log("設定：" + conf + " 小役：" + role + " 状態：" + cond + " 出現確率：" + appearpro + " ボーナス確率：" + bonuspro);
+        }
+    }
+    public class PlayerData
+    {
+        /// <summary>
+        /// 正解数のカウント
+        /// </summary>
+        protected int correctcount = 0;
+
+        /// <summary>
+        /// 正解数のカウントプロパティ
+        /// </summary>
+        public int Cor
+        {
+            get { return correctcount; }
+            set { correctcount = value; }
+        }
+
+        /// <summary>
+        /// コインの枚数
+        /// </summary>
+        protected int coin;
+
+        /// <summary>
+        /// コインのプロパティ
+        /// </summary>
+        public int Coin
+        {
+            get { return coin; }
+            set { coin = value; }
         }
     }
 }

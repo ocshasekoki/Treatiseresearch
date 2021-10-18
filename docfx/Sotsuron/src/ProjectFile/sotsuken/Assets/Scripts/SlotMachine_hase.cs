@@ -28,6 +28,7 @@ namespace Slot
         protected Dic dic;
         /// <summary>data:役に対応する図柄のディクショナリなどのデータが格納された関数</summary>
         protected DicData data;
+        protected PlayerData pdata;
         /// <summary>pro:確率の分母/ </summary>
         protected int pro = 0;
         /// <summary>role :現在の小役 </summary>
@@ -195,8 +196,8 @@ namespace Slot
         /// <returns>連続正解した数＊設定、状態に対応した確率</returns>
         public void Answer(bool currect)
         {
-            if (currect) data.Cor++;
-            else data.Cor = 0;
+            if (currect) pdata.Cor++;
+            else pdata.Cor = 0;
         }
         /// <summary>
         /// 状態に対応したdictionaryに変更する関数

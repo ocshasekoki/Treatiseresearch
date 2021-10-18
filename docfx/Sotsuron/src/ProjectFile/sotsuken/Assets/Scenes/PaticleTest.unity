@@ -2804,15 +2804,6 @@ MonoBehaviour:
   effectArea: {fileID: 483226126}
   colorTest: {fileID: 406398111}
   configDD: {fileID: 1866607285}
-  m: {fileID: 1964048768}
-  mondaiText: {fileID: 1375962894}
-  answerText: {fileID: 0}
-  kaisetsuText: {fileID: 0}
-  gogunText:
-  - {fileID: 856978932}
-  - {fileID: 1090682258}
-  - {fileID: 1623200175}
-  ansButton: {fileID: 0}
 --- !u!4 &947439490
 Transform:
   m_ObjectHideFlags: 0
@@ -4645,7 +4636,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 354.25}
+  m_AnchoredPosition: {x: 0, y: 354}
   m_SizeDelta: {x: 0, y: -874.7058}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1540549160
@@ -6231,6 +6222,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 8292b1aa111079d44a00b49cc7e7a54a,
         type: 3}
+    - target: {fileID: 925797426859425132, guid: 50bdfa3809df0b044b94475b860b49c7,
+        type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2591320005105230940, guid: 50bdfa3809df0b044b94475b860b49c7,
         type: 3}
       propertyPath: m_LocalPosition.x
