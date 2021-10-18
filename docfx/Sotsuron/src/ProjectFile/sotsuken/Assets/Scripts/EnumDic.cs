@@ -80,4 +80,14 @@
         MIDDLE = 1,
         LEFT = 2
     }
+
+    public enum Real
+    {
+        NOBET,
+        BET,
+        ROTATE,
+        ONESTOP,
+        TWOSTOP,
+        ALLSTOP
+    }
 }

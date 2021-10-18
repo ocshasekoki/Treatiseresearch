@@ -4,7 +4,6 @@ public class SymbolScript: MonoBehaviour
 {
     //スクロールスピード
     private float speed = 0;
-    [SerializeField] private float upperlimit = 250f;
     [SerializeField] private float lowerlimit = -450f;
     [SerializeField] private GameObject nextobj = null;
     private void FixedUpdate()
