@@ -401,6 +401,16 @@ namespace Slot
             return obj;
         }
 
+        protected void RoleJudgement(Role r)
+        {
+            switch (r)
+            {
+                case Role.BELL:
+                    break;
+                case Role.REPLAY:
+                    break;
+            }
+        }
 
         /// <summary>
         /// 問題を生成し、表示させるプログラム
