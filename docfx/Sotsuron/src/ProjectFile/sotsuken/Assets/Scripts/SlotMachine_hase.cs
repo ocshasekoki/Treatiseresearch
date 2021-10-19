@@ -223,9 +223,9 @@ namespace Slot
         /// <returns>ボーナスの判定</returns>
         public static bool BonusJudge(int percent)
         {
-            int rand = UnityEngine.Random.Range(1, 1000);
+            int rand = UnityEngine.Random.Range(1, 10000);
             if (rand <= percent) return true;
-            else return false;
+            return false;
         }
 
         /// <summary>
@@ -430,7 +430,16 @@ namespace Slot
 
             }
         }
-
+        protected bool ATjudge (int prob) 
+        {
+            int rand = UnityEngine.Random.Range(1, 10000);
+            if (rand <= prob) return true;
+            return false;
+        }
+        protected void ConTransition(Condition con)
+        {
+            condition = con;
+        }
         /// <summary>
         /// 問題を生成し、表示させるプログラム
         /// </summary>
