@@ -409,6 +409,25 @@ namespace Slot
                     break;
                 case Role.REPLAY:
                     break;
+                case Role.BIGBONUS:
+                    break;
+                case Role.CHERRY:
+                    break;
+                case Role.FREEZE:
+                    break;
+                case Role.NONE:
+                    break;
+                case Role.QUESTION:
+                    break;
+                case Role.REGBONUS:
+                    break;
+                case Role.STRONGCHERRY:
+                    break;
+                case Role.WATERMELON:
+                    break;
+                case Role.WEAKCHERRY:
+                    break;
+
             }
         }
 
