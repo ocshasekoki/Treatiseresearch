@@ -100,7 +100,7 @@ namespace Data
         /// <summary>
         /// コインの枚数
         /// </summary>
-        protected int coin;
+        protected int coin = 100;
 
         /// <summary>
         /// コインのプロパティ
@@ -111,23 +111,34 @@ namespace Data
             set { coin = value; }
         }
 
-        protected bool chanceZone;
-        protected bool at;
-        protected bool bonus;
-        protected bool bigBonus;
+        protected bool chanceZone = false;
+        protected bool at = false;
+        protected bool bonus = false;
+        protected bool bigBonus = false;
 
-        protected bool CZ
+        public bool CZ
         {
             get{return chanceZone; } 
             set{chanceZone = value; }
         }
 
-        protected bool AT
+        public bool AT
         {
             get { return at; }
             set { at = value; }
         }
 
+        public bool Bonus
+        {
+            get { return bonus; }
+            set { bonus = value; }
+        }
+
+        public bool BigBonus
+        {
+            get { return bigBonus; }
+            set { bigBonus = value; }
+        }
     }
 }
 

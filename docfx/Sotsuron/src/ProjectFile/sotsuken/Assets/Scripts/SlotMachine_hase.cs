@@ -28,6 +28,8 @@ namespace Slot
         protected Dic dic;
         /// <summary>data:役に対応する図柄のディクショナリなどのデータが格納された関数</summary>
         protected DicData data;
+
+        protected PlayerData pdata;
         /// <summary>pro:確率の分母/ </summary>
         protected int pro = 0;
         /// <summary>role :現在の小役 </summary>
@@ -333,6 +335,19 @@ namespace Slot
                     }
                     break;
             }
+            if ((Real)realcon == Real.ALLSTOP)
+            {
+                NomalJudge(role);
+                NomalJudgeTest();
+            }
+        }
+        protected void NomalJudgeTest()
+        {
+            Debug.Log("BiGBonusの状態;" + pdata.BigBonus) ;
+            Debug.Log("Bonusの状態;" + pdata.Bonus) ;
+            Debug.Log("CZの状態;" + pdata.CZ) ;
+           
+            
         }
 
         /// <summary>
@@ -435,8 +450,10 @@ namespace Slot
 
         public void NomalJudge(Role r)
         {
-            if (Judge(diction[r].bigbonuspro)) ;
-            Judge(diction[r].bonuspro);
+            pdata.BigBonus= Judge(diction[r].bigbonuspro) ;
+            if(!pdata.BigBonus) pdata.Bonus = Judge(diction[r].bonuspro);
+            pdata.CZ = Judge(diction[r].chancezonepro);
+  
         }
 
         protected void ConTransition(Condition con)
