@@ -110,30 +110,45 @@ namespace Data
             get { return coin; }
             set { coin = value; }
         }
-
+        /// <summary>チャンスゾーンのフラグ </summary>
         protected bool chanceZone = false;
+        /// <summary>ATのフラグ </summary>
         protected bool at = false;
+        /// <summary>ボーナスのフラグ </summary>
         protected bool bonus = false;
+        /// <summary>ビッグボーナスのフラグ </summary>
         protected bool bigBonus = false;
+        /// <summary>フリーズのフラグ</summary>
+        protected bool freeze = false;
 
+        /// <summary>フリーズのプロパティ</summary>
+        public bool Freeze
+        {
+            get { return freeze; }
+            set { freeze = value; }
+        }
+        /// <summary>チャンスゾーンのプロパティ</summary>
         public bool CZ
         {
             get{return chanceZone; } 
             set{chanceZone = value; }
         }
 
+        /// <summary>ATのプロパティ</summary>
         public bool AT
         {
             get { return at; }
             set { at = value; }
         }
 
+        /// <summary>ボーナスのプロパティ</summary>
         public bool Bonus
         {
             get { return bonus; }
             set { bonus = value; }
         }
 
+        /// <summary>ビッグボーナスのプロパティ</summary>
         public bool BigBonus
         {
             get { return bigBonus; }

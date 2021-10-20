@@ -341,13 +341,18 @@ namespace Slot
                 NomalJudgeTest();
             }
         }
+
+        /// <summary>
+        /// 判定のテスト
+        /// </summary>
         protected void NomalJudgeTest()
         {
             Debug.Log("BiGBonusの状態;" + pdata.BigBonus) ;
             Debug.Log("Bonusの状態;" + pdata.Bonus) ;
             Debug.Log("CZの状態;" + pdata.CZ) ;
-           
-            
+            Debug.Log("Freezeの状態;" + pdata.Freeze);
+
+
         }
 
         /// <summary>
@@ -400,7 +405,10 @@ namespace Slot
             Debug.Log(obj.name);
             return obj;
         }
-
+        /// <summary>
+        /// 小役別の処理
+        /// </summary>
+        /// <param name="r">小役</param>
         protected void RoleJudgement(Role r)
         {
             switch (r)
@@ -430,6 +438,11 @@ namespace Slot
 
             }
         }
+        /// <summary>
+        /// ATの当たり判定
+        /// </summary>
+        /// <param name="prob">確率(prob/10000)</param>
+        /// <returns>当たり判定の真偽</returns>
         protected static bool ATjudge (int prob) 
         {
             int rand = UnityEngine.Random.Range(1, 10000);
@@ -448,6 +461,10 @@ namespace Slot
             return false;
         }
 
+        /// <summary>
+        /// 通常時の役の判定
+        /// </summary>
+        /// <param name="r">小役</param>
         public void NomalJudge(Role r)
         {
             pdata.BigBonus= Judge(diction[r].bigbonuspro) ;
@@ -456,6 +473,10 @@ namespace Slot
   
         }
 
+        /// <summary>
+        /// 状態を変更
+        /// </summary>
+        /// <param name="con">状態</param>
         protected void ConTransition(Condition con)
         {
             condition = con;
@@ -521,11 +542,13 @@ namespace Slot
 
         }
 
+        /// <summary>問題パネルの表示 </summary>
         public void Syutudai()
         {
             mondaipanel.SetActive(true);
         }
 
+        /// <summary>問題パネルの非表示 </summary>
         public void Invisible()
         {
             mondaipanel.SetActive(false);
