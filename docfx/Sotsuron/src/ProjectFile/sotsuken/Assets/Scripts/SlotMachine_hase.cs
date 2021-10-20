@@ -79,11 +79,6 @@ namespace Slot
             {
                 prefDic.Add(r, PrefLoad(r));
             }
-            Debug.Log(prefDic.Count);
-            foreach (GameObject g in prefDic.Values)
-            {
-                Debug.Log(g.name);
-            }
 
             config = (Config)UnityEngine.Random.Range(0, 2);
             condition = Condition.NOMAL;
@@ -216,17 +211,7 @@ namespace Slot
             return 0;
         }
 
-        /// <summary>
-        /// ボーナス判定
-        /// </summary>
-        /// <param name="percent">ボーナス確率(%)</param>
-        /// <returns>ボーナスの判定</returns>
-        public static bool BonusJudge(int percent)
-        {
-            int rand = UnityEngine.Random.Range(1, 10000);
-            if (rand <= percent) return true;
-            return false;
-        }
+
 
         /// <summary>
         /// 小役QUESTION(問題)で問題を答えた時に動かすメソッド
@@ -430,12 +415,30 @@ namespace Slot
 
             }
         }
-        protected bool ATjudge (int prob) 
+        protected static bool ATjudge (int prob) 
         {
             int rand = UnityEngine.Random.Range(1, 10000);
             if (rand <= prob) return true;
             return false;
         }
+        /// <summary>
+        /// ボーナス判定
+        /// </summary>
+        /// <param name="percent">ボーナス確率(%)</param>
+        /// <returns>ボーナスの判定</returns>
+        public static bool Judge(int percent)
+        {
+            int rand = UnityEngine.Random.Range(1, 10000);
+            if (rand <= percent) return true;
+            return false;
+        }
+
+        public void NomalJudge(Role r)
+        {
+            if (Judge(diction[r].bigbonuspro)) ;
+            Judge(diction[r].bonuspro);
+        }
+
         protected void ConTransition(Condition con)
         {
             condition = con;

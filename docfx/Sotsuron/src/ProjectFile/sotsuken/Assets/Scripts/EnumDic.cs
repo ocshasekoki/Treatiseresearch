@@ -58,10 +58,10 @@
     public enum Condition
     {
         NOMAL = 0,
-        HIGH = 1,
-        SUPERHIGH = 2,
-        CZ = 3,
-        BONUS = 4,
+        CZ = 1,
+        BONUS = 2,
+        BIGBONUS = 3,
+        FREEZE = 4,
         AT = 5,
     }
 

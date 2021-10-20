@@ -45,7 +45,7 @@ namespace Data
         {Role.BIGBONUS,new Color(1f,0.3058f,0.4705f) },
         {Role.FREEZE,new Color(1f,0.7764f,0) },
         };
-        
+
     }
     /// <summary>
     /// 小役のすべてのデータ
@@ -72,10 +72,10 @@ namespace Data
         public int freezepro;       /// <summary>フリーズ確率</summary>
         public int chancezonepro;   /// <summary>チャンスゾーンの確率</summary>
         public int appearpro;       /// <summary>出現確率</summary>
-        
-        /// <summary>
-        /// 現在の状態を出力
-        /// </summary>
+
+                                    /// <summary>
+                                    /// 現在の状態を出力
+                                    /// </summary>
         public void Dump()
         {
             Debug.Log("設定：" + conf + " 小役：" + role + " 状態：" + cond + " 出現確率：" + appearpro + " ボーナス確率：" + bonuspro);
@@ -110,6 +110,24 @@ namespace Data
             get { return coin; }
             set { coin = value; }
         }
+
+        protected bool chanceZone;
+        protected bool at;
+        protected bool bonus;
+        protected bool bigBonus;
+
+        protected bool CZ
+        {
+            get{return chanceZone; } 
+            set{chanceZone = value; }
+        }
+
+        protected bool AT
+        {
+            get { return at; }
+            set { at = value; }
+        }
+
     }
 }
 
