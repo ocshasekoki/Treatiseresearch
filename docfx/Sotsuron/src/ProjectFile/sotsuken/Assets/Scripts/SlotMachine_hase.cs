@@ -63,6 +63,8 @@ namespace Slot
         [SerializeField] Text mondaiText = null;
         /// <summary>gogunText:語群のテキストの配列</summary>
         [SerializeField] Text[] gogunText = null;
+        [SerializeField] Text coinText = null;
+
 
         /// <summary>betcoin:掛け金</summary>
         protected const int betcoin = 3;
@@ -85,6 +87,7 @@ namespace Slot
             dic = Prodic.LoadDic();
             ChangeMode(dic);
 
+            CoinText();
             leftsymbol = SetReal(leftReal);
             centersymbol = SetReal(centerReal);
             rightsymbol = SetReal(rightReal);
@@ -116,6 +119,7 @@ namespace Slot
             }
             Debug.Log("ベット");
             pdata.Coin -= betcoin;
+            CoinText();
             realcon = (int)Real.BET;
         }
         /// <summary>
@@ -443,6 +447,7 @@ namespace Slot
                     break;
             }
             Debug.Log(pdata.Coin);
+            CoinText();
         }
         /// <summary>
         /// ATの当たり判定
@@ -560,6 +565,11 @@ namespace Slot
         public void Invisible()
         {
             mondaipanel.SetActive(false);
+        }
+
+        public void CoinText()
+        {
+            coinText.text = pdata.Coin.ToString();
         }
 
     }
