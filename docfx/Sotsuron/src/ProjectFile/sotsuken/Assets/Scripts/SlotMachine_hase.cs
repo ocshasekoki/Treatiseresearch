@@ -29,7 +29,7 @@ namespace Slot
         /// <summary>data:役に対応する図柄のディクショナリなどのデータが格納された関数</summary>
         protected DicData data;
 
-        protected PlayerData pdata;
+        protected PlayerData pdata = new PlayerData();
         /// <summary>pro:確率の分母/ </summary>
         protected int pro = 0;
         /// <summary>role :現在の小役 </summary>
@@ -64,8 +64,6 @@ namespace Slot
         /// <summary>gogunText:語群のテキストの配列</summary>
         [SerializeField] Text[] gogunText = null;
 
-        /// <summary>coin:所持コイン</summary>
-        protected int coin = 100;
         /// <summary>betcoin:掛け金</summary>
         protected const int betcoin = 3;
         /// <summary>realcon:リールの状態</summary>
@@ -111,13 +109,13 @@ namespace Slot
 
         public void PushBet()
         {
-            if ((coin - betcoin < 0 || realcon != (int)Real.NOBET)&&realcon != (int)Real.ALLSTOP)
+            if ((pdata.Coin - betcoin < 0 || realcon != (int)Real.NOBET)&&realcon != (int)Real.ALLSTOP)
             {
                 Debug.Log("コインが足りないかベット済");
                 return;
             }
             Debug.Log("ベット");
-            coin -= betcoin;
+            pdata.Coin -= betcoin;
             realcon = (int)Real.BET;
         }
         /// <summary>
@@ -339,6 +337,7 @@ namespace Slot
             {
                 NomalJudge(role);
                 NomalJudgeTest();
+                RoleJudgement(role);
             }
         }
 
@@ -414,29 +413,36 @@ namespace Slot
             switch (r)
             {
                 case Role.BELL:
+                    pdata.Coin += 15;
                     break;
                 case Role.REPLAY:
+                    realcon = (int)Real.BET;
                     break;
                 case Role.BIGBONUS:
                     break;
                 case Role.CHERRY:
+                    pdata.Coin += 3;
                     break;
                 case Role.FREEZE:
                     break;
                 case Role.NONE:
                     break;
                 case Role.QUESTION:
+                    pdata.Coin += 8;
                     break;
                 case Role.REGBONUS:
                     break;
                 case Role.STRONGCHERRY:
+                    pdata.Coin += 3;
                     break;
                 case Role.WATERMELON:
+                    pdata.Coin += 5;
                     break;
                 case Role.WEAKCHERRY:
+                    pdata.Coin += 1;
                     break;
-
             }
+            Debug.Log(pdata.Coin);
         }
         /// <summary>
         /// ATの当たり判定
@@ -467,10 +473,14 @@ namespace Slot
         /// <param name="r">小役</param>
         public void NomalJudge(Role r)
         {
+            Debug.Log("BigBonus確率;" + diction[r].bigbonuspro);
+            Debug.Log("RegBonus確率;" + diction[r].bonuspro);
+            Debug.Log("ChanceZone確率;" + diction[r].chancezonepro);
+            Debug.Log("Freeze確率;" + diction[r].freezepro);
             pdata.BigBonus= Judge(diction[r].bigbonuspro) ;
             if(!pdata.BigBonus) pdata.Bonus = Judge(diction[r].bonuspro);
             pdata.CZ = Judge(diction[r].chancezonepro);
-  
+            pdata.Freeze = Judge(diction[r].freezepro);
         }
 
         /// <summary>
@@ -534,12 +544,10 @@ namespace Slot
         /// <param name="r">小役</param>
         /// <returns>問題のデータ</returns>
         protected static Mondai GetMondai(Role r)
-        {
-            
+        {           
             string path = Application.streamingAssetsPath + "/question/" + r + ".json";
             string str = File.ReadAllText(path);
             return JsonUtility.FromJson<Mondai>(str);
-
         }
 
         /// <summary>問題パネルの表示 </summary>
