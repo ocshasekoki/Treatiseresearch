@@ -73,6 +73,7 @@ namespace Slot
         protected bool[] rotate;
         public void Start()
         {
+            pdata = new PlayerData();
             Invisible();
             prefDic = new Dictionary<Role, GameObject>();
             realcon = 0;
@@ -347,7 +348,7 @@ namespace Slot
         /// </summary>
         protected void NomalJudgeTest()
         {
-            Debug.Log("BiGBonusの状態;" + pdata.BigBonus) ;
+            Debug.Log("BigBonusの状態;" + pdata.BigBonus) ;
             Debug.Log("Bonusの状態;" + pdata.Bonus) ;
             Debug.Log("CZの状態;" + pdata.CZ) ;
             Debug.Log("Freezeの状態;" + pdata.Freeze);
@@ -467,8 +468,11 @@ namespace Slot
         /// <param name="r">小役</param>
         public void NomalJudge(Role r)
         {
+            Debug.Log("BigBonus確率：" + diction[r].bigbonuspro);
             pdata.BigBonus= Judge(diction[r].bigbonuspro) ;
-            if(!pdata.BigBonus) pdata.Bonus = Judge(diction[r].bonuspro);
+            Debug.Log("BigBonus確率：" + diction[r].bonuspro);
+            if (!pdata.BigBonus) pdata.Bonus = Judge(diction[r].bonuspro);
+            Debug.Log("BigBonus確率：" + diction[r].chancezonepro);
             pdata.CZ = Judge(diction[r].chancezonepro);
   
         }
