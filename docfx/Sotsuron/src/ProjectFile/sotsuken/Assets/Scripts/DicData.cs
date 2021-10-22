@@ -155,7 +155,7 @@ namespace Data
             set { bigBonus = value; }
         }
         protected int gameCount = 0;
-        public int GameCount
+        public int GameCounter
         {
             get { return gameCount; }
             set { gameCount = value; }

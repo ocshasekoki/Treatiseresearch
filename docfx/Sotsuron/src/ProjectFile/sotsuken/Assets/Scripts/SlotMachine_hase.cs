@@ -65,7 +65,8 @@ namespace Slot
         [SerializeField] Text[] gogunText = null;
         [SerializeField] Text coinText = null;
         [SerializeField] Text gameCounterText = null;
-
+        protected int bonusgrace;
+        protected int chancegrace;
 
         /// <summary>betcoin:掛け金</summary>
         protected const int betcoin = 3;
@@ -484,12 +485,58 @@ namespace Slot
             Debug.Log("RegBonus確率;" + diction[r].bonuspro);
             Debug.Log("ChanceZone確率;" + diction[r].chancezonepro);
             Debug.Log("Freeze確率;" + diction[r].freezepro);
-            if(pdata.BigBonus) 
-            pdata.BigBonus= Judge(diction[r].bigbonuspro) ;
-            if(!pdata.BigBonus) pdata.Bonus = Judge(diction[r].bonuspro);
+            if (pdata.BigBonus)
+                pdata.BigBonus = Judge(diction[r].bigbonuspro);
+            if (!pdata.BigBonus) pdata.Bonus = Judge(diction[r].bonuspro);
             pdata.CZ = Judge(diction[r].chancezonepro);
             pdata.Freeze = Judge(diction[r].freezepro);
+            if (pdata.Freeze)
+            {
+                pdata.GameCounter++;
+                if (pdataGameCounter == bonusgrace)
+                {
+                    condition = Condition.FREEZE;
+                    SetOc();
+                }
+            }
+            else if (!pdata.BigBonus!pdata.Bonus)
+{
+                pdata.Freeze = Judge(diction[r].freezepro);
+                bonusgrace = pdata.GameCounter + UnityEngine.RandomInt(1, 8);
+            }
+
+            if (pdata.BigBonus)
+            {
+                pdata.Counter++;
+                if (pdata.Counter == bonusgrace)
+                {
+                    condition = Condition.BIGBONUS;
+                    SetOc();
+                }
+            }
+            else if (!pdata.Bonus!pdata.Freeze)
+{
+                pdata.BigBonus = Judge(diction[r].bigbonuspro);
+            }
+
+            if (pdata.Bonus)
+            {
+                pdata.Counter++;
+                if (pdata.Counter == bonusgrace)
+                {
+                    condition = Condition.BONUS;
+                    SetOc();
+                }
+            }
+            else if (!pdata.BigBonus || !pdata.Freeze)
+            {
+                pdata.Bonus = Judge(diction[r].bigbonuspro);
+            }
+
+            pdata.CZ = Judge(diction[r].chancezonepro);
         }
+        
+
 
         /// <summary>
         /// 状態を変更
