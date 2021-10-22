@@ -154,6 +154,12 @@ namespace Data
             get { return bigBonus; }
             set { bigBonus = value; }
         }
+        protected int gameCount = 0;
+        public int GameCount
+        {
+            get { return gameCount; }
+            set { gameCount = value; }
+        }
     }
 }
 

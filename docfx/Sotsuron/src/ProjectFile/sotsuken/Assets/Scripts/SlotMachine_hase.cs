@@ -64,6 +64,7 @@ namespace Slot
         /// <summary>gogunText:語群のテキストの配列</summary>
         [SerializeField] Text[] gogunText = null;
         [SerializeField] Text coinText = null;
+        [SerializeField] Text gameCounterText = null;
 
 
         /// <summary>betcoin:掛け金</summary>
@@ -131,6 +132,7 @@ namespace Slot
             {
                 RandomRole();
                 RealRotate();
+                GameCounter();
             }
         }
         /// <summary>
@@ -482,6 +484,7 @@ namespace Slot
             Debug.Log("RegBonus確率;" + diction[r].bonuspro);
             Debug.Log("ChanceZone確率;" + diction[r].chancezonepro);
             Debug.Log("Freeze確率;" + diction[r].freezepro);
+            if(pdata.BigBonus) 
             pdata.BigBonus= Judge(diction[r].bigbonuspro) ;
             if(!pdata.BigBonus) pdata.Bonus = Judge(diction[r].bonuspro);
             pdata.CZ = Judge(diction[r].chancezonepro);
@@ -571,7 +574,12 @@ namespace Slot
         {
             coinText.text = pdata.Coin.ToString();
         }
-
+        protected void GameCounter()
+        {
+            pdata.GameCount++;
+            gameCounterText.text = pdata.GameCount.ToString();
+        }
+        
     }
 }
 
