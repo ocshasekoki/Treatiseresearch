@@ -65,8 +65,8 @@ namespace Slot
         [SerializeField] Text[] gogunText = null;
         [SerializeField] Text coinText = null;
         [SerializeField] Text gameCounterText = null;
-        protected int bonusgrace;
-        protected int chancegrace;
+        protected int bonusgrace = 0;
+        protected int chancegrace = 0;
 
         /// <summary>betcoin:掛け金</summary>
         protected const int betcoin = 3;
@@ -369,7 +369,6 @@ namespace Slot
         [Obsolete]
         protected void SetColor(Role r, GameObject obj)
         {
-            Debug.Log(r.ToString());
             Debug.Log(DicData.rolecolor[r]);
             obj.GetComponent<ParticleSystem>().startColor = DicData.rolecolor[r];
         }
@@ -485,55 +484,53 @@ namespace Slot
             Debug.Log("RegBonus確率;" + diction[r].bonuspro);
             Debug.Log("ChanceZone確率;" + diction[r].chancezonepro);
             Debug.Log("Freeze確率;" + diction[r].freezepro);
-            if (pdata.BigBonus)
-                pdata.BigBonus = Judge(diction[r].bigbonuspro);
-            if (!pdata.BigBonus) pdata.Bonus = Judge(diction[r].bonuspro);
-            pdata.CZ = Judge(diction[r].chancezonepro);
-            pdata.Freeze = Judge(diction[r].freezepro);
+
             if (pdata.Freeze)
             {
-                pdata.GameCounter++;
-                if (pdataGameCounter == bonusgrace)
+                if (pdata.GameCounter == bonusgrace)
                 {
                     condition = Condition.FREEZE;
-                    SetOc();
                 }
             }
-            else if (!pdata.BigBonus!pdata.Bonus)
+            else if (!pdata.BigBonus&&!pdata.Bonus)
 {
                 pdata.Freeze = Judge(diction[r].freezepro);
-                bonusgrace = pdata.GameCounter + UnityEngine.RandomInt(1, 8);
+                if (pdata.Freeze) bonusgrace = pdata.GameCounter + UnityEngine.Random.Range(1, 8);
             }
 
             if (pdata.BigBonus)
             {
-                pdata.Counter++;
-                if (pdata.Counter == bonusgrace)
+                if (pdata.GameCounter == bonusgrace)
                 {
+
                     condition = Condition.BIGBONUS;
-                    SetOc();
+
+
                 }
             }
-            else if (!pdata.Bonus!pdata.Freeze)
-{
+            else if (!pdata.Bonus&&!pdata.Freeze)
+            {
                 pdata.BigBonus = Judge(diction[r].bigbonuspro);
+                if (pdata.BigBonus) bonusgrace = pdata.GameCounter + UnityEngine.Random.Range(1, 8);
             }
 
             if (pdata.Bonus)
             {
-                pdata.Counter++;
-                if (pdata.Counter == bonusgrace)
+                if (pdata.GameCounter == bonusgrace)
                 {
                     condition = Condition.BONUS;
-                    SetOc();
+
                 }
             }
-            else if (!pdata.BigBonus || !pdata.Freeze)
+            else if (!pdata.BigBonus && !pdata.Freeze)
             {
-                pdata.Bonus = Judge(diction[r].bigbonuspro);
+                pdata.Bonus = Judge(diction[r].bonuspro);
+                if(pdata.Bonus)bonusgrace = pdata.GameCounter + UnityEngine.Random.Range(1, 8);
             }
+            if(!pdata.CZ)pdata.CZ = Judge(diction[r].chancezonepro);
 
-            pdata.CZ = Judge(diction[r].chancezonepro);
+            Debug.Log(bonusgrace);
+            Debug.Log(condition);
         }
         
 
@@ -623,8 +620,8 @@ namespace Slot
         }
         protected void GameCounter()
         {
-            pdata.GameCount++;
-            gameCounterText.text = pdata.GameCount.ToString();
+            pdata.GameCounter++;
+            gameCounterText.text = pdata.GameCounter.ToString();
         }
         
     }

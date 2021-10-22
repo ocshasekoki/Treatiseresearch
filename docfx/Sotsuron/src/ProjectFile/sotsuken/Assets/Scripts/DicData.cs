@@ -81,6 +81,7 @@ namespace Data
             Debug.Log("設定：" + conf + " 小役：" + role + " 状態：" + cond + " 出現確率：" + appearpro + " ボーナス確率：" + bonuspro);
         }
     }
+    [SerializeField]
     public class PlayerData
     {
         /// <summary>
