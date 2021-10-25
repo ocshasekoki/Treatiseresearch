@@ -342,7 +342,8 @@ namespace Slot
             }
             if ((Real)realcon == Real.ALLSTOP)
             {
-                NomalJudge(role);
+                BonusJudge(role);
+                CZATjudge(role);
                 NomalJudgeTest();
                 RoleJudgement(role);
             }
@@ -456,11 +457,11 @@ namespace Slot
         /// </summary>
         /// <param name="prob">確率(prob/10000)</param>
         /// <returns>当たり判定の真偽</returns>
-        protected static bool ATjudge (int prob) 
+        protected void CZATjudge(Role r) 
         {
-            int rand = UnityEngine.Random.Range(1, 10000);
-            if (rand <= prob) return true;
-            return false;
+            if (!pdata.CZ) pdata.CZ = Judge(diction[r].chancezonepro);
+
+            else if (!pdata.AT) pdata.AT = Judge(diction[r].chancezonepro);
         }
         /// <summary>
         /// ボーナス判定
@@ -478,11 +479,10 @@ namespace Slot
         /// 通常時の役の判定
         /// </summary>
         /// <param name="r">小役</param>
-        public void NomalJudge(Role r)
+        public void BonusJudge(Role r)
         {
             Debug.Log("BigBonus確率;" + diction[r].bigbonuspro);
             Debug.Log("RegBonus確率;" + diction[r].bonuspro);
-            Debug.Log("ChanceZone確率;" + diction[r].chancezonepro);
             Debug.Log("Freeze確率;" + diction[r].freezepro);
 
             if (pdata.Freeze)
@@ -527,7 +527,7 @@ namespace Slot
                 pdata.Bonus = Judge(diction[r].bonuspro);
                 if(pdata.Bonus)bonusgrace = pdata.GameCounter + UnityEngine.Random.Range(1, 8);
             }
-            if(!pdata.CZ)pdata.CZ = Judge(diction[r].chancezonepro);
+            
 
             Debug.Log(bonusgrace);
             Debug.Log(condition);
