@@ -56,6 +56,7 @@ namespace Slot
         [SerializeField] protected GameObject mondaipanel;
         /// <summary>configDD: 設定の変更のドロップダウン</summary>
         [SerializeField] protected Dropdown configDD = null;
+        [SerializeField] protected Dropdown conditionDD = null;
         Dictionary<Role, GameObject> prefDic = null;
         /// <summary>m:テスト用の問題データ</summary>
         [SerializeField] protected Mondai m = null;
@@ -65,6 +66,7 @@ namespace Slot
         [SerializeField] Text[] gogunText = null;
         [SerializeField] Text coinText = null;
         [SerializeField] Text gameCounterText = null;
+        [SerializeField] Text conditionText = null;
         protected int bonusgrace = 0;
         protected int chancegrace = 0;
 
@@ -398,6 +400,18 @@ namespace Slot
             configDD.AddOptions(ddvalues);
         }
 
+        public void SetConditionDD()
+        {
+            string[] ops = Enum.GetNames(typeof(Condition));
+            List<string> ddvalues = new List<string>();
+            foreach (string typename in ops)
+            {
+                ddvalues.Add(typename);
+            }
+            conditionDD.ClearOptions();
+            conditionDD.AddOptions(ddvalues);
+        }
+
         /// <summary>
         /// 小役に対応したResources内のプレハブを読み込む
         /// </summary>
@@ -531,6 +545,7 @@ namespace Slot
 
             Debug.Log(bonusgrace);
             Debug.Log(condition);
+            ConditionText();
         }
         
 
@@ -624,6 +639,10 @@ namespace Slot
             gameCounterText.text = pdata.GameCounter.ToString();
         }
         
+        public void ConditionText()
+        {
+            conditionText.text = condition.ToString();
+        }
     }
 }
 
