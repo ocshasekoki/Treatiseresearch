@@ -97,6 +97,7 @@ namespace Slot
             rightsymbol = SetReal(rightReal);
 
             SetConfigDD();
+            SetConditionDD();
         }
         /// <summary>
         /// 指定したリールの絵柄すべてをリストに格納する。
@@ -382,6 +383,12 @@ namespace Slot
         public void SetConfig()
         {
             config = (Config)configDD.value;
+            ChangeMode(dic);
+        }
+
+        public void SetCondition()
+        {
+            condition = (Condition)conditionDD.value;
             ChangeMode(dic);
         }
 
