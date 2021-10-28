@@ -67,6 +67,7 @@ namespace Slot
         [SerializeField] Text coinText = null;
         [SerializeField] Text gameCounterText = null;
         [SerializeField] Text conditionText = null;
+        [SerializeField] Text ccaText = null;
         protected int bonusgrace = 0;
         protected int chancegrace = 0;
 
@@ -457,6 +458,7 @@ namespace Slot
                     break;
                 case Role.QUESTION:
                     pdata.Coin += 8;
+                    ccaText.text = pdata.Cor.ToString();
                     break;
                 case Role.REGBONUS:
                     break;
@@ -480,9 +482,11 @@ namespace Slot
         /// <returns>当たり判定の真偽</returns>
         protected void CZATjudge(Role r) 
         {
+            if (r == Role.QUESTION && !pdata.CZ) Judge(diction[r].chancezonepro * pdata.Cor);
             if (!pdata.CZ) pdata.CZ = Judge(diction[r].chancezonepro);
 
             else if (!pdata.AT) pdata.AT = Judge(diction[r].chancezonepro);
+
         }
         /// <summary>
         /// ボーナス判定
