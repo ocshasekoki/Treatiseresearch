@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using EnumDic;
 using Prob;
 using Data;
+using Mondai;
 using System.IO;
 
 namespace Slot
@@ -34,7 +35,8 @@ namespace Slot
         protected int pro = 0;
         /// <summary>role :現在の小役 </summary>
         protected Role role;
-
+        /// <summary>role :現在の小役 </summary>
+        protected MondaiData m;
         /// <summary> leftsymbol:左の図柄のリスト</summary>
         protected List<GameObject> leftsymbol = null;
         /// <summary> centersymbol:中央の図柄のリスト</summary>
@@ -58,8 +60,6 @@ namespace Slot
         [SerializeField] protected Dropdown configDD = null;
         [SerializeField] protected Dropdown conditionDD = null;
         Dictionary<Role, GameObject> prefDic = null;
-        /// <summary>m:テスト用の問題データ</summary>
-        [SerializeField] protected Mondai m = null;
         /// <summary>mondaiText:問題のテキスト</summary>
         [SerializeField] Text mondaiText = null;
         /// <summary>gogunText:語群のテキストの配列</summary>
@@ -575,7 +575,7 @@ namespace Slot
         protected void SetMondai()
         {
             Syutudai();
-            mondaiText.text = m.GetMondaiText();
+            mondaiText.text = m.MondaiText;
             //Mondai mondai = GetMondai(role);
             //リスト初期化
             List<int> numbers = new List<int>();
@@ -593,7 +593,7 @@ namespace Slot
                 //「乱数で出た数値」番目を取り出す
                 int ransu = numbers[index];
                 //テキストを設置する
-                gogunText[numbers.Count-1].text = m.GetT(ransu);
+                gogunText[numbers.Count-1].text = m.GetGogun(ransu);
                 //入れた数値をリストから削除する
                 numbers.RemoveAt(index);
             }
@@ -606,7 +606,7 @@ namespace Slot
         protected bool Answer(Position p)
         {
             Invisible();
-            if (gogunText[2-(int)p].text == m.GetAnswer())
+            if (gogunText[2-(int)p].text == m.Answer)
             {
                 
                 Debug.Log("正解しました");
@@ -621,11 +621,11 @@ namespace Slot
         /// </summary>
         /// <param name="r">小役</param>
         /// <returns>問題のデータ</returns>
-        protected static Mondai GetMondai(Role r)
+        protected static MondaiData GetMondai(Role r)
         {           
             string path = Application.streamingAssetsPath + "/question/" + r + ".json";
             string str = File.ReadAllText(path);
-            return JsonUtility.FromJson<Mondai>(str);
+            return JsonUtility.FromJson<MondaiData>(str);
         }
 
         /// <summary>問題パネルの表示 </summary>
