@@ -53,6 +53,33 @@ namespace Mondai
             string path = Application.streamingAssetsPath + "/Mondai/" + data.Genre.ToString() +"/"+ nameIF.text + format;
             File.WriteAllText(path, json);
         }
+
+        public List<string> GetMondaiList(MondaiGenre genre)
+        {
+            List<string> mondaiList = new List<string>();
+
+            DirectoryInfo dir = new DirectoryInfo(Application.streamingAssetsPath + "/Mondai/" + genre + "/");
+            FileInfo[] info = dir.GetFiles("*.json");
+
+            foreach(FileInfo f in info)
+            {
+                mondaiList.Add(f.Name);
+            }
+            return mondaiList;
+        }
+
+    public void ViewMondaiList()
+    {
+        foreach (MondaiGenre g in Enum.GetValues(typeof(MondaiGenre)))
+        {
+            Debug.Log(g.ToString());
+            List<string> list = GetMondaiList(g);
+            foreach (string s in list)
+            {
+                Debug.Log(s);
+            }
+        }
+    }
     }
     public enum MondaiGenre
     {
