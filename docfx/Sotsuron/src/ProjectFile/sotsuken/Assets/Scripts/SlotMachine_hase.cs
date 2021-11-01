@@ -253,6 +253,7 @@ namespace Slot
         /// <param name="pos"></param>
         public void btnPush(string pos)
         {
+            if (realcon < 2 || realcon > 4) return;
             Position p = (Position)Enum.Parse(typeof(Position), pos);
             switch (p)
             {

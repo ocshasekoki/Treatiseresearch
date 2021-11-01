@@ -83,11 +83,11 @@
 
     public enum Real
     {
-        NOBET,
-        BET,
-        ROTATE,
-        ONESTOP,
-        TWOSTOP,
-        ALLSTOP
+        NOBET=0,
+        BET=1,
+        ROTATE=2,
+        ONESTOP=3,
+        TWOSTOP=4,
+        ALLSTOP=5
     }
 }
