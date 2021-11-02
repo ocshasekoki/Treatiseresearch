@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 namespace Mondai
 {
-    public class CreateMondai : MonoBehaviour
+    public class Mondaiscript : MonoBehaviour
     {
         private const string format = ".json";
         [SerializeField] protected InputField nameIF;
@@ -52,9 +52,21 @@ namespace Mondai
             Debug.Log(json);
             string path = Application.streamingAssetsPath + "/Mondai/" + data.Genre.ToString() +"/"+ nameIF.text + format;
             File.WriteAllText(path, json);
-        }
 
-        public List<string> GetMondaiList(MondaiGenre genre)
+        }
+        public static MondaiData InputMondai(MondaiGenre genre)
+        {
+            List<string> list = GetMondaiList(genre);
+            //リストの長さだけ乱数生成
+            int index = UnityEngine.Random.Range(0, list.Count);
+            //「乱数で出た数値」番目を取り出す
+            string randomname = list[index];
+            string path = Application.streamingAssetsPath + "/Mondai/" + genre.ToString() + "/" + randomname + format;
+            string str = File.ReadAllText(path);
+            return JsonUtility.FromJson<MondaiData>(str);
+            
+        }
+        public static List<string> GetMondaiList(MondaiGenre genre)
         {
             List<string> mondaiList = new List<string>();
 
