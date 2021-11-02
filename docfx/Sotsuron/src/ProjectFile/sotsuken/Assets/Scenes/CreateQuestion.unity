@@ -1303,10 +1303,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 10
     m_FontStyle: 2
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -1459,14 +1459,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d671c6c627d68448345346b49c123f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameIF: {fileID: 787582738}
-  mondaiIF: {fileID: 2128967770}
-  kaisetsuIF: {fileID: 310057761}
-  answerIF: {fileID: 2014078450}
-  gogunIF_1: {fileID: 27697092}
-  gogunIF_2: {fileID: 1494049547}
-  gogunIF_3: {fileID: 2029766490}
-  mondaiGenreDD: {fileID: 1381933333}
 --- !u!4 &732902050
 Transform:
   m_ObjectHideFlags: 0

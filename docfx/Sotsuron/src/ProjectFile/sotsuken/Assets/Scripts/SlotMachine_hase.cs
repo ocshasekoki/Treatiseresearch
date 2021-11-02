@@ -35,8 +35,6 @@ namespace Slot
         protected int pro = 0;
         /// <summary>role :現在の小役 </summary>
         protected Role role;
-        /// <summary>role :現在の小役 </summary>
-        protected MondaiData m;
         /// <summary> leftsymbol:左の図柄のリスト</summary>
         protected List<GameObject> leftsymbol = null;
         /// <summary> centersymbol:中央の図柄のリスト</summary>
@@ -71,6 +69,7 @@ namespace Slot
         [SerializeField] Text answerText = null;
         protected int bonusgrace = 0;
         protected int chancegrace = 0;
+        protected string answer = null;
 
         /// <summary>betcoin:掛け金</summary>
         protected const int betcoin = 3;
@@ -577,6 +576,7 @@ namespace Slot
         protected void SetMondai()
         {
             Syutudai();
+            MondaiData m = Mondaiscript.InputMondai((MondaiGenre)config);
             mondaiText.text = m.MondaiText;
             //Mondai mondai = GetMondai(role);
             //リスト初期化
@@ -608,7 +608,7 @@ namespace Slot
         protected bool Answer(Position p)
         {
             Invisible();
-            if (gogunText[2-(int)p].text == m.Answer)
+            if (gogunText[2-(int)p].text == answer)
             {
                 
                 Debug.Log("正解しました");
