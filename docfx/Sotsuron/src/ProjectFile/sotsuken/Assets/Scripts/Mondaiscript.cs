@@ -42,6 +42,7 @@ namespace Mondai
             gogun[0] = gogunIF_1.text;
             gogun[1] = gogunIF_2.text;
             gogun[2] = gogunIF_3.text;
+            data.Gogun = gogun;
             data.Genre = (MondaiGenre)mondaiGenreDD.value;
             
             OutputMondai();
@@ -61,7 +62,7 @@ namespace Mondai
             int index = UnityEngine.Random.Range(0, list.Count);
             //「乱数で出た数値」番目を取り出す
             string randomname = list[index];
-            string path = Application.streamingAssetsPath + "/Mondai/" + genre.ToString() + "/" + randomname + format;
+            string path = Application.streamingAssetsPath + "/Mondai/" + genre.ToString() + "/" + randomname;
             string str = File.ReadAllText(path);
             return JsonUtility.FromJson<MondaiData>(str);
             
