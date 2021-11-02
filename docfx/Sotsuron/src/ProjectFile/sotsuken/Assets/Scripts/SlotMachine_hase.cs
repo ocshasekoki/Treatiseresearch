@@ -68,6 +68,7 @@ namespace Slot
         [SerializeField] Text gameCounterText = null;
         [SerializeField] Text conditionText = null;
         [SerializeField] Text ccaText = null;
+        [SerializeField] Text answerText = null;
         protected int bonusgrace = 0;
         protected int chancegrace = 0;
 
