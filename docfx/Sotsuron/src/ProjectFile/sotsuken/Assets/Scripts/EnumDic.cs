@@ -81,6 +81,7 @@
         LEFT = 2
     }
 
+    /// <summary>リールの状態の列挙 </summary>
     public enum Real
     {
         NOBET=0,
