@@ -122,7 +122,9 @@ namespace Slot
             }
             return list;
         }
-
+        /// <summary>
+        /// ベットボタンを押したときの処理
+        /// </summary>
         public void PushBet()
         {
             if ((pdata.Coin - betcoin < 0 || realcon != (int)Real.NOBET)&&realcon != (int)Real.ALLSTOP)
@@ -401,7 +403,9 @@ namespace Slot
             config = (Config)configDD.value;
             ChangeMode();
         }
-
+        /// <summary>
+        /// 状態でモードを変更する
+        /// </summary>
         public void SetCondition()
         {
             condition = (Condition)conditionDD.value;
@@ -422,7 +426,9 @@ namespace Slot
             configDD.ClearOptions();
             configDD.AddOptions(ddvalues);
         }
-
+        /// <summary>
+        /// コンディションのドロップダウンの中身を書き換える処理
+        /// </summary>
         public void SetConditionDD()
         {
             string[] ops = Enum.GetNames(typeof(Condition));
@@ -684,17 +690,24 @@ namespace Slot
         {
             mondaipanel.SetActive(false);
         }
-
+        /// <summary>
+        /// 現在のコイン枚数を表示
+        /// </summary>
         public void CoinText()
         {
             coinText.text = pdata.Coin.ToString();
         }
+        /// <summary>
+        /// 現在の回転数を表示
+        /// </summary>
         protected void GameCounter()
         {
             pdata.GameCounter++;
             gameCounterText.text = pdata.GameCounter.ToString();
         }
-        
+        /// <summary>
+        /// 現在の状態を表示
+        /// </summary>
         public void ConditionText()
         {
             conditionText.text = condition.ToString();
