@@ -46,6 +46,14 @@ namespace Data
         {Role.FREEZE,new Color(1f,0.7764f,0) },
         };
 
+        public static Dictionary<Condition, Color> concolor = new Dictionary<Condition, Color>()
+        { { Condition.AT,Color.red},
+          { Condition.CZ,Color.yellow},
+          { Condition.BIGBONUS,Color.green},
+          { Condition.BONUS,Color.cyan},
+          { Condition.FREEZE,Color.black},
+          { Condition.NOMAL,Color.clear},
+        };
     }
     /// <summary>
     /// 小役のすべてのデータ
@@ -156,6 +164,7 @@ namespace Data
             set { bigBonus = value; }
         }
         protected int gameCount = 0;
+
         public int GameCounter
         {
             get { return gameCount; }

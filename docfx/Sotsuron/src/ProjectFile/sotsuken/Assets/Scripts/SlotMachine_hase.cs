@@ -67,8 +67,15 @@ namespace Slot
         [SerializeField] Text conditionText = null;
         [SerializeField] Text ccaText = null;
         [SerializeField] Text answerText = null;
+        [SerializeField] Image effectPanelImg;
+
         protected int bonusgrace = 0;
         protected int chancegrace = 0;
+        protected int atgrace = 0;
+
+        protected int czGame = 10;
+        protected int atGame = 30;
+
         protected string answer = null;
 
         /// <summary>betcoin:掛け金</summary>
@@ -90,7 +97,7 @@ namespace Slot
             config = (Config)UnityEngine.Random.Range(0, 2);
             condition = Condition.NOMAL;
             dic = Prodic.LoadDic();
-            ChangeMode(dic);
+            ChangeMode();
 
             CoinText();
             leftsymbol = SetReal(leftReal);
@@ -177,6 +184,8 @@ namespace Slot
             CreatePrefab(role);
             DecideSymbol(role);
             if (role == Role.QUESTION) SetMondai();
+            if (condition == Condition.NOMAL) return;
+            
         }
 
         /// <summary>
@@ -231,21 +240,27 @@ namespace Slot
         /// <returns>連続正解した数＊設定、状態に対応した確率</returns>
         public void AnswerDicision(bool currect)
         {
-            //if (currect) data.Cor++;
-            //else data.Cor = 0;
+            if (currect) pdata.Cor++;
+            else pdata.Cor = 0;
         }
         /// <summary>
         /// 状態に対応したdictionaryに変更する関数
         /// </summary>
         /// <param name="dic"></param>
-        protected void ChangeMode(Dic dic)
+        protected void ChangeMode()
         {
+            PanelColorChange(DicData.concolor[condition]);
             pro = 0;
             diction = Prodic.GetPro(dic, config, condition);
             foreach (Role r in diction.Keys)
             {
                 pro += diction[r].appearpro;
             }
+        }
+
+        protected void PanelColorChange(Color c)
+        {
+            effectPanelImg.color = c;
         }
         /// <summary>
         /// 押されたボタンを判定して、対応する箇所の図柄を止める
@@ -349,7 +364,6 @@ namespace Slot
             {
                 BonusJudge(role);
                 CZATjudge(role);
-                NomalJudgeTest();
                 RoleJudgement(role);
             }
         }
@@ -385,13 +399,13 @@ namespace Slot
         public void SetConfig()
         {
             config = (Config)configDD.value;
-            ChangeMode(dic);
+            ChangeMode();
         }
 
         public void SetCondition()
         {
             condition = (Condition)conditionDD.value;
-            ChangeMode(dic);
+            ChangeMode();
         }
 
         /// <summary>
@@ -483,10 +497,51 @@ namespace Slot
         /// <returns>当たり判定の真偽</returns>
         protected void CZATjudge(Role r) 
         {
-            if (r == Role.QUESTION && !pdata.CZ) Judge(diction[r].chancezonepro * pdata.Cor);
-            if (!pdata.CZ) pdata.CZ = Judge(diction[r].chancezonepro);
+            int per = 0;
+            if (r == Role.QUESTION) per = diction[r].chancezonepro * pdata.Cor;
+            else per = diction[r].chancezonepro;
 
-            else if (!pdata.AT) pdata.AT = Judge(diction[r].chancezonepro);
+            //AT
+            if (condition == Condition.AT)
+            {
+                if (chancegrace != pdata.GameCounter) return;
+                condition = Condition.CZ;
+                ChangeMode();
+                atgrace = czGame + pdata.GameCounter;
+            }
+
+            //AT当選中
+            if (pdata.AT && atgrace == pdata.GameCounter)
+            {
+                pdata.AT = false;
+                condition = Condition.AT;
+                chancegrace = pdata.GameCounter + atGame;
+                ChangeMode();
+                return;
+            }
+            //CZ
+            if (condition == Condition.CZ&&!pdata.AT)
+            {
+                if(!pdata.AT) pdata.AT = Judge(per);
+                return;
+            }
+            //CZ当選中
+            if (pdata.CZ&&chancegrace == pdata.GameCounter)
+            {
+                pdata.CZ = false;
+                condition = Condition.CZ;
+                ChangeMode();
+                atgrace = czGame + pdata.GameCounter;
+                return;
+            }
+            //Nomal
+            if (!pdata.CZ)
+            {
+                pdata.CZ = Judge(per);
+                if (pdata.CZ) chancegrace = pdata.GameCounter + UnityEngine.Random.Range(1, 8);
+                return;
+            }
+
 
         }
         /// <summary>
@@ -507,36 +562,33 @@ namespace Slot
         /// <param name="r">小役</param>
         public void BonusJudge(Role r)
         {
-            Debug.Log("BigBonus確率;" + diction[r].bigbonuspro);
-            Debug.Log("RegBonus確率;" + diction[r].bonuspro);
-            Debug.Log("Freeze確率;" + diction[r].freezepro);
-
+            int mag;
+            if (r == Role.QUESTION) mag = pdata.Cor;
+            else mag = 1;
             if (pdata.Freeze)
             {
                 if (pdata.GameCounter == bonusgrace)
                 {
                     condition = Condition.FREEZE;
+                    ChangeMode();
                 }
             }
             else if (!pdata.BigBonus&&!pdata.Bonus)
 {
-                pdata.Freeze = Judge(diction[r].freezepro);
+                pdata.Freeze = Judge(diction[r].freezepro*mag);
                 if (pdata.Freeze) bonusgrace = pdata.GameCounter + UnityEngine.Random.Range(1, 8);
             }
-
             if (pdata.BigBonus)
             {
                 if (pdata.GameCounter == bonusgrace)
                 {
-
                     condition = Condition.BIGBONUS;
-
-
+                    ChangeMode();
                 }
             }
             else if (!pdata.Bonus&&!pdata.Freeze)
             {
-                pdata.BigBonus = Judge(diction[r].bigbonuspro);
+                pdata.BigBonus = Judge(diction[r].bigbonuspro * mag);
                 if (pdata.BigBonus) bonusgrace = pdata.GameCounter + UnityEngine.Random.Range(1, 8);
             }
 
@@ -545,12 +597,13 @@ namespace Slot
                 if (pdata.GameCounter == bonusgrace)
                 {
                     condition = Condition.BONUS;
+                    ChangeMode();
 
                 }
             }
             else if (!pdata.BigBonus && !pdata.Freeze)
             {
-                pdata.Bonus = Judge(diction[r].bonuspro);
+                pdata.Bonus = Judge(diction[r].bonuspro * mag);
                 if(pdata.Bonus)bonusgrace = pdata.GameCounter + UnityEngine.Random.Range(1, 8);
             }
             
@@ -559,17 +612,7 @@ namespace Slot
             Debug.Log(condition);
             ConditionText();
         }
-        
 
-
-        /// <summary>
-        /// 状態を変更
-        /// </summary>
-        /// <param name="con">状態</param>
-        protected void ConTransition(Condition con)
-        {
-            condition = con;
-        }
         /// <summary>
         /// 問題を生成し、表示させるプログラム
         /// </summary>
