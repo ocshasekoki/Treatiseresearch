@@ -45,7 +45,10 @@ namespace Data
         {Role.BIGBONUS,new Color(1f,0.3058f,0.4705f) },
         {Role.FREEZE,new Color(1f,0.7764f,0) },
         };
-
+        
+        /// <summary>
+        /// 状態に対応した色の演出の設定
+        /// </summary>
         public static Dictionary<Condition, Color> concolor = new Dictionary<Condition, Color>()
         { { Condition.AT,Color.red},
           { Condition.CZ,Color.yellow},
@@ -165,6 +168,7 @@ namespace Data
         }
         protected int gameCount = 0;
 
+        /// <summary>ゲームカウントのプロパティ </summary>
         public int GameCounter
         {
             get { return gameCount; }
