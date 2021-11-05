@@ -435,7 +435,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -174.99998}
+  m_AnchoredPosition: {x: 400, y: -175}
   m_SizeDelta: {x: 500, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &186732394
@@ -3780,6 +3780,7 @@ MonoBehaviour:
   conditionText: {fileID: 771867443}
   ccaText: {fileID: 75274511}
   answerText: {fileID: 0}
+  effectPanelImg: {fileID: 630037068}
 --- !u!4 &947439490
 Transform:
   m_ObjectHideFlags: 0
