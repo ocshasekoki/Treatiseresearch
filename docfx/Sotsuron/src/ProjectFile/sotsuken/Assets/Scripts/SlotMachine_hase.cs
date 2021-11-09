@@ -511,6 +511,7 @@ namespace Slot
             if (condition == Condition.AT)
             {
                 if (chancegrace != pdata.GameCounter) return;
+                //ATが終了したとき
                 condition = Condition.CZ;
                 ChangeMode();
                 atgrace = czGame + pdata.GameCounter;
