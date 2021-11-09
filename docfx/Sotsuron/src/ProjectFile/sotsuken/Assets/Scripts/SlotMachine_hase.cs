@@ -68,6 +68,7 @@ namespace Slot
         [SerializeField] Text ccaText = null;
         [SerializeField] Text answerText = null;
         [SerializeField] Image effectPanelImg;
+        [SerializeField] protected Text gameReamainingText = null;
 
         protected int bonusgrace = 0;
         protected int chancegrace = 0;
@@ -510,7 +511,11 @@ namespace Slot
             //AT
             if (condition == Condition.AT)
             {
-                if (chancegrace != pdata.GameCounter) return;
+                if (chancegrace > pdata.GameCounter) 
+                {
+                    GameRemaining(chancegrace - pdata.GameCounter);
+                    return;
+                }
                 //ATが終了したとき
                 condition = Condition.CZ;
                 ChangeMode();
@@ -529,7 +534,12 @@ namespace Slot
             //CZ
             if (condition == Condition.CZ&&!pdata.AT)
             {
-                if(!pdata.AT) pdata.AT = Judge(per);
+                if (atgrace > pdata.GameCounter)
+                {
+                    GameRemaining(atgrace - pdata.GameCounter);
+                    return;
+                }
+                if (!pdata.AT) pdata.AT = Judge(per);
                 return;
             }
             //CZ当選中
@@ -551,6 +561,7 @@ namespace Slot
 
 
         }
+
         /// <summary>
         /// ボーナス判定
         /// </summary>
@@ -562,7 +573,11 @@ namespace Slot
             if (rand <= percent) return true;
             return false;
         }
-
+        public void GameRemaining(int gcont)
+        {
+            
+            gameReamainingText.text = gcont.ToString();
+        }
         /// <summary>
         /// 通常時の役の判定
         /// </summary>
@@ -713,6 +728,8 @@ namespace Slot
         {
             conditionText.text = condition.ToString();
         }
+
+
     }
 }
 
