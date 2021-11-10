@@ -410,6 +410,22 @@ namespace Slot
         public void SetCondition()
         {
             condition = (Condition)conditionDD.value;
+            switch (condition)
+            {
+                case Condition.CZ:
+                    atgrace = czGame + pdata.GameCounter;
+                    break;
+                case Condition.AT:
+                    chancegrace = pdata.GameCounter + atGame;
+                    break;
+                case Condition.BONUS:
+                    break;
+                case Condition.BIGBONUS:
+                    break;
+                case Condition.FREEZE:
+                    break;
+
+            }
             ChangeMode();
         }
 
@@ -534,6 +550,7 @@ namespace Slot
                 GameRemaining(atgrace - pdata.GameCounter);
                 if (atgrace != pdata.GameCounter) return;
                 if (!pdata.AT) pdata.AT = Judge(per);
+                if (atgrace == pdata.GameCounter&&!pdata.AT) ResetGame();
                 return;
             }
             //CZ当選中
@@ -571,6 +588,12 @@ namespace Slot
         {
             
             gameReamainingText.text = gcont.ToString();
+        }
+
+        public void ResetGame()
+        {
+            condition = Condition.NOMAL;
+            ChangeMode();
         }
         /// <summary>
         /// 通常時の役の判定
