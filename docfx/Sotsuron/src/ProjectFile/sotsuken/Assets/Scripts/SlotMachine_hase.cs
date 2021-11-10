@@ -511,11 +511,8 @@ namespace Slot
             //AT
             if (condition == Condition.AT)
             {
-                if (chancegrace > pdata.GameCounter) 
-                {
-                    GameRemaining(chancegrace - pdata.GameCounter);
-                    return;
-                }
+                GameRemaining(chancegrace - pdata.GameCounter);
+                if (chancegrace != pdata.GameCounter) return;
                 //ATが終了したとき
                 condition = Condition.CZ;
                 ChangeMode();
@@ -534,11 +531,8 @@ namespace Slot
             //CZ
             if (condition == Condition.CZ&&!pdata.AT)
             {
-                if (atgrace > pdata.GameCounter)
-                {
-                    GameRemaining(atgrace - pdata.GameCounter);
-                    return;
-                }
+                GameRemaining(atgrace - pdata.GameCounter);
+                if (atgrace != pdata.GameCounter) return;
                 if (!pdata.AT) pdata.AT = Judge(per);
                 return;
             }
