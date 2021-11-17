@@ -67,6 +67,7 @@ namespace Slot
         [SerializeField] Text conditionText = null;
         [SerializeField] Text ccaText = null;
         [SerializeField] Text answerText = null;
+        [SerializeField] Text resultText = null;
         [SerializeField] Image effectPanelImg;
         [SerializeField] protected Text gameReamainingText = null;
 
@@ -245,6 +246,7 @@ namespace Slot
         {
             if (currect) pdata.Cor++;
             else pdata.Cor = 0;
+            Result(currect);
         }
         /// <summary>
         /// 状態に対応したdictionaryに変更する関数
@@ -744,6 +746,14 @@ namespace Slot
         public void ConditionText()
         {
             conditionText.text = condition.ToString();
+        }
+
+        public void Result(bool r)
+        {
+            if(r) resultText.text = "正解だよ～ん";
+
+            else resultText.text = "残念でした～";
+
         }
 
 
