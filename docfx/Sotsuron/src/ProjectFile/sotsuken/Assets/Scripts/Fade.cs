@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Fade : MonoBehaviour
+public class Fade : MonoBehaviour, IPointerClickHandler
 {
     private bool isFadeOut;
     private bool turn;
@@ -15,16 +16,18 @@ public class Fade : MonoBehaviour
     private Color defcolor;
 
     [SerializeField] Color changeColor;
-    [SerializeField] Renderer rend;
+    private Renderer rend;
     [SerializeField] float fadeSpeed;
-
+    void Start()
+    {
+        rend = GetComponent<Renderer>();
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
         if (isFadeOut)
         {
             StartFadeOut();
-            Debug.Log("R:" + color.r + "G:" + color.g + "B:" + color.b);
         }
     }
     private void StartFadeOut()
@@ -36,8 +39,8 @@ public class Fade : MonoBehaviour
                 color.r = ColorChange(color.r, defcolor.r, !turnR);
                 color.g = ColorChange(color.g, defcolor.g, !turnG);
                 color.b = ColorChange(color.b, defcolor.b, !turnB);
-                if (color == defcolor) isFadeOut = false;
                 rend.material.SetColor("_EmissionColor", color);
+                if (color == defcolor) isFadeOut = false;
                 return;
             }
             isFadeOut = false;
@@ -72,11 +75,13 @@ public class Fade : MonoBehaviour
         return chcolor;
     }
 
-    public void FadeButton()
+    public void OnPointerClick(PointerEventData eventData)
     {
+        if (isFadeOut) return;
         defcolor = rend.material.GetColor("_EmissionColor");
         color = rend.material.GetColor("_EmissionColor");
         color.a = changeColor.a;
+        defcolor.a = changeColor.a;
         if (defcolor.r < changeColor.r) turnR = true;
         if (defcolor.g < changeColor.g) turnG = true;
         if (defcolor.b < changeColor.b) turnB = true;
