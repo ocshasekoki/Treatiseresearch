@@ -5,20 +5,18 @@ using UnityEngine.UI;
 
 public class Fade : MonoBehaviour
 {
-    public bool isFadeOut;
-    public bool turn;
+    private bool isFadeOut;
+    private bool turn;
+    [SerializeField] bool onTurn;
+    private bool turnR = false;
+    private bool turnG = false;
+    private bool turnB = false;
     private Color color;
     private Color defcolor;
+
     [SerializeField] Color changeColor;
     [SerializeField] Renderer rend;
     [SerializeField] float fadeSpeed;
-    // Start is called before the first frame update
-    void Start()
-    {
-        defcolor = rend.material.GetColor("_EmissionColor");
-        color = rend.material.GetColor("_EmissionColor");
-        color.a = changeColor.a;
-    }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -26,27 +24,30 @@ public class Fade : MonoBehaviour
         if (isFadeOut)
         {
             StartFadeOut();
+            Debug.Log("R:" + color.r + "G:" + color.g + "B:" + color.b);
         }
     }
     private void StartFadeOut()
     {
         if (turn)
         {
-            color.r = ColorChange(color.r, defcolor.r,true);
-            color.g = ColorChange(color.g, defcolor.g,true);
-            color.b = ColorChange(color.b, defcolor.b,true);
-            if (color == defcolor) isFadeOut = false;
-            rend.material.SetColor("_EmissionColor", color);
-            return;
+            if (onTurn)
+            {
+                color.r = ColorChange(color.r, defcolor.r, !turnR);
+                color.g = ColorChange(color.g, defcolor.g, !turnG);
+                color.b = ColorChange(color.b, defcolor.b, !turnB);
+                if (color == defcolor) isFadeOut = false;
+                rend.material.SetColor("_EmissionColor", color);
+                return;
+            }
+            isFadeOut = false;
         }
+
         else
         {
-            color.r = ColorChange(color.r, changeColor.r, false);
-            color.g = ColorChange(color.g, changeColor.g, false);
-            color.b = ColorChange(color.b, changeColor.b, false);
-            Debug.Log("R:"+color.r +":" + changeColor.r);
-            Debug.Log("G:"+color.g +":" + changeColor.g);
-            Debug.Log("B:" + color.b +":" + changeColor.b);
+            color.r = ColorChange(color.r, changeColor.r, turnR);
+            color.g = ColorChange(color.g, changeColor.g, turnG);
+            color.b = ColorChange(color.b, changeColor.b, turnB);
             if (color ==changeColor) turn = true;
             rend.material.SetColor("_EmissionColor",color);
             return;
@@ -73,7 +74,12 @@ public class Fade : MonoBehaviour
 
     public void FadeButton()
     {
-        Debug.Log("ボタンが押された");
+        defcolor = rend.material.GetColor("_EmissionColor");
+        color = rend.material.GetColor("_EmissionColor");
+        color.a = changeColor.a;
+        if (defcolor.r < changeColor.r) turnR = true;
+        if (defcolor.g < changeColor.g) turnG = true;
+        if (defcolor.b < changeColor.b) turnB = true;
         turn = false;
         isFadeOut = true;
     }
