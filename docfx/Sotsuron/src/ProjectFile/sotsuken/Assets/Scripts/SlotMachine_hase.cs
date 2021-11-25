@@ -88,6 +88,7 @@ namespace Slot
         /// <summary>realcon:リールの状態</summary>
         protected int realcon = 0;
         protected bool[] rotate;
+        protected bool reach = false;
         public void Start()
         {
             Invisible();
@@ -153,6 +154,7 @@ namespace Slot
                 RandomRole();
                 RealRotate();
                 GameCounter();
+                if (reach) EsEffect();
             }
         }
         /// <summary>
@@ -501,28 +503,36 @@ namespace Slot
                     realcon = (int)Real.BET;
                     break;
                 case Role.BIGBONUS:
+                    reach = true;
                     break;
                 case Role.CHERRY:
                     pdata.Coin += 3;
+                    reach true;
                     break;
                 case Role.FREEZE:
+                    reach = true;
                     break;
                 case Role.NONE:
                     break;
                 case Role.QUESTION:
                     pdata.Coin += 8;
                     ccaText.text = pdata.Cor.ToString();
+                    reach true;
                     break;
                 case Role.REGBONUS:
+                    reach = true;
                     break;
                 case Role.STRONGCHERRY:
                     pdata.Coin += 3;
+                    reach = true;
                     break;
                 case Role.WATERMELON:
                     pdata.Coin += 5;
+                    reach = true;
                     break;
                 case Role.WEAKCHERRY:
                     pdata.Coin += 1;
+                    reach = true;
                     break;
             }
             Debug.Log(pdata.Coin);
@@ -772,6 +782,11 @@ namespace Slot
         public void EffectD(Condition cond)
         {
             GameObject pref = (GameObject)Instantiate(conprefDic[cond], effectArea.transform);
+        }
+
+        public void EsEffect()
+        {
+            EffectD(condition);
         }
 
     }
