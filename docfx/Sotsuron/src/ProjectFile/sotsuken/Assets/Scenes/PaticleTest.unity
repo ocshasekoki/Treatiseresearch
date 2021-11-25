@@ -3929,6 +3929,8 @@ MonoBehaviour:
   configDD: {fileID: 1866607285}
   conditionDD: {fileID: 2127582989}
   mondaiText: {fileID: 1375962894}
+  effectRoadPrefab: {fileID: 9053775374170915219, guid: 9888f26dfe7d6384bba73e036b396f72,
+    type: 3}
   gogunText:
   - {fileID: 1090682258}
   - {fileID: 1623200175}

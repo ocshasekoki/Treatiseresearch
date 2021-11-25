@@ -58,8 +58,11 @@ namespace Slot
         [SerializeField] protected Dropdown configDD = null;
         [SerializeField] protected Dropdown conditionDD = null;
         Dictionary<Role, GameObject> prefDic = null;
+        Dictionary<Condition, GameObject> conprefDic = null;
         /// <summary>mondaiText:問題のテキスト</summary>
         [SerializeField] Text mondaiText = null;
+
+        [SerializeField] GameObject effectRoadPrefab;
         /// <summary>gogunText:語群のテキストの配列</summary>
         [SerializeField] Text[] gogunText = null;
         [SerializeField] Text coinText = null;
@@ -89,12 +92,13 @@ namespace Slot
         {
             Invisible();
             prefDic = new Dictionary<Role, GameObject>();
+            conprefDic = new Dictionary<Condition, GameObject>();
             realcon = 0;
             prefDic.Clear();
-            foreach (Role r in Enum.GetValues(typeof(Role)))
-            {
-                prefDic.Add(r, PrefLoad(r));
-            }
+            conprefDic.Clear();
+            foreach (Role r in Enum.GetValues(typeof(Role))) prefDic.Add(r, PrefLoad(r));
+            foreach (Condition cond in Enum.GetValues(typeof(Condition))) conprefDic.Add(cond, ConPrefLoad(cond));
+            
 
             config = (Config)UnityEngine.Random.Range(0, 2);
             condition = Condition.NOMAL;
@@ -261,6 +265,7 @@ namespace Slot
             {
                 pro += diction[r].appearpro;
             }
+            EffectD(condition);
         }
 
         protected void PanelColorChange(Color c)
@@ -470,6 +475,14 @@ namespace Slot
             GameObject obj = null;
             Debug.Log(r);
             obj = Resources.Load<GameObject>("Prefabs/" + r + "_pref");
+            Debug.Log(obj.name);
+            return obj;
+        }
+        protected GameObject ConPrefLoad(Condition cond)
+        {
+            GameObject obj = null;
+            Debug.Log(cond);
+            obj = Resources.Load<GameObject>("Prefabs/" + cond + "_pref");
             Debug.Log(obj.name);
             return obj;
         }
@@ -756,6 +769,10 @@ namespace Slot
 
         }
 
+        public void EffectD(Condition cond)
+        {
+            GameObject pref = (GameObject)Instantiate(conprefDic[cond], effectArea.transform);
+        }
 
     }
 }
