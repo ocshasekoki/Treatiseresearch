@@ -76,6 +76,7 @@ namespace Slot
 
         protected int bonusgrace = 0;
         protected int chancegrace = 0;
+        public int reachgrace = 0;
         protected int atgrace = 0;
 
         protected int czGame = 10;
@@ -88,7 +89,7 @@ namespace Slot
         /// <summary>realcon:リールの状態</summary>
         protected int realcon = 0;
         protected bool[] rotate;
-        protected bool reach = false;
+        public bool reach = false;
         public void Start()
         {
             Invisible();
@@ -267,6 +268,7 @@ namespace Slot
             {
                 pro += diction[r].appearpro;
             }
+            reach = false;
             EffectD(condition);
         }
 
@@ -498,41 +500,44 @@ namespace Slot
             {
                 case Role.BELL:
                     pdata.Coin += 15;
+                    NoneReach();
                     break;
                 case Role.REPLAY:
                     realcon = (int)Real.BET;
+                    NoneReach();
                     break;
                 case Role.BIGBONUS:
-                    reach = true;
+                    ReachIsOn();
                     break;
                 case Role.CHERRY:
                     pdata.Coin += 3;
-                    reach true;
+                    ReachIsOn();
                     break;
                 case Role.FREEZE:
-                    reach = true;
+                    ReachIsOn();
                     break;
                 case Role.NONE:
+                    NoneReach();
                     break;
                 case Role.QUESTION:
                     pdata.Coin += 8;
                     ccaText.text = pdata.Cor.ToString();
-                    reach true;
+                    ReachIsOn();
                     break;
                 case Role.REGBONUS:
-                    reach = true;
+                    ReachIsOn();
                     break;
                 case Role.STRONGCHERRY:
                     pdata.Coin += 3;
-                    reach = true;
+                    ReachIsOn();
                     break;
                 case Role.WATERMELON:
                     pdata.Coin += 5;
-                    reach = true;
+                    ReachIsOn();
                     break;
                 case Role.WEAKCHERRY:
                     pdata.Coin += 1;
-                    reach = true;
+                    ReachIsOn();
                     break;
             }
             Debug.Log(pdata.Coin);
@@ -788,7 +793,15 @@ namespace Slot
         {
             EffectD(condition);
         }
-
+        public void ReachIsOn()
+        {
+            reachgrace = UnityEngine.Random.Range(1, 8) + pdata.GameCounter;
+            reach = true;
+        }
+        public void NoneReach()
+        {
+            if (reach && reachgrace == pdata.GameCounter) reach = false;
+        }
     }
 }
 
