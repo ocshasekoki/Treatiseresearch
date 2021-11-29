@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\SceneChanger.cs" />
     <Compile Include="Assets\Scripts\SlotMachine_hase.cs" />
     <Compile Include="Assets\Scripts\SoundScript.cs" />
+    <Compile Include="Assets\Scripts\SoundSystem.cs" />
     <Compile Include="Assets\Scripts\SymbolData.cs" />
     <Compile Include="Assets\Scripts\SymbolScript.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />

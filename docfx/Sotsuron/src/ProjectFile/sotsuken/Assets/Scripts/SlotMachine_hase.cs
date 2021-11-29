@@ -802,6 +802,7 @@ namespace Slot
         {
             if (reach && reachgrace == pdata.GameCounter) reach = false;
         }
+
     }
 }
 
