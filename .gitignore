@@ -18,10 +18,10 @@ ExportedObj/
 *.userprefs
 *.pidb
 *.booproj
-*.svd
 *.pdb
 *.opendb
 *.VC.db
+*.csproj
 
 # Unity3D generated meta files
 *.pidb.meta
