@@ -57,6 +57,8 @@ namespace Slot
         /// <summary>configDD: 設定の変更のドロップダウン</summary>
         [SerializeField] protected Dropdown configDD = null;
         [SerializeField] protected Dropdown conditionDD = null;
+        [SerializeField] protected GameObject[] rolePrefList = new GameObject[11];
+        [SerializeField] protected GameObject[] conPrefList = new GameObject[6];
         Dictionary<Role, GameObject> prefDic = null;
         Dictionary<Condition, GameObject> conprefDic = null;
         /// <summary>mondaiText:問題のテキスト</summary>
@@ -152,6 +154,7 @@ namespace Slot
         {
             if (realcon == (int)Real.BET)
             {
+                DeleteEffect();
                 RandomRole();
                 RealRotate();
                 GameCounter();
@@ -476,18 +479,12 @@ namespace Slot
         /// <returns>小役に対応したゲームオブジェクト</returns>
         protected GameObject PrefLoad(Role r)
         {
-            GameObject obj = null;
-            Debug.Log(r);
-            obj = Resources.Load<GameObject>("Prefabs/" + r + "_pref");
-            Debug.Log(obj.name);
+            GameObject obj = rolePrefList[(int)r];
             return obj;
         }
         protected GameObject ConPrefLoad(Condition cond)
         {
-            GameObject obj = null;
-            Debug.Log(cond);
-            obj = Resources.Load<GameObject>("Prefabs/" + cond + "_pref");
-            Debug.Log(obj.name);
+            GameObject obj = conPrefList[(int)cond];
             return obj;
         }
         /// <summary>
@@ -787,6 +784,15 @@ namespace Slot
         public void EffectD(Condition cond)
         {
             GameObject pref = (GameObject)Instantiate(conprefDic[cond], effectArea.transform);
+        }
+
+        protected void DeleteEffect()
+        {
+            int index = effectArea.transform.childCount;
+            for(int i = 0; i < index; i++)
+            {
+                Destroy(effectArea.transform.GetChild(i).gameObject);
+            }
         }
 
         public void EsEffect()

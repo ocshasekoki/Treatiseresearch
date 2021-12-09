@@ -4049,6 +4049,25 @@ MonoBehaviour:
   mondaipanel: {fileID: 1540549158}
   configDD: {fileID: 1866607285}
   conditionDD: {fileID: 2127582989}
+  rolePrefList:
+  - {fileID: 5938107045375993045, guid: 05054a8bd491cda4bb87edf48e736e85, type: 3}
+  - {fileID: 6864967974896705635, guid: 008dbe04f92f4a4419b45b517f7d962d, type: 3}
+  - {fileID: 3078573558088578435, guid: 376e0a229dc5d2f46bb4eadf0fc65aea, type: 3}
+  - {fileID: 8098443321672650546, guid: 95a8d4f643a9cef47b9ff54b7bd4f275, type: 3}
+  - {fileID: 8111160133347617230, guid: dc44415271d7acd48ac7d27404e5d399, type: 3}
+  - {fileID: 5818683229263499130, guid: 715fe1b9635a2de4b858711042e21b9b, type: 3}
+  - {fileID: 5938107045375993045, guid: 05054a8bd491cda4bb87edf48e736e85, type: 3}
+  - {fileID: 640465109064638387, guid: 6f82dee86aab9154c8ad31503049901c, type: 3}
+  - {fileID: 6414960795690212194, guid: c25581303b739f6419d727facb521b04, type: 3}
+  - {fileID: 2190245797738769028, guid: 3973b6b5c587e804789f8dc497fe556b, type: 3}
+  - {fileID: 1254498216005329794, guid: 9c69bbcd13ae7fa4d954d68dcc0b7801, type: 3}
+  conPrefList:
+  - {fileID: 2868052021069403141, guid: a5e6e52729306bf449164fcc91cc7e6d, type: 3}
+  - {fileID: 2456075913676664501, guid: 57722a089fe11544f931c99d2f394fba, type: 3}
+  - {fileID: 3236658943454879609, guid: 1131f267400156a4aa9b41c463c74d7d, type: 3}
+  - {fileID: 8831125903226851439, guid: ae49a243eefd9da41b5e2980f5ac095a, type: 3}
+  - {fileID: 4694294358948781955, guid: 9de7d562c11f6dd49b26eb35b648013d, type: 3}
+  - {fileID: 958458971020092332, guid: fc5e330f1ad694d4884c1e96d756d964, type: 3}
   mondaiText: {fileID: 1375962894}
   effectRoadPrefab: {fileID: 9053775374170915219, guid: 9888f26dfe7d6384bba73e036b396f72,
     type: 3}
