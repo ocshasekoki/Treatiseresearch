@@ -65,6 +65,7 @@ namespace Slot
         [SerializeField] Text mondaiText = null;
 
         [SerializeField] GameObject effectRoadPrefab;
+        [SerializeField] GameObject mondaiPanel;
         /// <summary>gogunText:語群のテキストの配列</summary>
         [SerializeField] Text[] gogunText = null;
         [SerializeField] Text coinText = null;
@@ -116,10 +117,6 @@ namespace Slot
             SetConfigDD();
             SetConditionDD();
         }
-        private void FixedUpdate()
-        {
-            Debug.Log((Real)realcon);
-        }
         /// <summary>
         /// 指定したリールの絵柄すべてをリストに格納する。
         /// 
@@ -144,7 +141,8 @@ namespace Slot
             {
                 return;
             }
-            DeleteEffect();
+            DeleteEffect(effectArea);
+            PanelVisible(false);
             pdata.Coin -= betcoin;
             CoinText();
             realcon = (int)Real.BET;
@@ -266,7 +264,6 @@ namespace Slot
         /// <param name="dic"></param>
         protected void ChangeMode()
         {
-            PanelColorChange(DicData.concolor[condition]);
             pro = 0;
             diction = Prodic.GetPro(dic, config, condition);
             foreach (Role r in diction.Keys)
@@ -278,10 +275,6 @@ namespace Slot
             StartCoroutine(DeleteEffect(0));
         }
 
-        protected void PanelColorChange(Color c)
-        {
-            effectPanelImg.color = c;
-        }
         /// <summary>
         /// 押されたボタンを判定して、対応する箇所の図柄を止める
         /// </summary>
@@ -341,8 +334,6 @@ namespace Slot
             yield return new WaitWhile(() => obj.transform.localPosition.y >= 10f);
             obj.GetComponent<SymbolScript>().RealStop();
             AllRealStop(obj.GetComponent<SymbolData>().GetPos());
-
-            Debug.Log((Real)realcon);
         }
 
         /// <summary>
@@ -688,6 +679,9 @@ namespace Slot
         /// </summary>
         protected void SetMondai()
         {
+            PanelVisible(true);
+            answerText.text = "";
+            resultText.text = "";
             Syutudai();
             MondaiData m = Mondaiscript.InputMondai((MondaiGenre)config);
             mondaiText.text = m.MondaiText;
@@ -723,7 +717,7 @@ namespace Slot
         {
             Invisible();
             answerText.text = "答え："+answer;
-            if (gogunText[(int)p].text == answer)
+            if (gogunText[2-(int)p].text == answer)
             {
                 return true;
             }
@@ -799,13 +793,18 @@ namespace Slot
             }
         }
 
-        protected void DeleteEffect()
+        protected void DeleteEffect(GameObject parent)
         {
             int index = effectArea.transform.childCount;
             for (int i = 0; i < index; i++)
             {
-                Destroy(effectArea.transform.GetChild(i).gameObject);
+                Destroy(parent.transform.GetChild(i).gameObject);
             }
+        }
+
+        protected void PanelVisible(bool tn)
+        {
+            mondaiPanel.SetActive(tn);
         }
 
         public void EsEffect()
