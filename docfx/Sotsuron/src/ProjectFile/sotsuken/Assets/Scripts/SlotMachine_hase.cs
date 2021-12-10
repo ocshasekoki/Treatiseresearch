@@ -103,7 +103,6 @@ namespace Slot
             foreach (Role r in Enum.GetValues(typeof(Role))) prefDic.Add(r, PrefLoad(r));
             foreach (Condition cond in Enum.GetValues(typeof(Condition))) conprefDic.Add(cond, ConPrefLoad(cond));
             
-
             config = (Config)UnityEngine.Random.Range(0, 2);
             condition = Condition.NOMAL;
             dic = Prodic.LoadDic();
@@ -116,6 +115,10 @@ namespace Slot
 
             SetConfigDD();
             SetConditionDD();
+        }
+        private void FixedUpdate()
+        {
+            Debug.Log((Real)realcon);
         }
         /// <summary>
         /// 指定したリールの絵柄すべてをリストに格納する。
@@ -139,10 +142,9 @@ namespace Slot
         {
             if ((pdata.Coin - betcoin < 0 || realcon != (int)Real.NOBET)&&realcon != (int)Real.ALLSTOP)
             {
-                Debug.Log("コインが足りないかベット済");
                 return;
             }
-            Debug.Log("ベット");
+            DeleteEffect();
             pdata.Coin -= betcoin;
             CoinText();
             realcon = (int)Real.BET;
@@ -154,7 +156,7 @@ namespace Slot
         {
             if (realcon == (int)Real.BET)
             {
-                DeleteEffect();
+                
                 RandomRole();
                 RealRotate();
                 GameCounter();
@@ -273,6 +275,7 @@ namespace Slot
             }
             reach = false;
             EffectD(condition);
+            StartCoroutine(DeleteEffect(0));
         }
 
         protected void PanelColorChange(Color c)
@@ -417,6 +420,7 @@ namespace Slot
         {
             config = (Config)configDD.value;
             ChangeMode();
+
         }
         /// <summary>
         /// 状態でモードを変更する
@@ -687,6 +691,7 @@ namespace Slot
             Syutudai();
             MondaiData m = Mondaiscript.InputMondai((MondaiGenre)config);
             mondaiText.text = m.MondaiText;
+            answer = m.Answer;
             //Mondai mondai = GetMondai(role);
             //リスト初期化
             List<int> numbers = new List<int>();
@@ -717,13 +722,11 @@ namespace Slot
         protected bool Answer(Position p)
         {
             Invisible();
-            if (gogunText[2-(int)p].text == answer)
+            answerText.text = "答え："+answer;
+            if (gogunText[(int)p].text == answer)
             {
-                
-                Debug.Log("正解しました");
                 return true;
             }
-            Debug.Log("不正解");
             return false;
          
         }
@@ -786,10 +789,20 @@ namespace Slot
             GameObject pref = (GameObject)Instantiate(conprefDic[cond], effectArea.transform);
         }
 
+        IEnumerator DeleteEffect(int time)
+        {
+            yield return new WaitForSeconds(time);
+            int index = effectArea.transform.childCount;
+            for(int i = 0; i < index; i++)
+            {
+                Destroy(effectArea.transform.GetChild(i).gameObject);
+            }
+        }
+
         protected void DeleteEffect()
         {
             int index = effectArea.transform.childCount;
-            for(int i = 0; i < index; i++)
+            for (int i = 0; i < index; i++)
             {
                 Destroy(effectArea.transform.GetChild(i).gameObject);
             }
