@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\SymbolData.cs" />
     <Compile Include="Assets\Scripts\SymbolScript.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
+    <Compile Include="Assets\Scripts\base64TexureLoad.cs" />
     <None Include="Assets\Scripts.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
