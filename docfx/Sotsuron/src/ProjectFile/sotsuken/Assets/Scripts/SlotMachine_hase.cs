@@ -26,15 +26,15 @@ namespace Slot
         /// <summary>config:設定（LOW,MIDDLE,HIGH）</summary>
         protected Config config = 0;
         /// <summary> dic :すべての確率のリスト</summary>
-        protected Dic dic;
+        protected Dic dic = null;
         /// <summary>data:役に対応する図柄のディクショナリなどのデータが格納された関数</summary>
-        protected DicData data;
+        protected DicData data = null;
 
         protected PlayerData pdata = new PlayerData();
         /// <summary>pro:確率の分母/ </summary>
         protected int pro = 0;
         /// <summary>role :現在の小役 </summary>
-        protected Role role;
+        protected Role role = Role.NONE;
         /// <summary> leftsymbol:左の図柄のリスト</summary>
         protected List<GameObject> leftsymbol = null;
         /// <summary> centersymbol:中央の図柄のリスト</summary>
@@ -59,23 +59,23 @@ namespace Slot
         [SerializeField] protected Dropdown conditionDD = null;
         [SerializeField] protected GameObject[] rolePrefList = new GameObject[11];
         [SerializeField] protected GameObject[] conPrefList = new GameObject[6];
+        [SerializeField] protected GameObject expPref = null;
         Dictionary<Role, GameObject> prefDic = null;
         Dictionary<Condition, GameObject> conprefDic = null;
         /// <summary>mondaiText:問題のテキスト</summary>
         [SerializeField] Text mondaiText = null;
 
-        [SerializeField] GameObject effectRoadPrefab;
-        [SerializeField] GameObject mondaiPanel;
+        [SerializeField] GameObject mondaiPanel = null;
         /// <summary>gogunText:語群のテキストの配列</summary>
         [SerializeField] Text[] gogunText = null;
         [SerializeField] Text coinText = null;
         [SerializeField] Text gameCounterText = null;
-        [SerializeField] Text conditionText = null;
         [SerializeField] Text ccaText = null;
         [SerializeField] Text answerText = null;
         [SerializeField] Text resultText = null;
         [SerializeField] Image effectPanelImg;
         [SerializeField] protected Text gameReamainingText = null;
+        [SerializeField] protected Text czCurrectText = null;
 
         protected int bonusgrace = 0;
         protected int chancegrace = 0;
@@ -84,8 +84,9 @@ namespace Slot
 
         protected int czGame = 10;
         protected int atGame = 30;
-
+        protected int czCurrect = 0;
         protected string answer = null;
+        protected List<string> mondaiList = null;
 
         /// <summary>betcoin:掛け金</summary>
         protected const int betcoin = 3;
@@ -93,6 +94,7 @@ namespace Slot
         protected int realcon = 0;
         protected bool[] rotate;
         public bool reach = false;
+        public bool debugMode;
         public void Start()
         {
             Invisible();
@@ -113,9 +115,22 @@ namespace Slot
             leftsymbol = SetReal(leftReal);
             centersymbol = SetReal(centerReal);
             rightsymbol = SetReal(rightReal);
-
-            SetConfigDD();
-            SetConditionDD();
+            if (debugMode)
+            {
+                SetConfigDD();
+                SetConditionDD();
+            }
+        }
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if ((pdata.Coin - betcoin >= 0 &&( realcon == (int)Real.NOBET) || realcon == (int)Real.ALLSTOP)) PushBet();
+                else if (realcon == (int)Real.BET) LeverOn();
+            }
+            if (Input.GetKeyDown(KeyCode.LeftArrow)) btnPush("LEFT");
+            if (Input.GetKeyDown(KeyCode.DownArrow)) btnPush("MIDDLE");
+            if (Input.GetKeyDown(KeyCode.RightArrow)) btnPush("RIGHT");
         }
         /// <summary>
         /// 指定したリールの絵柄すべてをリストに格納する。
@@ -194,7 +209,6 @@ namespace Slot
         {
             int rand = UnityEngine.Random.Range(1, pro);
             role = DecideRole(rand);
-            SetColor(role, colorTest);
             CreatePrefab(role);
             DecideSymbol(role);
             if (role == Role.QUESTION) SetMondai();
@@ -254,9 +268,29 @@ namespace Slot
         /// <returns>連続正解した数＊設定、状態に対応した確率</returns>
         public void AnswerDicision(bool currect)
         {
-            if (currect) pdata.Cor++;
+            if (currect)
+            {
+                pdata.Cor++;
+                GameObject pref = (GameObject)Instantiate(expPref, effectArea.transform);
+                StartCoroutine(ObjDest(pref,3f));
+            }
             else pdata.Cor = 0;
+            if (condition == Condition.CZ&&currect)
+            {
+                czCurrect++;
+            }
             Result(currect);
+        }
+        protected IEnumerator ObjDest(GameObject obj,float time)
+        {
+            yield return new WaitForSeconds(time);
+            Destroy(obj);
+        }
+
+        protected void CurrentText()
+        {
+            if(condition == Condition.CZ)czCurrectText.text = (czCurrect * diction[Role.QUESTION].chancezonepro / 100).ToString() + "%";
+            else czCurrectText.text = (pdata.Cor * diction[Role.QUESTION].chancezonepro / 100).ToString() + "%";
         }
         /// <summary>
         /// 状態に対応したdictionaryに変更する関数
@@ -286,13 +320,13 @@ namespace Slot
             switch (p)
             {
                 case Position.LEFT:
-                    if (rotate[(int)Position.LEFT]) AssistDicision(leftsymbol, (Symbol)DicData.symbolDic[role].l);
+                    if (rotate[(int)Position.LEFT]) AssistDicision(leftsymbol, (Symbol)DicData.symbolDic[role].l,Position.LEFT);
                     break;
                 case Position.MIDDLE:
-                    if (rotate[(int)Position.MIDDLE]) AssistDicision(centersymbol, (Symbol)DicData.symbolDic[role].c);
+                    if (rotate[(int)Position.MIDDLE]) AssistDicision(centersymbol, (Symbol)DicData.symbolDic[role].c, Position.MIDDLE);
                     break;
                 case Position.RIGHT:
-                    if (rotate[(int)Position.RIGHT]) AssistDicision(rightsymbol, (Symbol)DicData.symbolDic[role].r);
+                    if (rotate[(int)Position.RIGHT]) AssistDicision(rightsymbol, (Symbol)DicData.symbolDic[role].r, Position.RIGHT);
                     break;
             }
         }
@@ -303,8 +337,11 @@ namespace Slot
         /// </summary>
         /// <param name="list"></param>
         /// <param name="s"></param>
-        protected void AssistDicision(List<GameObject> list, Symbol s)
+        protected void AssistDicision(List<GameObject> list, Symbol s,Position p)
         {
+
+            Debug.Log(realcon < (int)Real.ROTATE);
+            Debug.Log(realcon > (int)Real.ALLSTOP);
             if (realcon < (int)Real.ROTATE && realcon > (int)Real.ALLSTOP)
             {
                 return;
@@ -318,6 +355,7 @@ namespace Slot
                 Symbol sm = obj.GetComponent<SymbolData>().GetSymbol();
                 if (obj.transform.localPosition.y >= 0f && sm == s)
                 {
+                    rotate[(int)p] = false;
                     StartCoroutine(Assist(obj));
                 }
             }
@@ -350,21 +388,18 @@ namespace Slot
             switch (p)
             {
                 case Position.LEFT:
-                    rotate[(int)Position.LEFT] = false;
                     foreach (GameObject obj in leftsymbol)
                     {
                         obj.GetComponent<SymbolScript>().RealStop();
                     }
                     break;
                 case Position.MIDDLE:
-                    rotate[(int)Position.MIDDLE] = false;
                     foreach (GameObject obj in centersymbol)
                     {
                         obj.GetComponent<SymbolScript>().RealStop();
                     }
                     break;
                 case Position.RIGHT:
-                    rotate[(int)Position.RIGHT] = false;
                     foreach (GameObject obj in rightsymbol)
                     {
                         obj.GetComponent<SymbolScript>().RealStop();
@@ -390,18 +425,6 @@ namespace Slot
             Debug.Log("Freezeの状態;" + pdata.Freeze);
 
 
-        }
-
-        /// <summary>
-        /// 演出に合わせた色を出力する。
-        /// </summary>
-        /// <param name="r">小役</param>
-        /// <param name="obj">演出のオブジェクト</param>
-        [Obsolete]
-        protected void SetColor(Role r, GameObject obj)
-        {
-            Debug.Log(DicData.rolecolor[r]);
-            obj.GetComponent<ParticleSystem>().startColor = DicData.rolecolor[r];
         }
 
         /// <summary>
@@ -551,19 +574,12 @@ namespace Slot
             {
                 GameRemaining(chancegrace - pdata.GameCounter);
                 if (chancegrace != pdata.GameCounter) return;
-                //ATが終了したとき
-                condition = Condition.CZ;
-                ChangeMode();
-                atgrace = czGame + pdata.GameCounter;
+                FinishAT();
             }
-
             //AT当選中
             if (pdata.AT && atgrace == pdata.GameCounter)
             {
-                pdata.AT = false;
-                condition = Condition.AT;
-                chancegrace = pdata.GameCounter + atGame;
-                ChangeMode();
+                StartAT();
                 return;
             }
             //CZ
@@ -571,8 +587,11 @@ namespace Slot
             {
                 GameRemaining(atgrace - pdata.GameCounter);
                 if (atgrace != pdata.GameCounter) return;
-                if (!pdata.AT) pdata.AT = Judge(per);
-                if (atgrace == pdata.GameCounter&&!pdata.AT) ResetGame();
+                per = diction[r].chancezonepro * czCurrect;
+                Debug.Log(Judge(per));
+                pdata.AT = Judge(per);
+                if (atgrace == pdata.GameCounter && !pdata.AT) ResetGame();
+                if (pdata.AT) StartAT();
                 return;
             }
             //CZ当選中
@@ -581,6 +600,8 @@ namespace Slot
                 pdata.CZ = false;
                 condition = Condition.CZ;
                 ChangeMode();
+                czCurrect = 0;
+                czCurrectText.text = czCurrect.ToString();
                 atgrace = czGame + pdata.GameCounter;
                 return;
             }
@@ -594,7 +615,19 @@ namespace Slot
 
 
         }
-
+        protected void FinishAT()
+        {
+            condition = Condition.CZ;
+            ChangeMode();
+            atgrace = czGame + pdata.GameCounter;
+        }
+        protected void StartAT()
+        {
+            pdata.AT = false;
+            condition = Condition.AT;
+            chancegrace = pdata.GameCounter + atGame;
+            ChangeMode();
+        }
         /// <summary>
         /// ボーナス判定
         /// </summary>
@@ -607,8 +640,7 @@ namespace Slot
             return false;
         }
         public void GameRemaining(int gcont)
-        {
-            
+        {        
             gameReamainingText.text = gcont.ToString();
         }
 
@@ -623,6 +655,7 @@ namespace Slot
         /// <param name="r">小役</param>
         public void BonusJudge(Role r)
         {
+            if (condition == Condition.CZ) return;
             int mag;
             if (r == Role.QUESTION) mag = pdata.Cor;
             else mag = 1;
@@ -667,11 +700,6 @@ namespace Slot
                 pdata.Bonus = Judge(diction[r].bonuspro * mag);
                 if(pdata.Bonus)bonusgrace = pdata.GameCounter + UnityEngine.Random.Range(1, 8);
             }
-            
-
-            Debug.Log(bonusgrace);
-            Debug.Log(condition);
-            ConditionText();
         }
 
         /// <summary>
@@ -683,10 +711,10 @@ namespace Slot
             answerText.text = "";
             resultText.text = "";
             Syutudai();
-            MondaiData m = Mondaiscript.InputMondai((MondaiGenre)config);
+            if (mondaiList == null || mondaiList.Count == 0) mondaiList = Mondaiscript.GetMondaiList((MondaiGenre)config);
+            MondaiData m = Mondaiscript.InputMondai((MondaiGenre)config,mondaiList);
             mondaiText.text = m.MondaiText;
             answer = m.Answer;
-            //Mondai mondai = GetMondai(role);
             //リスト初期化
             List<int> numbers = new List<int>();
             //ボタンの数だけ数値を用意({0,1,2})
@@ -708,6 +736,7 @@ namespace Slot
                 numbers.RemoveAt(index);
             }
         }
+
         /// <summary>
         /// 正解の判定
         /// </summary>
@@ -723,17 +752,6 @@ namespace Slot
             }
             return false;
          
-        }
-        /// <summary>
-        /// 問題をロードするクラス
-        /// </summary>
-        /// <param name="r">小役</param>
-        /// <returns>問題のデータ</returns>
-        protected static MondaiData GetMondai(Role r)
-        {           
-            string path = Application.streamingAssetsPath + "/question/" + r + ".json";
-            string str = File.ReadAllText(path);
-            return JsonUtility.FromJson<MondaiData>(str);
         }
 
         /// <summary>問題パネルの表示 </summary>
@@ -765,10 +783,6 @@ namespace Slot
         /// <summary>
         /// 現在の状態を表示
         /// </summary>
-        public void ConditionText()
-        {
-            conditionText.text = condition.ToString();
-        }
 
         public void Result(bool r)
         {

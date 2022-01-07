@@ -6,18 +6,18 @@ using UnityEngine.UI;
 
 public class Fade : MonoBehaviour, IPointerClickHandler
 {
-    private bool isFadeOut;
-    private bool turn;
-    [SerializeField] bool onTurn;
+    private bool isFadeOut = false;
+    private bool turn = false;
+    [SerializeField] bool onTurn = false;
     private bool turnR = false;
     private bool turnG = false;
     private bool turnB = false;
-    private Color color;
-    private Color defcolor;
+    private Color color = Color.clear;
+    private Color defcolor = Color.clear;
 
-    [SerializeField] Color changeColor;
-    private Renderer rend;
-    [SerializeField] float fadeSpeed;
+    [SerializeField] Color changeColor=Color.clear;
+    private Renderer rend=null;
+    [SerializeField] float fadeSpeed=0f;
     void Start()
     {
         rend = GetComponent<Renderer>();

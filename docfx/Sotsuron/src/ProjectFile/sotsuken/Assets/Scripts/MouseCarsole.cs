@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MouseCarsole : MonoBehaviour
 {
-    [SerializeField] GameObject effect;
-    private Vector3 position;
-    private GameObject obj;
+    [SerializeField] GameObject effect=null;
+    private Vector3 position = Vector3.zero;
+    private GameObject obj = null;
     // Update is called once per frame
     void Update()
     {

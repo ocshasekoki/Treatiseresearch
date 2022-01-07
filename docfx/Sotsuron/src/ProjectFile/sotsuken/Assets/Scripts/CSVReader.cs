@@ -8,8 +8,8 @@ using EnumDic;
 
 public class CSVReader : MonoBehaviour
 {
-    [SerializeField] string fileName;
-    TextAsset csvFile; // CSVファイル
+    [SerializeField] string fileName = "";
+    TextAsset csvFile = null; // CSVファイル
     List<string[]> csvDatas = new List<string[]>(); // CSVの中身を入れるリスト;
 
     void Start()
