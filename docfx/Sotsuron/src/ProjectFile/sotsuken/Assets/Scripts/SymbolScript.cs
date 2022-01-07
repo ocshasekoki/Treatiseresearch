@@ -8,7 +8,6 @@ public class SymbolScript: MonoBehaviour
     [SerializeField] private GameObject nextobj = null;
     private void FixedUpdate()
     {
-        //下方向にスクロール  Vector3.up = new Vector3(0f,1f,0f); Vector3.front = new Vector3(0f,0f,1f);
         transform.localPosition -= Vector3.up * speed;
     }
     private void Update()
@@ -17,6 +16,7 @@ public class SymbolScript: MonoBehaviour
         {
             transform.localPosition = new Vector3(0f, nextobj.transform.localPosition.y + 100f, 0f);
         }
+        
     }
     public void RealStop()
     {

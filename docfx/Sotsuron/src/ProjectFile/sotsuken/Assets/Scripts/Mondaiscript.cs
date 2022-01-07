@@ -19,10 +19,10 @@ namespace Mondai
         [SerializeField] protected Dropdown mondaiGenreDD;
         protected MondaiData data = new MondaiData();
         protected string[] gogun = null;
+        protected List<string> mondaiList = null;
 
         private void Start()
         {
-
                 string[] ops = Enum.GetNames(typeof(MondaiGenre));
                 List<string> ddvalues = new List<string>();
                 foreach (string typename in ops)
@@ -55,13 +55,14 @@ namespace Mondai
             File.WriteAllText(path, json);
 
         }
-        public static MondaiData InputMondai(MondaiGenre genre)
+        public static MondaiData InputMondai(MondaiGenre genre,List<string> mondailist)
         {
-            List<string> list = GetMondaiList(genre);
+            List<string> list = mondailist;           
             //リストの長さだけ乱数生成
-            int index = UnityEngine.Random.Range(0, list.Count);
+            int index = UnityEngine.Random.Range(0,list.Count);
             //「乱数で出た数値」番目を取り出す
             string randomname = list[index];
+            list.Remove(randomname);
             string path = Application.streamingAssetsPath + "/Mondai/" + genre.ToString() + "/" + randomname;
             string str = File.ReadAllText(path);
             return JsonUtility.FromJson<MondaiData>(str);
@@ -70,10 +71,8 @@ namespace Mondai
         public static List<string> GetMondaiList(MondaiGenre genre)
         {
             List<string> mondaiList = new List<string>();
-
             DirectoryInfo dir = new DirectoryInfo(Application.streamingAssetsPath + "/Mondai/" + genre + "/");
             FileInfo[] info = dir.GetFiles("*.json");
-
             foreach(FileInfo f in info)
             {
                 mondaiList.Add(f.Name);
