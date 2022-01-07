@@ -174,6 +174,7 @@ namespace Slot
                 RealRotate();
                 GameCounter();
                 if (reach) EsEffect();
+                Debug.Log("状態:"+condition.ToString());
             }
         }
         /// <summary>
@@ -232,12 +233,10 @@ namespace Slot
         /// </summary>
         protected void DecideSymbol(Role r)
         {
-            Debug.Log("小役:" + r + " ID:" + diction[r]);
-            Debug.Log(DicData.symbolDic[r]);
+            Debug.Log("小役:" + r);
             symbolLeft = DicData.symbolDic[r].l;
             symbolCenter = DicData.symbolDic[r].c;
             symbolRight = DicData.symbolDic[r].r;
-            Debug.Log("左：" + symbolLeft + "　中：" + symbolCenter + "　右：" + symbolRight);
         }
 
         /// <summary>
@@ -339,9 +338,6 @@ namespace Slot
         /// <param name="s"></param>
         protected void AssistDicision(List<GameObject> list, Symbol s,Position p)
         {
-
-            Debug.Log(realcon < (int)Real.ROTATE);
-            Debug.Log(realcon > (int)Real.ALLSTOP);
             if (realcon < (int)Real.ROTATE && realcon > (int)Real.ALLSTOP)
             {
                 return;
@@ -472,8 +468,10 @@ namespace Slot
             {
                 ddvalues.Add(typename);
             }
+
             configDD.ClearOptions();
             configDD.AddOptions(ddvalues);
+            
         }
         /// <summary>
         /// コンディションのドロップダウンの中身を書き換える処理
@@ -555,7 +553,6 @@ namespace Slot
                     ReachIsOn();
                     break;
             }
-            Debug.Log(pdata.Coin);
             CoinText();
         }
         /// <summary>
