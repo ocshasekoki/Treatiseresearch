@@ -8,6 +8,7 @@ using Prob;
 using Data;
 using Mondai;
 using System.IO;
+using System.Linq;
 
 namespace Slot
 {
@@ -91,8 +92,9 @@ namespace Slot
         /// <summary>betcoin:掛け金</summary>
         protected const int betcoin = 3;
         /// <summary>realcon:リールの状態</summary>
-        protected int realcon = 0;
+        public int realcon = 0;
         protected bool[] rotate;
+        public bool[] asisted;
         public bool reach = false;
         public bool debugMode;
         public void Start()
@@ -105,7 +107,8 @@ namespace Slot
             conprefDic.Clear();
             foreach (Role r in Enum.GetValues(typeof(Role))) prefDic.Add(r, PrefLoad(r));
             foreach (Condition cond in Enum.GetValues(typeof(Condition))) conprefDic.Add(cond, ConPrefLoad(cond));
-            
+            asisted = new bool[3];
+            rotate = new bool[3];
             config = (Config)UnityEngine.Random.Range(0, 2);
             condition = Condition.NOMAL;
             dic = Prodic.LoadDic();
@@ -156,6 +159,8 @@ namespace Slot
             {
                 return;
             }
+            for (int i = 0; i < rotate.Length; i++) rotate[i] = false;
+            for (int i = 0; i < asisted.Length; i++) asisted[i] = false;
             DeleteEffect(effectArea);
             PanelVisible(false);
             pdata.Coin -= betcoin;
@@ -169,7 +174,6 @@ namespace Slot
         {
             if (realcon == (int)Real.BET)
             {
-                
                 RandomRole();
                 RealRotate();
                 GameCounter();
@@ -194,7 +198,6 @@ namespace Slot
             {
                 g.GetComponent<SymbolScript>().RealStart(20);
             }
-            rotate = new bool[3];
             for (int i = 0; i < rotate.Length; i++)
             {
                 rotate[i] = true;
@@ -316,6 +319,7 @@ namespace Slot
         {
             if (realcon < 2 || realcon > 4) return;
             Position p = (Position)Enum.Parse(typeof(Position), pos);
+            if (asisted[(int)p]) return;
             switch (p)
             {
                 case Position.LEFT:
@@ -346,15 +350,25 @@ namespace Slot
             {
                 s = (Symbol)UnityEngine.Random.Range(2, 7);
             }
+            asisted[(int)p] = true;
+            GameObject nearObj = null;
             foreach (GameObject obj in list)
             {
                 Symbol sm = obj.GetComponent<SymbolData>().GetSymbol();
-                if (obj.transform.localPosition.y >= 0f && sm == s)
+                if (obj.transform.localPosition.y >= 20f && sm == s)
                 {
+                    nearObj = obj;
                     rotate[(int)p] = false;
-                    StartCoroutine(Assist(obj));
+                }
+                try
+                {
+                    if (obj == list.Last()) StartCoroutine(Assist(nearObj));
+                }catch(NullReferenceException e)
+                {
+                    Debug.Log(e);
                 }
             }
+        
         }
 
 
@@ -368,6 +382,7 @@ namespace Slot
             yield return new WaitWhile(() => obj.transform.localPosition.y >= 10f);
             obj.GetComponent<SymbolScript>().RealStop();
             AllRealStop(obj.GetComponent<SymbolData>().GetPos());
+            realcon++;
         }
 
         /// <summary>
@@ -376,7 +391,6 @@ namespace Slot
         /// <param name="p">リールの位置</param>
         protected void AllRealStop(Position p)
         {
-            realcon++;
             if ((Real)realcon == Real.ONESTOP && role == Role.QUESTION)
             {
                 AnswerDicision(Answer(p));
