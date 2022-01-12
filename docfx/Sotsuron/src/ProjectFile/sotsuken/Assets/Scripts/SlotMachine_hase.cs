@@ -391,7 +391,7 @@ namespace Slot
         /// <param name="p">リールの位置</param>
         protected void AllRealStop(Position p)
         {
-            if ((Real)realcon == Real.ONESTOP && role == Role.QUESTION)
+            if ((Real)realcon == Real.ROTATE && role == Role.QUESTION)
             {
                 AnswerDicision(Answer(p));
             }
