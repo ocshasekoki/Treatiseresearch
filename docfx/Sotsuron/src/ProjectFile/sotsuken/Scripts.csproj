@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\PanelVisible.cs" />
     <Compile Include="Assets\Scripts\Prodic.cs" />
     <Compile Include="Assets\Scripts\SceneChanger.cs" />
+    <Compile Include="Assets\Scripts\SkyBoxRotate.cs" />
     <Compile Include="Assets\Scripts\SlotMachine_hase.cs" />
     <Compile Include="Assets\Scripts\SoundScript.cs" />
     <Compile Include="Assets\Scripts\SoundSystem.cs" />

@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class PanelVisible : MonoBehaviour
 {
+    [SerializeField] GameObject Panel;
+    bool isOn = false;
 
-
+    public void PushButton()
+    {
+        Panel.SetActive(!isOn);
+        isOn = !isOn;
+    }
 }

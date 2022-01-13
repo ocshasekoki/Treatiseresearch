@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 947649417265884021}
   - component: {fileID: 947649417265884022}
   m_Layer: 0
-  m_Name: CZBackGround
+  m_Name: ATBackGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
