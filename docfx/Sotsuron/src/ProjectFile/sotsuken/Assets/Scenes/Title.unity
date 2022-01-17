@@ -254,7 +254,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Slot
+          m_StringArgument: CreateQuestion
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &53753711
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 93c5d459cab756542916d45606bc17be, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 41a9c51fa783d254cbf2d4798ef899df, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -553,7 +553,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 93c5d459cab756542916d45606bc17be, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bf47359a1cdd52f4187881135dbbb7c4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -951,7 +951,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30B9\n\u30ED\n\u30C3\n\u30C8"
+  m_Text: "\u554F\n\u984C\n\u4F5C\n\u6210"
 --- !u!222 &1141345694
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -1944,7 +1944,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: "\u30D5\u30A1\u30A4\u30EB\u4E00\u89A7"
 --- !u!222 &922064049
 CanvasRenderer:
   m_ObjectHideFlags: 0
