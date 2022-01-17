@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PanelVisible : MonoBehaviour
 {
-    [SerializeField] GameObject Panel;
+    [SerializeField] GameObject Panel = null;
     bool isOn = false;
 
     public void PushButton()

@@ -291,8 +291,21 @@ namespace Slot
 
         protected void CurrentText()
         {
-            if(condition == Condition.CZ)czCurrectText.text = (czCurrect * diction[Role.QUESTION].chancezonepro / 100).ToString() + "%";
-            else czCurrectText.text = (pdata.Cor * diction[Role.QUESTION].chancezonepro / 100).ToString() + "%";
+            float percent = 0f;
+            int cca = 0;
+            if (condition == Condition.CZ)
+            {
+                percent = czCurrect * diction[Role.QUESTION].chancezonepro / 100;
+                cca = czCurrect;
+            }
+            else
+            {
+                percent = pdata.Cor * diction[Role.QUESTION].chancezonepro / 100;
+                cca = pdata.Cor;
+            }
+            czCurrectText.text = percent.ToString();
+            ccaText.text = cca.ToString();
+
         }
         /// <summary>
         /// 状態に対応したdictionaryに変更する関数
@@ -798,8 +811,8 @@ namespace Slot
         public void Result(bool r)
         {
             if(r) resultText.text = "正解だよ～ん";
-
             else resultText.text = "残念でした～";
+            CurrentText();
 
         }
 
