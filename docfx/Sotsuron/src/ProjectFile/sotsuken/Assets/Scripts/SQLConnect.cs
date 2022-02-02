@@ -3,122 +3,419 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-
-public class SQLConnect : MonoBehaviour
+using Calen;
+using System;
+namespace DataBase
 {
-    public string ServerGetAddress = "http://localhost/index.php";  //selecttest.phpを指定　今回のアドレスはlocalhost
-    public string ServerPostAddress = "http://localhost/index3.php";  //selecttest.phpを指定　今回のアドレスはlocalhost
-
-    private void Start()
+    public class SQLConnect : MonoBehaviour
     {
-        StartCoroutine(Receive()); 
-    }
-    public void SQLReceive()
-    {
-        Receive();
-    }
-
-    public void SQLResponse()
-    {
-        Access();
-    }
-
-    private IEnumerator Access()
-    {
-        StartCoroutine(Get(ServerGetAddress));
-        yield return 0;
-    }
-    private IEnumerator Receive()
-    {
-        Rank rank = new Rank();
-        rank.UserID = "moge";
-        rank.Coin = 200;
-        rank.Ansnumber = 15;
-        rank.Count = 30;
-        StartCoroutine(Post(ServerPostAddress,rank));  // POST
-        yield return 0;
-    }
-    private IEnumerator Post(string url,Rank rank)
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("userID", rank.UserID);
-        form.AddField("coin", rank.Coin);
-        form.AddField("ansnumber", rank.Ansnumber);
-        form.AddField("count", rank.Count);
-        UnityWebRequest request = UnityWebRequest.Post(url,form);
-        yield return request.SendWebRequest();
-        //3.isNetworkErrorとisHttpErrorでエラー判定
-        if (request.isHttpError || request.isNetworkError)
+        private static string defurl = "http://localhost/";
+        private static string rank = "rank_";
+        private static string userQues = "userques_";
+        private static string userInfo = "userinfo_";
+        private static string quesInfo = "questioninfo_";
+        private static string input = "input.php";
+        private static string output = "output.php";
+        private string username;
+        [SerializeField] private GameObject calenderObj;
+        [SerializeField] private GameObject fromObj;
+        [SerializeField] private GameObject toObj;
+        [SerializeField] private Dropdown duringDD;
+        [SerializeField] private Dropdown numberDD;
+        [SerializeField] private Dropdown sortKeyDD;
+        [SerializeField] private Toggle onlyMine;
+        [SerializeField] private Toggle desc;
+        [SerializeField] private Toggle disc;
+        [SerializeField] private Text resSortKey;
+        [SerializeField] private GameObject pref;
+        [SerializeField] private GameObject parent;
+        private Calendar calendar;
+        private void Start()
         {
-            //4.エラー確認
-            Debug.Log(request.error);
+            calendar = calenderObj.GetComponent<Calendar>();
+            username = "hoge";
         }
-        else
+
+        public void RankSet(Dictionary<string, string> dic)
         {
-            Debug.Log("送信完了");
-            Debug.Log(request.downloadHandler.text);
+            WWWForm www = CastWWWForm(dic);
+            StartCoroutine(Post(defurl + rank + input, www));
         }
-    }
-    private IEnumerator Get(string url)
-    {
-        UnityWebRequest request = UnityWebRequest.Get(url);
-        yield return request.SendWebRequest();
-        //3.isNetworkErrorとisHttpErrorでエラー判定
-        if (request.isHttpError || request.isNetworkError)
+        public void RankGet()
         {
-            //4.エラー確認
-            Debug.Log(request.error);
+            DestroyChildAll(parent);
+            string key = "?";
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            if (onlyMine.isOn) dic.Add("username", username);
+            if (desc.isOn) dic.Add("sort", "1");
+            else dic.Add("sort", "0");
+            if (disc.isOn) dic.Add("disc", "1");
+            else dic.Add("disc", "0");
+            dic.Add("fromdate", calendar.SetDate());
+            SetSearchText(fromObj, calendar.SetDate());
+            dic.Add("todate", GetDuring());
+            SetSearchText(toObj, GetDuring());
+            dic.Add("sortkey", GetSortKey(sortKeyDD.value, false));
+            resSortKey.text = GetSortKey(sortKeyDD.value, true);
+            foreach (string s in dic.Keys)
+            {
+                key += s + "=" + dic[s];
+                if (s != "sortkey") key += "&";
+            }
+            StartCoroutine(RankAccess(defurl + rank + output + key));
         }
-        else
+
+        private void DestroyChildAll(GameObject obj)
         {
-            //4.結果確認
-            string[] sp = { "rn" };
-            Debug.Log(request.downloadHandler.text);
-            string[] strs = request.downloadHandler.text.Split(sp,System.StringSplitOptions.None);
+            for (int i = 0; i < obj.transform.childCount; i++)
+            {
+                Destroy(obj.transform.GetChild(i).gameObject);
+            }
+        }
+        private string GetDuring()
+        {
+            DateTime defdate = DateTime.Parse(calendar.SetDate());
+            DateTime afdate = defdate;
+            switch (duringDD.value)
+            {
+                case 0:
+                    afdate = defdate.AddDays(-(numberDD.value + 1));
+                    break;
+                case 1:
+                    afdate = defdate.AddDays(-(numberDD.value + 1) * 7);
+                    break;
+                case 2:
+                    afdate = defdate.AddMonths(-(numberDD.value + 1));
+                    break;
+                case 3:
+                    afdate = defdate.AddYears(-(numberDD.value + 1));
+                    break;
+            }
+            string[] strs = afdate.ToString().Split('/');
+            string key = "";
+            for (int i = 0; i < 3; i++)
+            {
+                if (i != 2)
+                {
+                    int num = int.Parse(strs[i]);
+                    key += num.ToString() + "-";
+                }
+                else
+                {
+                    int num = int.Parse(strs[i].Split(' ')[0]);
+                    key += num.ToString();
+                }
+            }
+            return key;
+        }
+
+        private string GetSortKey(int value, bool jpn)
+        {
+            switch (value)
+            {
+                case 0:
+                    if (jpn) return "コイン枚数";
+                    return "coin";
+                case 1:
+                    if (jpn) return "正解率";
+                    return "percent";
+                case 2:
+                    if (jpn) return "正解数";
+                    return "ansnumber";
+            }
+            return "";
+        }
+
+        public void UserQuesSet(Dictionary<string, string> dic)
+        {
+            WWWForm www = CastWWWForm(dic);
+            StartCoroutine(Post(defurl + userQues + input, www));
+        }
+
+        public static WWWForm CastWWWForm(Dictionary<string, string> dic)
+        {
+            WWWForm form = new WWWForm();
+            foreach (string s in dic.Keys) form.AddField(s, dic[s]);
+            return form;
+        }
+        public void UserQuesGet()
+        {
+            StartCoroutine(RankAccess(defurl + userQues + output));
+        }
+        public void UserInfoSet(Dictionary<string, string> dic)
+        {
+            WWWForm www = CastWWWForm(dic);
+            StartCoroutine(Post(defurl + userInfo + input, www));
+        }
+        public void UserInfoGet()
+        {
+            StartCoroutine(UserAccess(defurl + userInfo + output));
+        }
+        public void QuesInfoSet(Dictionary<string, string> dic)
+        {
+            WWWForm www = CastWWWForm(dic);
+            StartCoroutine(Post(defurl + quesInfo + input, www));
+        }
+        public void QuesInfoGet()
+        {
+            StartCoroutine(QuestionAccess(defurl + quesInfo + output));
+        }
+        private void SetSearchText(GameObject obj, string date)
+        {
+            string[] strs = date.Split('-');
+            obj.transform.Find("year").GetComponent<Text>().text = strs[0];
+            obj.transform.Find("month").GetComponent<Text>().text = strs[1];
+            obj.transform.Find("day").GetComponent<Text>().text = strs[2];
+        }
+        private IEnumerator RankAccess(string defurl)
+        {
+            IEnumerator coroutine = Get(defurl);
+            yield return StartCoroutine(coroutine);
+            Debug.Log(coroutine.Current.ToString());
+            List<Rank> list = RankJsonDeSer(coroutine.Current.ToString());
+
+            int index = 1;
+            if (!desc.isOn) index = list.Count;
+
+            foreach (Rank r in list)
+            {
+                if (disc.isOn) CreateRankPanel(r, index);
+                else
+                {
+                    if (!desc.isOn)
+                    {
+                        if (parent.transform.Find(r.Username) == null) CreateRankPanel(r, index);
+                        else ChangeRankPanel(r, parent.transform.Find(r.Username).gameObject, index);
+                    }
+                    else if(desc.isOn&&parent.transform.Find(r.Username) == null) CreateRankPanel(r, index);                    
+                }
+                if (desc.isOn) index++;
+                else index--;
+            }
+        }
+        public void CreateRankPanel(Rank r, int index)
+        {
+            r.Dump();
+            GameObject obj = Instantiate(pref, parent.transform);
+            obj.name = r.Username;
+            obj.transform.Find("username").GetComponent<Text>().text = r.Username;
+            obj.transform.Find("anstime").GetComponent<Text>().text = r.Anstime;
+            obj.transform.Find("rank").GetComponent<Text>().text = index.ToString();
+            obj.transform.Find("coin").GetComponent<Text>().text = r.Coin.ToString();
+            obj.transform.Find("ansnumber").GetComponent<Text>().text = r.Ansnumber.ToString();
+            obj.transform.Find("count").GetComponent<Text>().text = r.Count.ToString();
+        }
+        public void ChangeRankPanel(Rank r, GameObject obj, int rank)
+        {
+            obj.transform.SetAsLastSibling();
+            obj.transform.Find("anstime").GetComponent<Text>().text = r.Anstime;
+            obj.transform.Find("rank").GetComponent<Text>().text = rank.ToString();
+            obj.transform.Find("coin").GetComponent<Text>().text = r.Coin.ToString();
+            obj.transform.Find("ansnumber").GetComponent<Text>().text = r.Ansnumber.ToString();
+            obj.transform.Find("count").GetComponent<Text>().text = r.Count.ToString();
+        }
+
+        private IEnumerator UserAccess(string defurl)
+        {
+            IEnumerator coroutine = Get(defurl);
+            yield return StartCoroutine(coroutine);
+            Debug.Log(coroutine.Current.ToString());
+            List<UserInfo> list = UserInfoJsonDeSer(coroutine.Current.ToString());
+        }
+        private IEnumerator QuestionAccess(string defurl)
+        {
+            IEnumerator coroutine = Get(defurl);
+            yield return StartCoroutine(coroutine);
+            Debug.Log(coroutine.Current.ToString());
+            List<QuestionInfo> list = QuesInfoJsonDeSer(coroutine.Current.ToString());
+        }
+
+        public static IEnumerator Post(string defurl, WWWForm form)
+        {
+            UnityWebRequest request = UnityWebRequest.Post(defurl, form);
+            yield return request.SendWebRequest();
+            //3.isNetworkErrorとisHttpErrorでエラー判定
+            if (request.isHttpError || request.isNetworkError)
+            {
+                //4.エラー確認
+                Debug.Log(request.error);
+            }
+            else
+            {
+                Debug.Log("送信完了");
+                Debug.Log(request.downloadHandler.text);
+                yield return request.downloadHandler.text;
+            }
+        }
+        public static IEnumerator Get(string defurl)
+        {
+            UnityWebRequest request = UnityWebRequest.Get(defurl);
+            yield return request.SendWebRequest();
+            //3.isNetworkErrorとisHttpErrorでエラー判定
+            if (request.isHttpError || request.isNetworkError)
+            {
+                //4.エラー確認
+                yield return request.error;
+            }
+            else
+            {
+                if (request.downloadHandler.text != "")
+                {
+                    yield return request.downloadHandler.text;
+                }
+                else
+                {
+                    yield return null;
+                }
+            }
+        }
+
+        public static List<Rank> RankJsonDeSer(string str)
+        {
+            List<Rank> list = new List<Rank>();
+            string[] sp = { "_jnl" };
+            string[] strs = str.Split(sp, StringSplitOptions.None);
             foreach (string s in strs)
             {
                 Rank rank = JsonUtility.FromJson<Rank>(s);
-                rank.Dump();
+                list.Add(rank);
             }
-            
+            return list;
+        }
+        public static List<UserInfo> UserInfoJsonDeSer(string str)
+        {
+            List<UserInfo> list = new List<UserInfo>();
+            string[] sp = { "_jnl" };
+            string[] strs = str.Split(sp, StringSplitOptions.None);
+            foreach (string s in strs)
+            {
+                UserInfo info = JsonUtility.FromJson<UserInfo>(s);
+                list.Add(info);
+            }
+            return list;
+        }
+        public static List<QuestionInfo> QuesInfoJsonDeSer(string str)
+        {
+            List<QuestionInfo> list = new List<QuestionInfo>();
+            string[] sp = { "_jnl" };
+            string[] strs = str.Split(sp, StringSplitOptions.None);
+            foreach (string s in strs)
+            {
+                QuestionInfo info = JsonUtility.FromJson<QuestionInfo>(s);
+                list.Add(info);
+            }
+            return list;
         }
     }
-}
-public class Rank
-{
-    [SerializeField]
-    private string userID = null;
-    public string UserID { 
-        get { return userID; }
-        set { userID = value; }
-    }
-
-    [SerializeField]
-    private int coin = 0;
-    public int Coin {
-        get { return coin; }
-        set { coin = value; }
-    }
-
-    [SerializeField]
-    private int ansnumber = 0;
-    public int Ansnumber { 
-        get { return ansnumber; }
-        set { ansnumber = value; }
-    }
-
-    [SerializeField]
-    private int count = 0;
-    public int Count { 
-        get { return count; }
-        set { count= value; }
-    }
-
-    public void Dump()
+    public class Rank
     {
-        Debug.Log("ユーザーID："+UserID);
-        Debug.Log("所持コイン："+Coin);
-        Debug.Log("正解数："+Ansnumber);
-        Debug.Log("回答数："+Count);
+        [SerializeField]
+        private string username = null;
+        public string Username
+        {
+            get { return username; }
+            set { username = value; }
+        }
+
+        [SerializeField]
+        private int coin = 0;
+        public int Coin
+        {
+            get { return coin; }
+            set { coin = value; }
+        }
+
+        [SerializeField]
+        private int ansnumber = 0;
+        public int Ansnumber
+        {
+            get { return ansnumber; }
+            set { ansnumber = value; }
+        }
+        [SerializeField]
+        private string anstime = "";
+        public string Anstime
+        {
+            get { return anstime; }
+            set { anstime = value; }
+        }
+
+        [SerializeField]
+        private int count = 0;
+        public int Count
+        {
+            get { return count; }
+            set { count = value; }
+        }
+
+        public void Dump()
+        {
+            Debug.Log("ユーザーID：" + username);
+            Debug.Log("所持コイン：" + Coin);
+            Debug.Log("正解数：" + Ansnumber);
+            Debug.Log("回答数：" + Count);
+            Debug.Log("日付：" + anstime);
+        }
+    }
+    public class UserInfo
+    {
+        [SerializeField]
+        private string userid = null;
+        public string Userid
+        {
+            get { return userid; }
+            set { userid = value; }
+        }
+
+        [SerializeField]
+        private string username = null;
+        public string Username
+        {
+            get { return username; }
+            set { username = value; }
+        }
+
+        [SerializeField]
+        private string email = null;
+        public string Email
+        {
+            get { return email; }
+            set { email = value; }
+        }
+
+        [SerializeField]
+        private string password = null;
+        public string Password
+        {
+            get { return password; }
+            set { password = value; }
+        }
+    }
+
+    public class QuestionInfo
+    {
+        [SerializeField]
+        private string questionID = null;
+        public string QuestionID
+        {
+            get { return questionID; }
+            set { questionID = value; }
+        }
+
+        [SerializeField]
+        private int count = 0;
+        public int Count
+        {
+            get { return count; }
+            set { count = value; }
+        }
+
+        [SerializeField]
+        private int ansnumber = 0;
+        public int Ansnumber
+        {
+            get { return ansnumber; }
+            set { ansnumber = value; }
+        }
     }
 }

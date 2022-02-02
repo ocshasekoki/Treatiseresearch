@@ -89,39 +89,13 @@ namespace Data
                                     /// </summary>
         public void Dump()
         {
-            Debug.Log("設定：" + conf + " 小役：" + role + " 状態：" + cond + " 出現確率：" + appearpro + " ボーナス確率：" + bonuspro);
+            Debug.Log("設定：" + conf + " 小役：" + role + " 状態：" + cond + " 出現確率：" + (double)appearpro/10 + "%\nフリーズ確率：" + (double)freezepro/100 + "% ビッグボーナス確率：" + (double)bigbonuspro+"% ボーナス確率：" + (double)bonuspro / 100 + "% CZ確率：" + (double)chancezonepro / 100+"%");
         }
     }
     [SerializeField]
     public class PlayerData
     {
-        /// <summary>
-        /// 正解数のカウント
-        /// </summary>
-        protected int correctcount = 0;
 
-        /// <summary>
-        /// 正解数のカウントプロパティ
-        /// </summary>
-        public int Cor
-        {
-            get { return correctcount; }
-            set { correctcount = value; }
-        }
-
-        /// <summary>
-        /// コインの枚数
-        /// </summary>
-        protected int coin = 100;
-
-        /// <summary>
-        /// コインのプロパティ
-        /// </summary>
-        public int Coin
-        {
-            get { return coin; }
-            set { coin = value; }
-        }
         /// <summary>チャンスゾーンのフラグ </summary>
         protected bool chanceZone = false;
         /// <summary>ATのフラグ </summary>
@@ -165,14 +139,6 @@ namespace Data
         {
             get { return bigBonus; }
             set { bigBonus = value; }
-        }
-        protected int gameCount = 0;
-
-        /// <summary>ゲームカウントのプロパティ </summary>
-        public int GameCounter
-        {
-            get { return gameCount; }
-            set { gameCount = value; }
         }
     }
 }

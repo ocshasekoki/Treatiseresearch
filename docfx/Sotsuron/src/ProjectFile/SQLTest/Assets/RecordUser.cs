@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using Calen;
 using System;
+using System.Text.RegularExpressions;
 
 public class RecordUser : MonoBehaviour
 {
@@ -13,15 +14,28 @@ public class RecordUser : MonoBehaviour
     private static string userInfo = "userinfo_";
     private static string input = "input.php";
     private static string output = "output.php";
+    private static string exist = "exist.php";
+    private static int minlength = 8;
 
+    private static string pattern = @"[^a-z @\.0-9]";
     [SerializeField] InputField useridIF;
     [SerializeField] InputField usernameIF;
     [SerializeField] InputField emailIF;
     [SerializeField] InputField passwordIF;
-    private Calendar calendar;
-    private void Start()
-    {
 
+    public void Check(InputField input)
+    {
+        bool b = CheckSpell(input.text);
+        if (b) input.gameObject.transform.Find("Error").GetComponent<Text>().text = "文字列が不正です。";
+        else input.gameObject.transform.Find("Error").GetComponent<Text>().text = "";
+    }
+
+    private bool CheckSpell(string str)
+    {
+        if (str.Length < minlength) return true;
+        Match match = Regex.Match(str, pattern);
+        if (match.Success)return true;
+        else return false;
     }
 
     public void UserInfoSet()
@@ -103,14 +117,15 @@ public class RecordUser : MonoBehaviour
     }
     public void SetDic()
     {
+        if (CheckSpell(useridIF.text) || CheckSpell(passwordIF.text) || CheckSpell (emailIF.text) || CheckSpell(usernameIF.text)) return;
         Dictionary<string, string> dic = new Dictionary<string, string>();
         dic.Add("userid", useridIF.text);
         dic.Add("username", usernameIF.text);
         dic.Add("email", emailIF.text);
         dic.Add("password", passwordIF.text);
         foreach (string s in dic.Keys) Debug.Log(s+":"+dic[s]);
-        //WWWForm form = SetUserInfo(dic);
-        //StartCoroutine(Post(defurl, form));
+        WWWForm form = SetUserInfo(dic);
+        StartCoroutine(Post(defurl+userInfo+exist, form));
     }
     private WWWForm SetUserInfo(Dictionary<string,string> dic)
     {

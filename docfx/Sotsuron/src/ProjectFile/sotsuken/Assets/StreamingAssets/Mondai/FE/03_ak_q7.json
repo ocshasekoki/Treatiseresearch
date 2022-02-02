@@ -1,0 +1,11 @@
+{
+    "mondaiText": "静的型付けを行うプログラム言語では，コンパイル時に変数名の誤り，誤った値の代入などが発見できる。Webプログラミングで用いられるスクリプト言語のうち，変数の静的型付けができるものはどれか。",
+    "answer": "TypeScript",
+    "kaisetsu": "ECMAScriptは、JavaScriptを標準化した言語仕様です。JavaScriptと同じく動的型付けのプログラム言語です。\nJavaScriptは、動的型付けのプログラム言語です。\n正しい。TypeScriptは、静的型付けのプログラム言語です。\nVBScriptは、マイクロソフトがVisual Basicを元に開発したスクリプト言語です。Visual Basicは静的型付けですが、VBScriptは動的型付けのプログラム言語です。\n",
+    "gogun": [
+        "ECMAScript",
+        "TypeScript",
+        "VBScript"
+    ],
+    "genre": 0
+}

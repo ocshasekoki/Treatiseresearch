@@ -30,16 +30,16 @@ public class CSVReader : MonoBehaviour
             switch (s[0])
             {
                 case "Config":
-                    list = new List<ProData>();
                     config = int.Parse(s[1]);
                     break;
                 case "Condition":
                     condition = int.Parse(s[1]);
                     break;
                 case "fin":
+                    foreach (ProData p in list) p.Dump();
                     Dic dic = new Dic();
                     dic.prodic = list;
-                    Prodic.OutputDic("test",dic);
+                    Prodic.OutputDic("test2",dic);
                     break;
                 default:
                     list.Add(ReadProdata(config, condition, s));
@@ -58,7 +58,6 @@ public class CSVReader : MonoBehaviour
         data.bigbonuspro = int.Parse(strs[3]);
         data.freezepro = int.Parse(strs[4]);
         data.chancezonepro = int.Parse(strs[5]);
-        data.Dump();
         return data;
     }
 }

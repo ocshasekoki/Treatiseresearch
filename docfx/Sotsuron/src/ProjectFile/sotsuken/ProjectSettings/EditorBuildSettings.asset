@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CreateQuestion.unity
     guid: 6ac4d9a22dd22934e92750bb0b42c74e
+  - enabled: 1
+    path: Assets/Scenes/Ranking.unity
+    guid: d9cc0657a7194a945810bef5a44b3c5f
+  - enabled: 1
+    path: Assets/Scenes/Record.unity
+    guid: cc0804756012b4141aa95f22b753b623
   m_configObjects: {}
