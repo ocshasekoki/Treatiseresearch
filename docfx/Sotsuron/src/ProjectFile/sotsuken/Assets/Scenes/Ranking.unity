@@ -2210,7 +2210,7 @@ GameObject:
   - component: {fileID: 384258944}
   - component: {fileID: 384258943}
   m_Layer: 0
-  m_Name: "\u306E"
+  m_Name: and
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5513,7 +5513,7 @@ GameObject:
   - component: {fileID: 1076841084}
   - component: {fileID: 1076841083}
   m_Layer: 5
-  m_Name: "\u306E"
+  m_Name: and
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5591,7 +5591,7 @@ GameObject:
   - component: {fileID: 1081314407}
   - component: {fileID: 1081314406}
   m_Layer: 5
-  m_Name: "\u5E74"
+  m_Name: year
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6129,7 +6129,7 @@ GameObject:
   - component: {fileID: 1302708505}
   - component: {fileID: 1302708504}
   m_Layer: 0
-  m_Name: "\u304B\u3089"
+  m_Name: ~
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8110,7 +8110,7 @@ GameObject:
   - component: {fileID: 1689304089}
   - component: {fileID: 1689304088}
   m_Layer: 0
-  m_Name: "\u30E9\u30F3\u30AD\u30F3\u30B0\u3092\u8868\u793A"
+  m_Name: rank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8540,7 +8540,7 @@ GameObject:
   - component: {fileID: 1765097773}
   - component: {fileID: 1765097772}
   m_Layer: 5
-  m_Name: "\u6708"
+  m_Name: month
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9047,7 +9047,7 @@ GameObject:
   - component: {fileID: 1883945391}
   - component: {fileID: 1883945390}
   m_Layer: 0
-  m_Name: "\u304B\u3089"
+  m_Name: fromText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9306,7 +9306,7 @@ GameObject:
   - component: {fileID: 1922476468}
   - component: {fileID: 1922476467}
   m_Layer: 5
-  m_Name: "\u65E5"
+  m_Name: day
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

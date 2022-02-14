@@ -17,23 +17,23 @@ namespace DataBase
         private static string input = "input.php";
         private static string output = "output.php";
         private string username;
-        [SerializeField] private GameObject calenderObj;
-        [SerializeField] private GameObject fromObj;
-        [SerializeField] private GameObject toObj;
-        [SerializeField] private Dropdown duringDD;
-        [SerializeField] private Dropdown numberDD;
-        [SerializeField] private Dropdown sortKeyDD;
-        [SerializeField] private Toggle onlyMine;
-        [SerializeField] private Toggle desc;
-        [SerializeField] private Toggle disc;
-        [SerializeField] private Text resSortKey;
-        [SerializeField] private GameObject pref;
-        [SerializeField] private GameObject parent;
-        private Calendar calendar;
+        [SerializeField] private GameObject calenderObj = null;
+        [SerializeField] private GameObject fromObj = null;
+        [SerializeField] private GameObject toObj = null;
+        [SerializeField] private Dropdown duringDD = null;
+        [SerializeField] private Dropdown numberDD = null;
+        [SerializeField] private Dropdown sortKeyDD = null;
+        [SerializeField] private Toggle onlyMine = null;
+        [SerializeField] private Toggle desc = null;
+        [SerializeField] private Toggle disc = null;
+        [SerializeField] private Text resSortKey = null;
+        [SerializeField] private GameObject pref = null;
+        [SerializeField] private GameObject parent = null;
+        private Calendar calendar = null;
         private void Start()
         {
+            username = PlayerPrefs.GetString("username");
             calendar = calenderObj.GetComponent<Calendar>();
-            username = "hoge";
         }
 
         public void RankSet(Dictionary<string, string> dic)
@@ -171,7 +171,7 @@ namespace DataBase
         {
             IEnumerator coroutine = Get(defurl);
             yield return StartCoroutine(coroutine);
-            Debug.Log(coroutine.Current.ToString());
+            if (coroutine.Current == null) yield break;
             List<Rank> list = RankJsonDeSer(coroutine.Current.ToString());
 
             int index = 1;
@@ -332,6 +332,15 @@ namespace DataBase
             get { return ansnumber; }
             set { ansnumber = value; }
         }
+        [SerializeField]
+        private int anssuc = 0;
+        public int AnsSuc
+        {
+            get { return anssuc; }
+            set { anssuc = value; }
+        }
+
+
         [SerializeField]
         private string anstime = "";
         public string Anstime

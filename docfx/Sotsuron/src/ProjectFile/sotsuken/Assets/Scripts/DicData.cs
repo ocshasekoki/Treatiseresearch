@@ -45,7 +45,21 @@ namespace Data
         {Role.BIGBONUS,new Color(1f,0.3058f,0.4705f) },
         {Role.FREEZE,new Color(1f,0.7764f,0) },
         };
-        
+
+        public static Dictionary<Role,int> rolecoin = new Dictionary<Role,int>() {
+        {Role.NONE,0},
+        {Role.STRONGCHERRY,3},
+        {Role.CHERRY,2},
+        {Role.WEAKCHERRY,1},
+        {Role.WATERMELON,5},
+        {Role.BELL,15 },
+        {Role.REPLAY,3},
+        {Role.QUESTION,8},
+        {Role.REGBONUS,10},
+        {Role.BIGBONUS,12},
+        {Role.FREEZE,15 },
+        };
+
         /// <summary>
         /// 状態に対応した色の演出の設定
         /// </summary>
@@ -84,9 +98,9 @@ namespace Data
         public int chancezonepro;   /// <summary>チャンスゾーンの確率</summary>
         public int appearpro;       /// <summary>出現確率</summary>
 
-                                    /// <summary>
-                                    /// 現在の状態を出力
-                                    /// </summary>
+        /// <summary>
+        /// 現在の状態を出力
+        /// </summary>
         public void Dump()
         {
             Debug.Log("設定：" + conf + " 小役：" + role + " 状態：" + cond + " 出現確率：" + (double)appearpro/10 + "%\nフリーズ確率：" + (double)freezepro/100 + "% ビッグボーナス確率：" + (double)bigbonuspro+"% ボーナス確率：" + (double)bonuspro / 100 + "% CZ確率：" + (double)chancezonepro / 100+"%");

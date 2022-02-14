@@ -54,13 +54,11 @@ namespace Slot
         [SerializeField] protected GameObject effectArea = null;
         /// <summary>colorTest:色（テスト用） </summary>
         [SerializeField] protected GameObject colorTest = null;
-
+        [SerializeField] protected GameObject skyboxscript = null;
         [SerializeField] protected GameObject mondaipanel;
-        /// <summary>configDD: 設定の変更のドロップダウン</summary>
-        [SerializeField] protected Dropdown configDD = null;
-        [SerializeField] protected Dropdown conditionDD = null;
         [SerializeField] protected GameObject[] rolePrefList = new GameObject[11];
         [SerializeField] protected GameObject[] conPrefList = new GameObject[6];
+        [SerializeField] protected Material[] BackGround = new Material[6];
         [SerializeField] protected GameObject expPref = null;
         Dictionary<Role, GameObject> prefDic = null;
         Dictionary<Condition, GameObject> conprefDic = null;
@@ -69,40 +67,40 @@ namespace Slot
 
         [SerializeField] GameObject mondaiPanel = null;
         /// <summary>gogunText:語群のテキストの配列</summary>
-        [SerializeField] Text[] gogunText = null;
-        [SerializeField] Text coinText = null;
-        [SerializeField] Text gameCounterText = null;
-        [SerializeField] Text ccaText = null;
-        [SerializeField] Text answerText = null;
-        [SerializeField] Text resultText = null;
-        [SerializeField] Text conditionText = null;
-        [SerializeField] Text realconText = null;
-        [SerializeField] Image effectPanelImg;
+        [SerializeField] protected Text[] gogunText = null;
+        [SerializeField] protected Text coinText = null;
+        [SerializeField] protected Text gameCounterText = null;
+        [SerializeField] protected Text ccaText = null;
+        [SerializeField] protected Text answerText = null;
+        [SerializeField] protected Text resultText = null;
+        [SerializeField] protected Text conditionText = null;
+        [SerializeField] protected Text realconText = null;
         [SerializeField] protected Text gameReamainingText = null;
         [SerializeField] protected Text czCurrectText = null;
 
         protected int bonusgrace = 0;
         protected int chancegrace = 0;
-        public int reachgrace = 0;
+        protected int reachgrace = 0;
         protected int atgrace = 0;
 
         protected int czGame = 10;
         protected int atGame = 30;
-        protected int bonusCoin = 200;
-        protected int bigbonusCoin = 200;
-        protected int freezeCoin = 200;
+        protected int bonusVacation = 0;
+        protected int bonusG = 20;
+        protected int bigbonusG = 30;
+        protected int freezeG= 50;
         protected int czCurrect = 0;
         protected string answer = null;
+        protected string kaisetsu = null;
         protected List<string> mondaiList = null;
-        string username;
+        protected string username;
         /// <summary>betcoin:掛け金</summary>
         protected const int betcoin = 3;
         /// <summary>realcon:リールの状態</summary>
-        public int realcon = 0;
-        protected bool[] rotate;
-        public bool[] asisted;
-        public bool reach = false;
-        public bool debugMode;
+        protected int realcon = 0;
+        protected bool[] rotate = new bool[3];
+        protected bool[] asisted = new bool[3];
+        protected bool reach = false;
 
         public void Start()
         {
@@ -111,31 +109,20 @@ namespace Slot
             prefDic = new Dictionary<Role, GameObject>();
             conprefDic = new Dictionary<Condition, GameObject>();
             realcon = 0;
-            prefDic.Clear();
-            conprefDic.Clear();
             foreach (Role r in Enum.GetValues(typeof(Role))) prefDic.Add(r, PrefLoad(r));
             foreach (Condition cond in Enum.GetValues(typeof(Condition))) conprefDic.Add(cond, ConPrefLoad(cond));
-            asisted = new bool[3];
-            rotate = new bool[3];
             //config = (Config)UnityEngine.Random.Range(0, 2);
             config = 0;
             condition = Condition.NOMAL;
             dic = Prodic.LoadDic();
             ChangeMode();
-
-            CoinText();
             leftsymbol = SetReal(leftReal);
             centersymbol = SetReal(centerReal);
             rightsymbol = SetReal(rightReal);
-            if (debugMode)
-            {
-                SetConfigDD();
-                SetConditionDD();
-            }
         }
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space)|| Input.GetKeyDown(KeyCode.UpArrow))
             {
                 realconText.text = ((Real)realcon).ToString();
                 if ((rank.Coin - betcoin >= 0 &&( realcon == (int)Real.NOBET) || realcon == (int)Real.ALLSTOP)) PushBet();
@@ -243,7 +230,6 @@ namespace Slot
         /// </summary>
         protected void DecideSymbol(Role r)
         {
-            Debug.Log("小役:" + r);
             symbolLeft = DicData.symbolDic[r].l;
             symbolCenter = DicData.symbolDic[r].c;
             symbolRight = DicData.symbolDic[r].r;
@@ -260,15 +246,10 @@ namespace Slot
             foreach (Role r in diction.Keys)
             {
                 sum += diction[r].appearpro;
-                if (random <= sum)
-                {
-                    return r;
-                }
+                if (random <= sum)return r;
             }
             return 0;
         }
-
-
 
         /// <summary>
         /// 小役QUESTION(問題)で問題を答えた時に動かすメソッド
@@ -279,16 +260,18 @@ namespace Slot
         {
             if (currect)
             {
+                rank.AnsSuc++;
                 rank.Ansnumber++;
-                GameObject pref = (GameObject)Instantiate(expPref, effectArea.transform);
+                GameObject pref =Instantiate(expPref, effectArea.transform);
                 StartCoroutine(ObjDest(pref,3f));
             }
-            else rank.Ansnumber = 0;
+            else rank.AnsSuc = 0;
             if (condition == Condition.CZ&&currect)
             {
+                rank.Ansnumber ++; 
                 czCurrect++;
             }
-            Result(currect);
+            StartCoroutine(Result(currect));
             SetRank();
         }
         protected IEnumerator ObjDest(GameObject obj,float time)
@@ -308,8 +291,8 @@ namespace Slot
             }
             else
             {
-                percent = rank.Ansnumber * diction[Role.QUESTION].chancezonepro / 100;
-                cca = rank.Ansnumber;
+                percent = rank.AnsSuc * diction[Role.QUESTION].chancezonepro / 100;
+                cca = rank.AnsSuc;
             }
             czCurrectText.text = percent.ToString();
             ccaText.text = cca.ToString();
@@ -322,6 +305,8 @@ namespace Slot
         protected void ChangeMode()
         {
             conditionText.text = condition.ToString();
+            RenderSettings.skybox = BackGround[(int)condition];
+            skyboxscript.GetComponent<SkyBoxRotate>().SetSkybox(BackGround[(int)condition]);
             pro = 0;
             diction = Prodic.GetPro(dic, config, condition);
             foreach (Role r in diction.Keys)
@@ -329,7 +314,7 @@ namespace Slot
                 pro += diction[r].appearpro;
             }
             reach = false;
-            EffectD(condition);
+            EsEffect();
             StartCoroutine(DeleteEffect(0));
         }
 
@@ -355,8 +340,6 @@ namespace Slot
                     break;
             }
         }
-
-
         /// <summary>
         /// 取ってきた図柄をsmに入れる。図柄と役が一致しているか判定。
         /// </summary>
@@ -364,36 +347,21 @@ namespace Slot
         /// <param name="s"></param>
         protected void AssistDicision(List<GameObject> list, Symbol s,Position p)
         {
-            if (realcon < (int)Real.ROTATE && realcon > (int)Real.ALLSTOP)
-            {
-                return;
-            }
-            if (s == Symbol.NONE)
-            {
-                s = (Symbol)UnityEngine.Random.Range(2, 7);
-            }
+            if (realcon < (int)Real.ROTATE && realcon > (int)Real.ALLSTOP) return;
+            if (s == Symbol.NONE)s = (Symbol)UnityEngine.Random.Range(2, 7);
             asisted[(int)p] = true;
             GameObject nearObj = null;
             foreach (GameObject obj in list)
             {
                 Symbol sm = obj.GetComponent<SymbolData>().GetSymbol();
-                if (obj.transform.localPosition.y >= 20f && sm == s)
+                if (obj.transform.position.y >=20f&&sm == s)nearObj = obj;
+                if (obj == list.Last() && nearObj != null) 
                 {
-                    nearObj = obj;
                     rotate[(int)p] = false;
+                    StartCoroutine(Assist(nearObj)); 
                 }
-                try
-                {
-                    if (obj == list.Last()) StartCoroutine(Assist(nearObj));
-                }catch(NullReferenceException e)
-                {
-                    Debug.Log(e);
-                }
-            }
-        
+            }       
         }
-
-
         /// <summary>
         /// 役に対応した図柄をアシストする
         /// </summary>
@@ -447,74 +415,6 @@ namespace Slot
         }
 
         /// <summary>
-        ///　設定でモードを変更する
-        /// </summary>
-        public void SetConfig()
-        {
-            config = (Config)configDD.value;
-            ChangeMode();
-
-        }
-        /// <summary>
-        /// 状態でモードを変更する
-        /// </summary>
-        public void SetCondition()
-        {
-            condition = (Condition)conditionDD.value;
-            switch (condition)
-            {
-                case Condition.CZ:
-                    atgrace = czGame + rank.Count;
-                    break;
-                case Condition.AT:
-                    chancegrace = rank.Count + atGame;
-                    break;
-                case Condition.BONUS:
-                    chancegrace = rank.Count + atGame;
-                    break;
-                case Condition.BIGBONUS:
-                    chancegrace = rank.Count + atGame;
-                    break;
-                case Condition.FREEZE:
-                    chancegrace = rank.Count + atGame;
-                    break;
-
-            }
-            ChangeMode();
-        }
-
-        /// <summary>
-        /// コンフィグのドロップダウンの中身を書き換える処理
-        /// </summary>
-        public void SetConfigDD()
-        {
-            string[] ops = Enum.GetNames(typeof(Config));
-            List<string> ddvalues = new List<string>();
-            foreach (string typename in ops)
-            {
-                ddvalues.Add(typename);
-            }
-
-            configDD.ClearOptions();
-            configDD.AddOptions(ddvalues);
-            
-        }
-        /// <summary>
-        /// コンディションのドロップダウンの中身を書き換える処理
-        /// </summary>
-        public void SetConditionDD()
-        {
-            string[] ops = Enum.GetNames(typeof(Condition));
-            List<string> ddvalues = new List<string>();
-            foreach (string typename in ops)
-            {
-                ddvalues.Add(typename);
-            }
-            conditionDD.ClearOptions();
-            conditionDD.AddOptions(ddvalues);
-        }
-
-        /// <summary>
         /// 小役に対応したResources内のプレハブを読み込む
         /// </summary>
         /// <param name="r">小役</param>
@@ -535,50 +435,10 @@ namespace Slot
         /// <param name="r">小役</param>
         protected void RoleJudgement(Role r)
         {
-            switch (r)
-            {
-                case Role.BELL:
-                    rank.Coin += 15;
-                    NoneReach();
-                    break;
-                case Role.REPLAY:
-                    rank.Coin +=3;
-                    NoneReach();
-                    break;
-                case Role.BIGBONUS:
-                    ReachIsOn();
-                    break;
-                case Role.CHERRY:
-                    rank.Coin += 3;
-                    ReachIsOn();
-                    break;
-                case Role.FREEZE:
-                    ReachIsOn();
-                    break;
-                case Role.NONE:
-                    NoneReach();
-                    break;
-                case Role.QUESTION:
-                    rank.Coin += 8;
-                    ccaText.text = rank.Ansnumber.ToString();
-                    ReachIsOn();
-                    break;
-                case Role.REGBONUS:
-                    ReachIsOn();
-                    break;
-                case Role.STRONGCHERRY:
-                    rank.Coin += 3;
-                    ReachIsOn();
-                    break;
-                case Role.WATERMELON:
-                    rank.Coin += 5;
-                    ReachIsOn();
-                    break;
-                case Role.WEAKCHERRY:
-                    rank.Coin += 1;
-                    ReachIsOn();
-                    break;
-            }
+            rank.Coin += DicData.rolecoin[r];
+            if (r != Role.NONE || r != Role.REPLAY || r != Role.BELL||r!=Role.QUESTION) ReachIsOn();
+            if (r== Role.QUESTION) ccaText.text = rank.AnsSuc.ToString();
+            if (reach && reachgrace == rank.Count) reach = false;
             CoinText();
         }
         /// <summary>
@@ -589,9 +449,9 @@ namespace Slot
         protected void CZATjudge(Role r) 
         {
             int per = 0;
-            if (r == Role.QUESTION) per = diction[r].chancezonepro * rank.Ansnumber;
+            if (r == Role.QUESTION) per = diction[r].chancezonepro * rank.AnsSuc;
             else per = diction[r].chancezonepro;
-
+            
             //AT
             if (condition == Condition.AT)
             {
@@ -611,7 +471,6 @@ namespace Slot
                 GameRemaining(atgrace - rank.Count);
                 if (atgrace != rank.Count) return;
                 per = diction[r].chancezonepro * czCurrect;
-                Debug.Log(Judge(per));
                 pdata.AT = Judge(per);
                 if (atgrace == rank.Count && !pdata.AT) ResetGame();
                 if (pdata.AT) StartAT();
@@ -629,17 +488,30 @@ namespace Slot
                 return;
             }
             //Nomal
-            if (!pdata.CZ)
+            if (!pdata.CZ) pdata.CZ = Judge(per);
+            if (!pdata.CZ) return;
+            switch (condition) 
             {
-                pdata.CZ = Judge(per);
-                if (pdata.CZ) chancegrace = rank.Count + UnityEngine.Random.Range(1, 8);
-                return;
+                case Condition.BONUS:
+                    chancegrace = bonusVacation;
+                    return;
+                case Condition.BIGBONUS:
+                    chancegrace = bonusVacation;
+                    return;
+                case Condition.FREEZE:
+                    pdata.CZ = false;
+                    pdata.AT = true;
+                    atgrace = bonusVacation;
+                    return;
+                default:
+                    chancegrace = rank.Count + UnityEngine.Random.Range(1, 8);
+                    return;
             }
-
-
         }
+
         protected void FinishAT()
         {
+            czCurrect = 0;
             condition = Condition.CZ;
             ChangeMode();
             atgrace = czGame + rank.Count;
@@ -669,6 +541,7 @@ namespace Slot
 
         public void ResetGame()
         {
+            gameReamainingText.text = "";
             condition = Condition.NOMAL;
             ChangeMode();
         }
@@ -682,47 +555,72 @@ namespace Slot
             int mag;
             if (r == Role.QUESTION) mag = rank.Ansnumber;
             else mag = 1;
+            //フリーズ当選時
             if (pdata.Freeze)
             {
+                //当選ゲーム数の時
                 if (rank.Count == bonusgrace)
                 {
                     condition = Condition.FREEZE;
+                    bonusVacation = freezeG + rank.Count;
                     ChangeMode();
                 }
+                if(rank.Count == bonusVacation)
+                {
+                    pdata.Freeze = false;
+                    StartAT();
+                }
+                if(rank.Count<bonusVacation) GameRemaining(bonusVacation - rank.Count);
+                return;
             }
-            else if (!pdata.BigBonus&&!pdata.Bonus)
-{
-                pdata.Freeze = Judge(diction[r].freezepro*mag);
-                if (pdata.Freeze) bonusgrace = rank.Count + UnityEngine.Random.Range(1, 8);
-            }
+            //ビッグボーナス当選時
             if (pdata.BigBonus)
             {
                 if (rank.Count == bonusgrace)
                 {
                     condition = Condition.BIGBONUS;
+                    bonusVacation = bigbonusG + rank.Count;
                     ChangeMode();
                 }
+                if (bonusVacation == rank.Count)
+                {
+                    condition = Condition.CZ;
+                    ChangeMode();
+                    czCurrect = 0;
+                    czCurrectText.text = czCurrect.ToString();
+                    atgrace = czGame + rank.Count;
+                    pdata.BigBonus = false;
+                }
+                if (rank.Count < bonusVacation) GameRemaining(bonusVacation - rank.Count);
+                return;
             }
-            else if (!pdata.Bonus&&!pdata.Freeze)
-            {
-                pdata.BigBonus = Judge(diction[r].bigbonuspro * mag);
-                if (pdata.BigBonus) bonusgrace = rank.Count + UnityEngine.Random.Range(1, 8);
-            }
-
+            //ボーナス当選時
             if (pdata.Bonus)
             {
                 if (rank.Count == bonusgrace)
                 {
                     condition = Condition.BONUS;
+                    bonusVacation = bonusG + rank.Count;
                     ChangeMode();
-
                 }
+                if (bonusVacation == rank.Count)
+                {
+                    condition = Condition.CZ;
+                    ChangeMode();
+                    czCurrect = 0;
+                    czCurrectText.text = czCurrect.ToString();
+                    atgrace = czGame + rank.Count;
+                    pdata.Bonus = false;
+                }
+                if (rank.Count < bonusVacation) GameRemaining(bonusVacation - rank.Count);
+                return;
             }
-            else if (!pdata.BigBonus && !pdata.Freeze)
-            {
-                pdata.Bonus = Judge(diction[r].bonuspro * mag);
-                if(pdata.Bonus)bonusgrace = rank.Count + UnityEngine.Random.Range(1, 8);
-            }
+
+            //非当選時
+            pdata.Freeze = Judge(diction[r].freezepro*mag);
+            if(!pdata.Freeze)pdata.BigBonus = Judge(diction[r].bigbonuspro * mag);
+            if(!pdata.Freeze&&!pdata.BigBonus)pdata.Bonus = Judge(diction[r].bonuspro * mag);
+            if(pdata.Bonus|| pdata.Bonus|| pdata.Bonus) bonusgrace = rank.Count + UnityEngine.Random.Range(1, 8);
         }
 
         /// <summary>
@@ -738,6 +636,7 @@ namespace Slot
             MondaiData m = Mondaiscript.InputMondai((MondaiGenre)config,mondaiList);
             mondaiText.text = m.MondaiText;
             answer = m.Answer;
+            kaisetsu = m.Kaisetsu;
             //リスト初期化
             List<int> numbers = new List<int>();
             //ボタンの数だけ数値を用意({0,1,2})
@@ -769,10 +668,8 @@ namespace Slot
         {
             Invisible();
             answerText.text = "答え："+answer;
-            if (gogunText[2-(int)p].text == answer)
-            {
-                return true;
-            }
+            mondaiText.text = "解説：" + kaisetsu;
+            if (gogunText[2-(int)p].text == answer)return true;
             return false;
          
         }
@@ -807,17 +704,13 @@ namespace Slot
         /// 現在の状態を表示
         /// </summary>
 
-        public void Result(bool r)
+        protected IEnumerator Result(bool r)
         {
-            if(r) resultText.text = "正解だよ～ん";
-            else resultText.text = "残念でした～";
+            if (r) resultText.text = "正解";
+            else resultText.text = "残念";
             CurrentText();
-
-        }
-
-        public void EffectD(Condition cond)
-        {
-            GameObject pref = (GameObject)Instantiate(conprefDic[cond], effectArea.transform);
+            yield return new WaitForSeconds(1f);
+            resultText.text = "";
         }
 
         IEnumerator DeleteEffect(int time)
@@ -846,16 +739,26 @@ namespace Slot
 
         public void EsEffect()
         {
-            EffectD(condition);
+            GameObject pref = (GameObject)Instantiate(conprefDic[condition], effectArea.transform);
         }
         public void ReachIsOn()
         {
-            reachgrace = UnityEngine.Random.Range(1, 8) + rank.Count;
+            switch (role)
+            {
+                case Role.REGBONUS:
+                    reachgrace =1+ rank.Count;
+                    break;
+                case Role.BIGBONUS:
+                    reachgrace = 1 + rank.Count;
+                    break;
+                case Role.FREEZE:
+                    reachgrace = 1 + rank.Count;
+                    break;
+                default:
+                    reachgrace = UnityEngine.Random.Range(1, 8) + rank.Count;
+                    break;
+            }
             reach = true;
-        }
-        public void NoneReach()
-        {
-            if (reach && reachgrace == rank.Count) reach = false;
         }
         private void SetRank()
         {
@@ -870,31 +773,21 @@ namespace Slot
         private IEnumerator GetRank() 
         {
             username = PlayerPrefs.GetString("username");
-            if (username == "")
-            {
-                Debug.Log("ユーザーIDがありません");
-                username = "hoge";
-            }
-            else
-            {
-                Debug.Log(username);
-            }
+            if (username == "")SceneChanger.ChangeScene("Record");
             IEnumerator coroutine = SQLConnect.Get("http://localhost/rank_output.php" + "?username=" + username);
             yield return StartCoroutine(coroutine);
-            Debug.Log(coroutine.Current);
             if(coroutine.Current == null)
             {
                 rank.Username = username;
                 rank.Coin = 100;
                 SetRank();
+                yield break;
             }
-            else
-            {
-                List<Rank> list = SQLConnect.RankJsonDeSer(coroutine.Current.ToString());
-                foreach (Rank r in list) r.Dump();
-                rank = list[0];
-                rank.Coin = 100;
-            }
+            List<Rank> list = SQLConnect.RankJsonDeSer(coroutine.Current.ToString());
+            foreach (Rank r in list) r.Dump();
+            rank = list[0];
+            CoinText();
+            gameCounterText.text = rank.Count.ToString();
         }
     }
 }

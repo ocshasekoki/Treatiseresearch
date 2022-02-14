@@ -9,17 +9,16 @@ public class RecordUser : MonoBehaviour
 {
     private static string defurl = "http://localhost/";
     private static string userInfo = "userinfo_";
-    private static string input = "input.php";
     private static string output = "output.php";
     private static string exist = "exist.php";
     private static int minlength = 8;
 
-    private static string pattern = @"[^a-z @\.0-9]";
-    [SerializeField] InputField useridIF;
-    [SerializeField] InputField usernameIF;
-    [SerializeField] InputField emailIF;
-    [SerializeField] InputField passwordIF;
-    [SerializeField] Text result;
+    private static string pattern = @"[^a-z ^A-Z @\.0-9]";
+    [SerializeField] InputField useridIF = null;
+    [SerializeField] InputField usernameIF = null;
+    [SerializeField] InputField emailIF = null;
+    [SerializeField] InputField passwordIF = null;
+    [SerializeField] Text result = null;
 
     public void Check(InputField input)
     {

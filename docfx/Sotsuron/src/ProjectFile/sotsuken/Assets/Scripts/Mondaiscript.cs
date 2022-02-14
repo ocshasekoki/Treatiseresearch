@@ -50,7 +50,6 @@ namespace Mondai
         protected void OutputMondai()
         {
             string json = JsonUtility.ToJson(data);
-            Debug.Log(json);
             string path = Application.streamingAssetsPath + "/Mondai/" + data.Genre.ToString() +"/"+ nameIF.text + format;
             File.WriteAllText(path, json);
 
@@ -65,8 +64,7 @@ namespace Mondai
             list.Remove(randomname);
             string path = Application.streamingAssetsPath + "/Mondai/" + genre.ToString() + "/" + randomname;
             string str = File.ReadAllText(path);
-            return JsonUtility.FromJson<MondaiData>(str);
-            
+            return JsonUtility.FromJson<MondaiData>(str);            
         }
         public static List<string> GetMondaiList(MondaiGenre genre)
         {

@@ -1,0 +1,11 @@
+{
+    "mondaiText": "基本評価基準，現状評価基準，環境評価基準の三つの基準で情報システムの脆弱性の深刻度を評価するものはどれか。",
+    "answer": "CVSS",
+    "kaisetsu": "正しい。\nInformation Security Management Systemの略。情報セキュリティマネジメントシステムの整備・管理・運用に関する仕組みでJIS Q 27001 (ISO/IEC 27001)の基となっています。\nPayment Card Industry(PCI)データセキュリティ基準(DSS)は、カード会員のデータセキュリティを強化し、均一なデータセキュリティ評価基準の採用をグローバルに推進するためにクレジットカードの国際ブランド大手5社共同(VISA，MasterCard，JCB，AmericanExpress，Diners Club)により策定された基準です。\nPersonal information protection Management Systemの略。個人情報保護マネジメントシステムの整備・管理・運用に関する仕組みです。\n",
+    "gogun": [
+        "CVSS",
+        "ISMS",
+        "PMS"
+    ],
+    "genre": 0
+}
